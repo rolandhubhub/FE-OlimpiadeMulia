@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Input Nilai — Panel Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Baloo+2:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --border:#c9c3d2; --sidebar-active:#eadce4; --table-head:#eadce4; --orange:#f98a02; --purple-dark:#2b1245; --pink:#ba5187; --maroon:#9c1457; --text-gray:#7a7686; --red:#b3261e; --muted:#e3e3e3; --muted-text:#6e6e6e; --shadow:rgba(24,17,27,.18); }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:'Poppins',sans-serif; background:#fff; color:var(--purple-dark); }
+    .topbar { display:flex; align-items:center; justify-content:space-between; max-width:1100px; margin:0 auto; padding:26px 20px 0; }
+    .back-btn { width:42px; height:42px; border:none; border-radius:50%; background:var(--purple-dark); color:#fff; font-size:28px; line-height:1; cursor:pointer; }
+    .header-block { flex:1; margin-left:16px; }
+    .eyebrow { margin:0 0 4px; color:var(--pink); font-size:12px; font-weight:700; }
+    .title { margin:0; font-family:'Lora',serif; font-size:26px; font-weight:600; }
+    .sub { margin:8px 0 0; font-size:12px; color:var(--pink); font-weight:600; }
+    .card { max-width:1100px; margin:20px auto 40px; background:#fff; border:1px solid var(--border); border-radius:6px; overflow:hidden; }
+    table { width:100%; border-collapse:collapse; font-size:12px; }
+    thead th { background:var(--table-head); text-align:left; padding:10px 12px; font-family:'Baloo 2',sans-serif; font-weight:700; color:var(--purple-dark); }
+    tbody td { padding:10px 12px; border-top:1px solid #ededed; }
+    .score-input { width:90px; border:1px solid var(--border); border-radius:4px; padding:8px 10px; font-size:12px; font-family:'Baloo 2',sans-serif; color:var(--purple-dark); }
+    .score-input.invalid { border-color:var(--red); }
+    .save-wrap { max-width:1100px; margin:0 auto 30px; display:flex; justify-content:flex-end; }
+    .btn { font-family:'Baloo 2',sans-serif; font-weight:700; letter-spacing:.03em; border-radius:4px; padding:11px 24px; border:none; cursor:pointer; }
+    .btn-primary { background:var(--purple-dark); color:#fff; }
+    .toast { position:fixed; right:22px; bottom:22px; background:var(--purple-dark); color:#fff; padding:12px 18px; border-radius:6px; font-size:12px; font-weight:600; opacity:0; transform:translateY(12px); transition:all .25s ease; pointer-events:none; z-index:60; }
+    .toast.show { opacity:1; transform:translateY(0); }
+    @media (max-width:760px){ .topbar{padding-left:16px;padding-right:16px;} .card{margin-left:16px; margin-right:16px; overflow-x:auto;} table{min-width:680px;} }
+  </style>
+</head>
+<body>
+  <div class="topbar">
+    <button class="back-btn" type="button" onclick="window.location.href='nominasi.html'" aria-label="Kembali">‹</button>
+    <div class="header-block">
+      <p class="eyebrow">Input Nilai</p>
+      <h1 class="title" id="pageTitle">KMSI · SAINS · SD</h1>
+      <p class="sub" id="pageSub">Input nilai peserta</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Id</th>
+          <th>Nama</th>
+          <th>Nilai</th>
+        </tr>
+      </thead>
+      <tbody id="nilaiTableBody"></tbody>
+    </table>
+  </div>
+
+  <div class="save-wrap">
+    <button id="saveNilaiBtn" class="btn btn-primary" type="button">SIMPAN NILAI</button>
+  </div>
+
+  <div id="toast" class="toast" aria-live="polite"></div>
+
+  <script>
+    const pesertaNilai = [
+      { id: 'REG-2026-000011', name: 'Aisyah Putri', value: 88 },
+      { id: 'REG-2026-000012', name: 'Bagas Pratama', value: 72 },
+      { id: 'REG-2026-000013', name: 'Citra Nabila', value: '' },
+      { id: 'REG-2026-000014', name: 'Daffa Rahman', value: 96 },
+      { id: 'REG-2026-000015', name: 'Eka Sari', value: 81 }
+    ];
+
+    function getQueryParam(name) {
+      const params = new URLSearchParams(window.location.search);
+      return params.get(name) || '';
+    }
+
+    function escapeHtml(value) {
+      return String(value ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+    }
+
+    function toast(message) {
+      const el = document.getElementById('toast');
+      el.textContent = message;
+      el.classList.add('show');
+      clearTimeout(toast.timer);
+      toast.timer = setTimeout(() => el.classList.remove('show'), 2200);
+    }
+
+    function renderNilai() {
+      const eventName = getQueryParam('event') || 'KMSI';
+      const mapel = getQueryParam('mapel') || 'SAINS';
+      const jenjang = getQueryParam('jenjang') || 'SD';
+      document.getElementById('pageTitle').textContent = `${eventName} · ${mapel} · ${jenjang}`.toUpperCase();
+      document.getElementById('pageSub').textContent = `${eventName} · ${mapel} · ${jenjang}`;
+
+      const rows = pesertaNilai.map((item, idx) => `
+        <tr>
+          <td>${idx + 1}</td>
+          <td>${escapeHtml(item.id)}</td>
+          <td>${escapeHtml(item.name)}</td>
+          <td>
+            <input class="score-input ${item.value === '' ? 'invalid' : ''}" type="number" min="0" max="100" step="1" value="${item.value === '' ? '' : item.value}" data-index="${idx}" placeholder="0-100">
+          </td>
+        </tr>
+      `).join('');
+      document.getElementById('nilaiTableBody').innerHTML = rows;
+    }
+
+    function validateScores() {
+      let valid = true;
+      let filled = 0;
+      const inputs = document.querySelectorAll('.score-input');
+      inputs.forEach(input => {
+        input.classList.remove('invalid');
+        const value = input.value.trim();
+        if (value === '') {
+          valid = false;
+          return;
+        }
+        const num = Number(value);
+        if (Number.isNaN(num) || num < 0 || num > 100) {
+          input.classList.add('invalid');
+          valid = false;
+          return;
+        }
+        filled += 1;
+      });
+
+      if (!valid) {
+        toast('Nilai harus diisi dan berkisar 0-100');
+      }
+      return { valid, filled };
+    }
+
+    document.getElementById('saveNilaiBtn').addEventListener('click', function () {
+      const result = validateScores();
+      if (!result.valid) return;
+      toast(`${result.filled} nilai terisi`);
+    });
+
+    renderNilai();
+  </script>
+</body>
+</html>

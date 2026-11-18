@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nominasi dan Para Juara - Yayasan Intan Mutia</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* RESET & BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #111827;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* NAVBAR HEADER */
+        .navbar {
+            background-color: #ffffff;
+            width: 100%;
+            padding: 16px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #f3f4f6;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .nav-actions {
+            position: absolute;
+            right: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #374151;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-item.active,
+        .nav-item:hover {
+            color: #000000;
+            font-weight: 700;
+        }
+
+        .btn-icon-cart {
+            background: transparent;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 7px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #374151;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 1px solid #111827;
+            border-radius: 6px;
+            padding: 7px 18px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #111827;
+            letter-spacing: 0.5px;
+        }
+
+        /* MAIN CONTENT */
+        .main-content {
+            background-color: #ffffff;
+            padding: 40px 20px 80px 20px;
+            flex-grow: 1;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 36px;
+        }
+
+        .section-category {
+            color: #db2777;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #2b0c3d;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .section-subtitle {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+
+        /* NOMINASI GRID (IMAGE 21) */
+        .nominasi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        @media (max-width: 992px) { .nominasi-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 640px) { .nominasi-grid { grid-template-columns: 1fr; } }
+
+        .nominasi-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .nominasi-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+        }
+
+        .nominasi-img-box {
+            height: 200px;
+            width: 100%;
+            overflow: hidden;
+            background-color: #f3f4f6;
+        }
+
+        .nominasi-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .btn-card-action {
+            width: 100%;
+            background-color: #24143a;
+            color: #ffffff;
+            border: none;
+            padding: 12px 0;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-align: center;
+            letter-spacing: 0.3px;
+            transition: background-color 0.2s;
+        }
+
+        .btn-card-action:hover {
+            background-color: #3b1b5e;
+        }
+
+        /* VIEW DISPLAY CONTROL */
+        .page-view { display: none; }
+        .page-view.active-view { display: block; }
+
+        /* MODAL STYLES (IMAGE 22 & 23) */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 200;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 36px 32px 28px 32px;
+            width: 100%;
+            max-width: 520px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .modal-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #2b0c3d;
+            margin-bottom: 4px;
+        }
+
+        .modal-subtitle {
+            font-size: 0.78rem;
+            color: #6b7280;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 24px;
+        }
+
+        .form-group label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #374151;
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            outline: none;
+            background-color: #ffffff;
+            color: #374151;
+            cursor: pointer;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 12px;
+        }
+
+        .btn-modal-cancel {
+            background-color: #ffffff;
+            color: #374151;
+            border: 1px solid #d1d5db;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .btn-modal-save {
+            background-color: #24143a;
+            color: #ffffff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .btn-modal-save:hover { background-color: #3b1b5e; }
+
+        /* DAFTAR JUARA TABLE PAGE (IMAGE 24 & 25) */
+        .table-header-flex {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 32px;
+        }
+
+        .btn-cetak-sertifikat {
+            background-color: #24143a;
+            color: #ffffff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: background-color 0.2s;
+        }
+
+        .btn-cetak-sertifikat:hover {
+            background-color: #3b1b5e;
+        }
+
+        .juara-table-container {
+            width: 100%;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            overflow: hidden;
+            background-color: #ffffff;
+        }
+
+        .juara-table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+        }
+
+        .juara-table th {
+            padding: 14px 20px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #374151;
+            border-bottom: 1px solid #e5e7eb;
+            background-color: #ffffff;
+        }
+
+        .juara-table td {
+            padding: 12px 20px;
+            font-size: 0.82rem;
+            color: #374151;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .juara-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .juara-table th:first-child,
+        .juara-table td:first-child {
+            width: 60px;
+            text-align: center;
+        }
+
+        .juara-table th:last-child,
+        .juara-table td:last-child {
+            width: 120px;
+            text-align: right;
+        }
+
+        /* FOOTER PRECISE STYLING */
+        .footer {
+            background-color: #ffffff;
+            border-top: 1px solid #e5e7eb;
+            padding: 40px 40px 0 40px;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 220px 1.4fr 1.1fr 1fr;
+            gap: 32px;
+            align-items: start;
+            padding-bottom: 40px;
+        }
+
+        @media (max-width: 992px) { .footer-container { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 640px) { .footer-container { grid-template-columns: 1fr; } }
+
+        .footer-logo-col img {
+            max-width: 180px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .footer-desc-col p {
+            font-size: 0.82rem;
+            color: #374151;
+            line-height: 1.6;
+        }
+
+        .footer-heading {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #2b0c3d;
+            margin-bottom: 14px;
+        }
+
+        .footer-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.82rem;
+            color: #374151;
+        }
+
+        .footer-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.4;
+        }
+
+        .footer-list a {
+            color: #374151;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .footer-icon {
+            font-style: normal;
+            display: inline-block;
+            width: 16px;
+            text-align: center;
+            opacity: 0.75;
+            flex-shrink: 0;
+        }
+
+        .footer-bottom-bar {
+            background-color: #24143a;
+            height: 44px;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR HEADER -->
+    <header class="navbar">
+        <div class="nav-container">
+            <nav class="nav-links">
+                <a href="#" class="nav-item">Beranda</a>
+                <a href="#" class="nav-item">Event</a>
+                <a href="#" class="nav-item">Buku</a>
+                <a href="#" class="nav-item active" onclick="showView('view-nominasi')">Nominasi</a>
+                <a href="#" class="nav-item">Tentang Kami</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="btn-icon-cart" aria-label="Keranjang">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                </button>
+                <button class="btn-login" id="user-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                    <span>LOGIN</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content">
+        <div class="container">
+
+            <!-- VIEW 1: KATALOG NOMINASI (IMAGE 21) -->
+            <div id="view-nominasi" class="page-view active-view">
+                <header class="section-header">
+                    <span class="section-category">Nominasi</span>
+                    <h1 class="section-title">Para Juara dan nominasi</h1>
+                    <p class="section-subtitle">Pilih lomba untuk melihat daftar nama juara dan nominasi.</p>
+                </header>
+
+                <div class="nominasi-grid">
+                    <!-- BARIS 1 -->
+                    <div class="nominasi-card">
+                        <div class="nominasi-img-box">
+                            <img src="../Aset/dokumentasi1.jpg" alt="Daftar Juara JSO Tahun 2025" onerror="this.src='https://via.placeholder.com/350x200?text=Dokumentasi+JSO'">
+                        </div>
+                        <button class="btn-card-action" onclick="openModalPelajaran('JSO')">Daftar Juara JSO Tahun 2025</button>
+                    </div>
+
+                    <div class="nominasi-card">
+                        <div class="nominasi-img-box">
+                            <img src="../Aset/dokumentasi2.jpg" alt="Daftar Juara KMSI Tahun 2025" onerror="this.src='https://via.placeholder.com/350x200?text=Dokumentasi+KMSI'">
+                        </div>
+                        <button class="btn-card-action" onclick="openModalPelajaran('KMSI')">Daftar Juara KMSI Tahun 2025</button>
+                    </div>
+
+                    <div class="nominasi-card">
+                        <div class="nominasi-img-box">
+                            <img src="../Aset/dokumentasi3.jpg" alt="Daftar Juara IMC Tahun 2025" onerror="this.src='https://via.placeholder.com/350x200?text=Dokumentasi+IMC'">
+                        </div>
+                        <button class="btn-card-action" onclick="openModalPelajaran('IMC')">Daftar Juara IMC Tahun 2025</button>
+                    </div>
+
+                    <!-- BARIS 2 -->
+                    <div class="nominasi-card">
+                        <div class="nominasi-img-box">
+                            <img src="../Aset/dokumentasi1.jpg" alt="Daftar Juara JSO Tahun 2025" onerror="this.src='https://via.placeholder.com/350x200?text=Dokumentasi+JSO'">
+                        </div>
+                        <button class="btn-card-action" onclick="openModalPelajaran('JSO')">Daftar Juara JSO Tahun 2025</button>
+                    </div>
+
+                    <div class="nominasi-card">
+                        <div class="nominasi-img-box">
+                            <img src="../Aset/dokumentasi2.jpg" alt="Daftar Juara KMSI Tahun 2025" onerror="this.src='https://via.placeholder.com/350x200?text=Dokumentasi+KMSI'">
+                        </div>
+                        <button class="btn-card-action" onclick="openModalPelajaran('KMSI')">Daftar Juara KMSI Tahun 2025</button>
+                    </div>
+
+                    <div class="nominasi-card">
+                        <div class="nominasi-img-box">
+                            <img src="../Aset/dokumentasi3.jpg" alt="Daftar Juara IMC Tahun 2025" onerror="this.src='https://via.placeholder.com/350x200?text=Dokumentasi+IMC'">
+                        </div>
+                        <button class="btn-card-action" onclick="openModalPelajaran('IMC')">Daftar Juara IMC Tahun 2025</button>
+                    </div>
+
+                    <!-- BARIS 3 -->
+                    <div class="nominasi-card">
+                        <div class="nominasi-img-box">
+                            <img src="../Aset/dokumentasi1.jpg" alt="Daftar Juara JSO Tahun 2025" onerror="this.src='https://via.placeholder.com/350x200?text=Dokumentasi+JSO'">
+                        </div>
+                        <button class="btn-card-action" onclick="openModalPelajaran('JSO')">Daftar Juara JSO Tahun 2025</button>
+                    </div>
+
+                    <div class="nominasi-card">
+                        <div class="nominasi-img-box">
+                            <img src="../Aset/dokumentasi2.jpg" alt="Daftar Juara KMSI Tahun 2025" onerror="this.src='https://via.placeholder.com/350x200?text=Dokumentasi+KMSI'">
+                        </div>
+                        <button class="btn-card-action" onclick="openModalPelajaran('KMSI')">Daftar Juara KMSI Tahun 2025</button>
+                    </div>
+
+                    <div class="nominasi-card">
+                        <div class="nominasi-img-box">
+                            <img src="../Aset/dokumentasi3.jpg" alt="Daftar Juara IMC Tahun 2025" onerror="this.src='https://via.placeholder.com/350x200?text=Dokumentasi+IMC'">
+                        </div>
+                        <button class="btn-card-action" onclick="openModalPelajaran('IMC')">Daftar Juara IMC Tahun 2025</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 2: HASIL DAFTAR JUARA (IMAGE 24 & 25) -->
+            <div id="view-daftar-juara" class="page-view">
+                <div class="table-header-flex">
+                    <div>
+                        <span class="section-category" id="juara-category-text">SAINS . SD</span>
+                        <h1 class="section-title" id="juara-title-text">Daftar Juara KMSI Tahun 2025</h1>
+                        <p class="section-subtitle" id="juara-subtitle-text">Daftar Juara JSO Pelajaran Sains tingkat SD Tahun 2025</p>
+                    </div>
+                    <button class="btn-cetak-sertifikat" onclick="printSertifikat()">CETAK SERTIFIKAT</button>
+                </div>
+
+                <div class="juara-table-container">
+                    <table class="juara-table">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Nama Peserta</th>
+                                <th>Nilai</th>
+                            </tr>
+                        </thead>
+                        <tbody id="juara-table-body">
+                            <tr><td>1.</td><td>Margaretha Nessa Ghaisani Johadu</td><td>100</td></tr>
+                            <tr><td>2.</td><td>Muhammad Ananda</td><td>99</td></tr>
+                            <tr><td>3.</td><td>Billy Elvonda</td><td>98</td></tr>
+                            <tr><td>4.</td><td>Stefania Marsela Koli</td><td>97</td></tr>
+                            <tr><td>5.</td><td>Audrey Sancla</td><td>96</td></tr>
+                            <tr><td>6.</td><td>Naufal Dafa</td><td>95</td></tr>
+                            <tr><td>7.</td><td>John Rolanda</td><td>94</td></tr>
+                            <tr><td>8.</td><td>Margaretha Nessa Ghaisani Johadu</td><td>93</td></tr>
+                            <tr><td>9.</td><td>Muhammad Ananda</td><td>92</td></tr>
+                            <tr><td>10.</td><td>Billy Elvonda</td><td>91</td></tr>
+                            <tr><td>11.</td><td>Stefania Marsela Koli</td><td>90</td></tr>
+                            <tr><td>12.</td><td>Audrey Sancla</td><td>89</td></tr>
+                            <tr><td>13.</td><td>Naufal Dafa</td><td>87</td></tr>
+                            <tr><td>14.</td><td>John Rolanda</td><td>86</td></tr>
+                            <tr><td>15.</td><td>Margaretha Nessa Ghaisani Johadu</td><td>85</td></tr>
+                            <tr><td>16.</td><td>Muhammad Ananda</td><td>84</td></tr>
+                            <tr><td>17.</td><td>Billy Elvonda</td><td>83</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- MODAL 1: PILIH PELAJARAN (IMAGE 22) -->
+    <div class="modal-overlay" id="modal-pelajaran">
+        <div class="modal-card">
+            <h2 class="modal-title">Pilih Pelajaran</h2>
+            <p class="modal-subtitle" id="modal-pelajaran-sub">KMSI (Kompetisi Matematika,Sains & Bahasa Inggris)</p>
+            
+            <div class="form-group">
+                <label>Pilih Pelajaran</label>
+                <select class="form-select" id="select-pelajaran">
+                    <option value="SAINS">Sains</option>
+                    <option value="MATEMATIKA">Matematika</option>
+                    <option value="BAHASA INGGRIS">Bahasa Inggris</option>
+                </select>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-modal-cancel" onclick="closeModal('modal-pelajaran')">BATAL</button>
+                <button class="btn-modal-save" onclick="proceedToJenjang()">SIMPAN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL 2: PILIH JENJANG (IMAGE 23) -->
+    <div class="modal-overlay" id="modal-jenjang">
+        <div class="modal-card">
+            <h2 class="modal-title">Pilih Jenjang</h2>
+            <p class="modal-subtitle" id="modal-jenjang-sub">KMSI . SAINS</p>
+            
+            <div class="form-group">
+                <label>Pilih Jenjang</label>
+                <select class="form-select" id="select-jenjang">
+                    <option value="SD">SD</option>
+                    <option value="SMP">SMP</option>
+                    <option value="SMA">SMA</option>
+                </select>
+            </div>
+
+            <div class="modal-actions">
+                <button class="btn-modal-cancel" onclick="closeModal('modal-jenjang')">BATAL</button>
+                <button class="btn-modal-save" onclick="proceedToHasil()">SIMPAN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER SECTION (DISESUAIKAN PERSIS DESAIN) -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- KOLOM 1: LOGO -->
+            <div class="footer-logo-col">
+                <img src="../Aset/logo-intan-mutia.png" alt="Yayasan Intan Mutia" onerror="this.src='https://via.placeholder.com/180x60?text=YAYASAN+INTAN+MUTIA'">
+            </div>
+
+            <!-- KOLOM 2: DESKRIPSI -->
+            <div class="footer-desc-col">
+                <p>
+                    Yayasan Intan Mutia adalah yayasan yang menyediakan akses ajang kompetisi nasional yang adil dan berkualitas untuk mengasah potensi, melatih keberanian, serta membimbing tumbuh kembang anak Indonesia.
+                </p>
+            </div>
+
+            <!-- KOLOM 3: CUSTOMER SERVICE -->
+            <div>
+                <h4 class="footer-heading">Customer Service</h4>
+                <ul class="footer-list">
+                    <li><i class="footer-icon">📞</i><a href="tel:082177229922">0821-7722-9922</a></li>
+                    <li><i class="footer-icon">💬</i><a href="https://wa.me/6282177229922" target="_blank">0821-7722-9922</a></li>
+                    <li><i class="footer-icon">✉</i><a href="mailto:intanmutiaeducation@gmail.com">intanmutiaeducation@gmail.com</a></li>
+                    <li><i class="footer-icon">📍</i><span>Bandara Erfina Residence Blok D10, Asrikaton, Pakis, Kab. Malang, Jawa Timur.</span></li>
+                </ul>
+            </div>
+
+            <!-- KOLOM 4: SOCIAL MEDIA -->
+            <div>
+                <h4 class="footer-heading">Social Media</h4>
+                <ul class="footer-list">
+                    <li><i class="footer-icon">📷</i><a href="#">@intanmutiaa22</a></li>
+                    <li><i class="footer-icon">🎵</i><a href="#">@intanmutiaa22</a></li>
+                    <li><i class="footer-icon">📘</i><a href="#">Intan Mutia Kmsi Jso</a></li>
+                    <li><i class="footer-icon">🎥</i><a href="#">@intanmutia114</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom-bar"></div>
+    </footer>
+
+    <!-- INTERACTIVITY SCRIPT -->
+    <script>
+        let selectedEvent = 'KMSI';
+        let selectedPelajaran = 'SAINS';
+        let selectedJenjang = 'SD';
+
+        function showView(viewId) {
+            const views = document.querySelectorAll('.page-view');
+            views.forEach(v => v.classList.remove('active-view'));
+
+            const targetView = document.getElementById(viewId);
+            if (targetView) targetView.classList.add('active-view');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openModalPelajaran(eventName) {
+            selectedEvent = eventName;
+            document.getElementById('modal-pelajaran-sub').innerText = eventName + ' (Kompetisi Matematika,Sains & Bahasa Inggris)';
+            document.getElementById('modal-pelajaran').style.display = 'flex';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function proceedToJenjang() {
+            selectedPelajaran = document.getElementById('select-pelajaran').value;
+            closeModal('modal-pelajaran');
+
+            document.getElementById('modal-jenjang-sub').innerText = selectedEvent + ' . ' + selectedPelajaran;
+            document.getElementById('modal-jenjang').style.display = 'flex';
+        }
+
+        function proceedToHasil() {
+            selectedJenjang = document.getElementById('select-jenjang').value;
+            closeModal('modal-jenjang');
+
+            // Update Teks Halaman Hasil Juara (Sesuai Gambar 24 & 25)
+            document.getElementById('juara-category-text').innerText = selectedPelajaran + ' . ' + selectedJenjang;
+            document.getElementById('juara-title-text').innerText = 'Daftar Juara ' + selectedEvent + ' Tahun 2025';
+            document.getElementById('juara-subtitle-text').innerText = 'Daftar Juara ' + selectedEvent + ' Pelajaran ' + selectedPelajaran + ' tingkat ' + selectedJenjang + ' Tahun 2025';
+
+            showView('view-daftar-juara');
+        }
+
+        function printSertifikat() {
+            alert('Mengunduh / Mencetak Sertifikat...');
+            window.print();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koleksi Buku - Yayasan Intan Mutia</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* RESET & BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #111827;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* NAVBAR HEADER */
+        .navbar {
+            background-color: #ffffff;
+            width: 100%;
+            padding: 16px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #f3f4f6;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .nav-actions {
+            position: absolute;
+            right: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #374151;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-item.active,
+        .nav-item:hover {
+            color: #000000;
+            font-weight: 700;
+        }
+
+        .btn-icon-cart {
+            background: transparent;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 7px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #374151;
+            position: relative;
+        }
+
+        .cart-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background-color: #db2777;
+            color: #ffffff;
+            font-size: 0.7rem;
+            font-weight: 800;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 1px solid #111827;
+            border-radius: 6px;
+            padding: 7px 18px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #111827;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-back {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #e5e7eb;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-bottom: 24px;
+            font-size: 1rem;
+            color: #374151;
+        }
+
+        /* MAIN CONTENT SECTION */
+        .main-content {
+            background-color: #ffffff;
+            padding: 40px 20px 80px 20px;
+            flex-grow: 1;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 36px;
+        }
+
+        .section-category {
+            color: #db2777;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #2b0c3d;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        /* BOOK CATALOG GRID */
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        @media (max-width: 992px) { .book-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 640px) { .book-grid { grid-template-columns: 1fr; } }
+
+        .book-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            border: 1px solid #e5e7eb;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
+
+        .book-img-box {
+            height: 220px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 16px;
+        }
+
+        .book-img-box img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+
+        .book-tag {
+            align-self: flex-start;
+            padding: 4px 10px;
+            font-size: 0.65rem;
+            font-weight: 800;
+            color: #ffffff;
+            border-radius: 4px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .tag-ips { background-color: #3b0764; }
+        .tag-ipa { background-color: #047857; }
+        .tag-matematika { background-color: #991b1b; }
+        .tag-inggris { background-color: #b91c1c; }
+
+        .book-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 6px;
+            line-height: 1.3;
+        }
+
+        .book-price {
+            font-size: 0.85rem;
+            font-weight: 800;
+            color: #db2777;
+            margin-bottom: 14px;
+        }
+
+        .book-card-actions {
+            display: flex;
+            gap: 8px;
+            margin-top: auto;
+        }
+
+        .btn-buy-book {
+            flex-grow: 1;
+            background: transparent;
+            border: 1px solid #d1d5db;
+            padding: 8px 0;
+            border-radius: 4px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+        }
+
+        .btn-cart-icon-only {
+            background-color: #24143a;
+            color: #ffffff;
+            border: none;
+            width: 34px;
+            height: 34px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+        }
+
+        /* BUTTONS */
+        .btn-orange {
+            background-color: #f97316;
+            color: #ffffff;
+            border: none;
+            padding: 14px 0;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+            transition: background-color 0.2s;
+        }
+
+        .btn-orange:hover { background-color: #ea580c; }
+
+        .btn-outline {
+            background-color: #ffffff;
+            color: #374151;
+            border: 1px solid #d1d5db;
+            padding: 14px 0;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+        }
+
+        /* STEPPER BAR */
+        .stepper-container {
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            display: flex;
+            justify-content: space-around;
+            position: relative;
+        }
+
+        .stepper-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: #e5e7eb;
+            z-index: 1;
+            transform: translateY(-50%);
+        }
+
+        .stepper-progress {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 3px;
+            background-color: #10b981;
+            z-index: 1;
+            transform: translateY(-50%);
+            transition: width 0.3s ease;
+        }
+
+        .step-item {
+            position: relative;
+            z-index: 2;
+            background-color: #ffffff;
+            padding: 0 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #9ca3af;
+        }
+
+        .step-item.active { color: #db2777; }
+        .step-item.completed { color: #10b981; }
+
+        /* VIEW CONTAINERS */
+        .page-view { display: none; }
+        .page-view.active-view { display: block; }
+
+        /* DETAIL BUKU PAGE DESIGN */
+        .book-detail-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+
+        .qty-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            width: fit-content;
+        }
+
+        .qty-btn {
+            background: transparent;
+            border: none;
+            width: 36px;
+            height: 36px;
+            font-size: 1.1rem;
+            cursor: pointer;
+        }
+
+        .qty-input {
+            width: 40px;
+            text-align: center;
+            border: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+        }
+
+        /* CART PAGE & CHECKOUT LAYOUT */
+        .checkout-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 32px;
+        }
+
+        .cart-item-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px 20px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .cart-item-img {
+            width: 50px;
+            height: 65px;
+            object-fit: contain;
+        }
+
+        .cart-item-info { flex-grow: 1; }
+
+        .btn-remove-item {
+            background: transparent;
+            border: 1px solid #e5e7eb;
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+        }
+
+        .summary-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+            background-color: #ffffff;
+        }
+
+        .summary-title {
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #2b0c3d;
+            margin-bottom: 20px;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.82rem;
+            color: #6b7280;
+        }
+
+        .summary-row.total-row {
+            font-size: 0.95rem;
+            font-weight: 800;
+            color: #db2777;
+            border-bottom: none;
+            padding-top: 16px;
+        }
+
+        /* ALAMAT CARD */
+        .address-box {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .badge-utama {
+            background-color: #a7f3d0;
+            color: #065f46;
+            font-size: 0.7rem;
+            font-weight: 700;
+            padding: 2px 8px;
+            border-radius: 4px;
+            margin-left: 8px;
+        }
+
+        /* MODAL TAMBAH ALAMAT */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            z-index: 200;
+            display: none;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-card {
+            background-color: #ffffff;
+            border-radius: 8px;
+            padding: 32px;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-bottom: 12px;
+        }
+
+        .form-group label {
+            font-size: 0.78rem;
+            font-weight: 700;
+            color: #374151;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 4px;
+            font-size: 0.85rem;
+        }
+
+        /* TIMELINE STATUS PESANAN */
+        .timeline-box {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 32px;
+            height: 100%;
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 16px;
+            position: relative;
+            padding-bottom: 30px;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: 7px;
+            top: 20px;
+            bottom: 0;
+            width: 2px;
+            background-color: #e5e7eb;
+        }
+
+        .timeline-item:last-child::before { display: none; }
+
+        .dot-active {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #059669;
+            z-index: 2;
+        }
+
+        .dot-gray {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background-color: #9ca3af;
+            z-index: 2;
+        }
+
+        /* QRIS & VA CENTER CARD */
+        .pay-center-card {
+            max-width: 550px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .va-box {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 32px;
+            max-width: 550px;
+            margin: 0 auto;
+        }
+
+        .copy-input-group {
+            display: flex;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+
+        .copy-input-group input {
+            flex-grow: 1;
+            padding: 12px;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #3b0764;
+            letter-spacing: 2px;
+            outline: none;
+        }
+
+        .btn-copy {
+            background-color: #f9fafb;
+            border: none;
+            border-left: 1px solid #e5e7eb;
+            padding: 0 16px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #4b5563;
+        }
+
+        .payment-option {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            cursor: pointer;
+        }
+
+        .payment-option.selected {
+            border: 2px solid #db2777;
+        }
+
+        .radio-circle {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            border: 2px solid #d1d5db;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .payment-option.selected .radio-circle {
+            border-color: #db2777;
+        }
+
+        .payment-option.selected .radio-circle::after {
+            content: '';
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: #db2777;
+        }
+
+        /* FOOTER PRECISE STYLING */
+        .footer {
+            background-color: #ffffff;
+            border-top: 1px solid #e5e7eb;
+            padding: 40px 40px 0 40px;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 220px 1.4fr 1.1fr 1fr;
+            gap: 32px;
+            align-items: start;
+            padding-bottom: 40px;
+        }
+
+        @media (max-width: 992px) { .footer-container { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 640px) { .footer-container { grid-template-columns: 1fr; } }
+
+        .footer-logo-col img {
+            max-width: 180px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .footer-desc-col p {
+            font-size: 0.82rem;
+            color: #374151;
+            line-height: 1.6;
+        }
+
+        .footer-heading {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #2b0c3d;
+            margin-bottom: 14px;
+        }
+
+        .footer-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.82rem;
+            color: #374151;
+        }
+
+        .footer-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.4;
+        }
+
+        .footer-list a {
+            color: #374151;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .footer-icon {
+            font-style: normal;
+            display: inline-block;
+            width: 16px;
+            text-align: center;
+            opacity: 0.75;
+            flex-shrink: 0;
+        }
+
+        .footer-bottom-bar {
+            background-color: #24143a;
+            height: 44px;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR HEADER -->
+    <header class="navbar">
+        <div class="nav-container">
+            <nav class="nav-links">
+                <a href="#" class="nav-item">Beranda</a>
+                <a href="#" class="nav-item">Event</a>
+                <a href="#" class="nav-item active" onclick="showView('view-koleksi')">Buku</a>
+                <a href="#" class="nav-item">Nominasi</a>
+                <a href="#" class="nav-item">Tentang Kami</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="btn-icon-cart" onclick="showView('view-keranjang')">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <div class="cart-badge" id="cart-badge-count" style="display: none;">1</div>
+                </button>
+                <button class="btn-login" id="user-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                    <span id="user-name-text">LOGIN</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT CONTAINER -->
+    <main class="main-content">
+        <div class="container">
+
+            <!-- STEPPER BAR (UNTUK ALAMAT & TINJAU PESANAN) -->
+            <div id="stepper-bar" style="display: none;">
+                <button class="btn-back" onclick="goBack()">&#x2190;</button>
+                <div class="stepper-container">
+                    <div class="stepper-progress" id="stepper-progress-bar" style="width: 0%;"></div>
+                    <div class="step-item" id="step-1">01. Alamat</div>
+                    <div class="step-item" id="step-2">02. Tinjau Pesanan</div>
+                </div>
+            </div>
+
+            <!-- VIEW 1: PAGE - BUKU / KOLEKSI BUKU (IMAGE 11) -->
+            <div id="view-koleksi" class="page-view active-view">
+                <header class="section-header">
+                    <span class="section-category">Buku</span>
+                    <h1 class="section-title">Koleksi Buku</h1>
+                </header>
+
+                <div class="book-grid">
+                    <!-- BUKU 1 (IPS) -->
+                    <div class="book-card">
+                        <div class="book-img-box">
+                            <img src="../Aset/buku_osn_ips_sd.png" alt="Buku Paten OSN IPS" onerror="this.src='https://via.placeholder.com/150x200?text=Buku+IPS'">
+                        </div>
+                        <span class="book-tag tag-ips">IPS</span>
+                        <h3 class="book-title">Buku Paten Olimpiade SD/MI Bahasa Inggris</h3>
+                        <div class="book-price">Rp. 85.000</div>
+                        <div class="book-card-actions">
+                            <button class="btn-buy-book" onclick="showView('view-detail-buku')">BELI BUKU</button>
+                            <button class="btn-cart-icon-only" onclick="addToCart('Buku Paten Olimpiade IPS', 85000)">🛒</button>
+                        </div>
+                    </div>
+
+                    <!-- BUKU 2 (IPA) -->
+                    <div class="book-card">
+                        <div class="book-img-box">
+                            <img src="../Aset/buku_osn_ipa_sd.png" alt="Buku Paten OSN IPA" onerror="this.src='https://via.placeholder.com/150x200?text=Buku+IPA'">
+                        </div>
+                        <span class="book-tag tag-ipa">IPA</span>
+                        <h3 class="book-title">Buku Paten Olimpiade SD/MI Bahasa Inggris</h3>
+                        <div class="book-price">Rp. 85.000</div>
+                        <div class="book-card-actions">
+                            <button class="btn-buy-book" onclick="showView('view-detail-buku')">BELI BUKU</button>
+                            <button class="btn-cart-icon-only" onclick="addToCart('Buku Paten Olimpiade IPA', 85000)">🛒</button>
+                        </div>
+                    </div>
+
+                    <!-- BUKU 3 (MATEMATIKA) -->
+                    <div class="book-card">
+                        <div class="book-img-box">
+                            <img src="../Aset/buku_osn_matematika_sd.png" alt="Buku Paten OSN Matematika" onerror="this.src='https://via.placeholder.com/150x200?text=Buku+Matematika'">
+                        </div>
+                        <span class="book-tag tag-matematika">MATEMATIKA</span>
+                        <h3 class="book-title">Buku Paten Olimpiade SD/MI Bahasa Inggris</h3>
+                        <div class="book-price">Rp. 85.000</div>
+                        <div class="book-card-actions">
+                            <button class="btn-buy-book" onclick="showView('view-detail-buku')">BELI BUKU</button>
+                            <button class="btn-cart-icon-only" onclick="addToCart('Buku Paten Olimpiade Matematika', 85000)">🛒</button>
+                        </div>
+                    </div>
+
+                    <!-- BUKU 4 (BAHASA INGGRIS) -->
+                    <div class="book-card">
+                        <div class="book-img-box">
+                            <img src="../Aset/buku_osn_bahasa_inggris_sd.png" alt="Buku Paten OSN Bahasa Inggris" onerror="this.src='https://via.placeholder.com/150x200?text=Buku+Inggris'">
+                        </div>
+                        <span class="book-tag tag-inggris">BAHASA INGGRIS</span>
+                        <h3 class="book-title">Buku Paten Olimpiade SD/MI Bahasa Inggris</h3>
+                        <div class="book-price">Rp. 85.000</div>
+                        <div class="book-card-actions">
+                            <button class="btn-buy-book" onclick="showView('view-detail-buku')">BELI BUKU</button>
+                            <button class="btn-cart-icon-only" onclick="addToCart('Buku Paten Olimpiade Bahasa Inggris', 85000)">🛒</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 2: DETAIL BUKU (IMAGE 12) -->
+            <div id="view-detail-buku" class="page-view">
+                <button class="btn-back" onclick="showView('view-koleksi')">&#x2190;</button>
+                <span style="font-size: 0.85rem; color: #6b7280; display: block; margin-bottom: 20px;">Buku persiapan untuk kompetisi</span>
+
+                <div class="book-detail-card">
+                    <div style="text-align: center;">
+                        <img src="../Aset/buku-osn-ips.png" alt="Buku Paten OSN IPS" style="max-width: 100%; height: auto;" onerror="this.src='https://via.placeholder.com/240x320?text=Buku+IPS'">
+                    </div>
+                    <div>
+                        <span class="book-tag tag-ips" style="margin-bottom: 12px; display: inline-block;">IPS</span>
+                        <h1 class="section-title" style="font-size: 2rem; margin-bottom: 8px;">Buku Paten Olimpiade IPS</h1>
+                        <span style="font-size: 0.78rem; font-weight: 700; color: #6b7280; display: block; margin-bottom: 12px;">STOK : 23</span>
+                        <div style="font-size: 1.8rem; font-weight: 800; color: #db2777; margin-bottom: 16px;">Rp 85.000</div>
+                        <p style="font-size: 0.85rem; color: #6b7280; line-height: 1.6; margin-bottom: 24px;">
+                            Kumpulan teknik, pola soal, dan pembahasan bertahap dari soal olimpiade tingkat kota hingga nasional.
+                        </p>
+
+                        <div style="display: flex; gap: 16px; align-items: center;">
+                            <div class="qty-control">
+                                <button class="qty-btn" onclick="adjustDetailQty(-1)">-</button>
+                                <input type="text" class="qty-input" id="detail-qty-val" value="1" readonly>
+                                <button class="qty-btn" onclick="adjustDetailQty(1)">+</button>
+                            </div>
+                            <button class="btn-outline" style="max-width: 200px;" onclick="addToCart('Buku Paten Olimpiade IPS', 85000); showView('view-keranjang');">BELI BUKU</button>
+                            <button class="btn-cart-icon-only" style="width: 44px; height: 44px;" onclick="addToCart('Buku Paten Olimpiade IPS', 85000)">🛒</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 3: KERANJANG BUKU (IMAGE 20) -->
+            <div id="view-keranjang" class="page-view">
+                <header class="section-header">
+                    <span class="section-category">Keranjang</span>
+                    <h1 class="section-title">Keranjang Buku</h1>
+                </header>
+
+                <div class="checkout-grid">
+                    <div>
+                        <div id="cart-items-container">
+                            <!-- ITEMS WILL BE GENERATED VIA JS -->
+                        </div>
+                        <button class="btn-outline" style="max-width: 220px; margin-top: 12px;" onclick="emptyCart()">KOSONGKAN KERANJANG</button>
+                    </div>
+
+                    <div>
+                        <div class="summary-card">
+                            <h2 class="summary-title">Ringkasan</h2>
+                            <div id="summary-items-list">
+                                <!-- ITEMS SUMMARY -->
+                            </div>
+                            <div class="summary-row">
+                                <span>Ongkos Kirim</span>
+                                <strong>Rp 20.000</strong>
+                            </div>
+                            <div class="summary-row total-row">
+                                <span>Total</span>
+                                <strong id="cart-grand-total">Rp 340.000</strong>
+                            </div>
+                            <button class="btn-orange" style="margin-top: 24px;" onclick="loginAndProceedAddress()">CHECKOUT</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 4: ALAMAT PENGIRIMAN (IMAGE 13) -->
+            <div id="view-alamat" class="page-view">
+                <div style="margin-bottom: 24px;">
+                    <h1 class="section-title">Alamat Pengiriman</h1>
+                    <p style="font-size: 0.85rem; color: #6b7280;">Pastikan isi data penerima dengan benar</p>
+                </div>
+
+                <div class="checkout-grid">
+                    <div>
+                        <div class="address-box">
+                            <div class="radio-circle" style="border-color: #db2777; background-color: #db2777; width: 14px; height: 14px;"></div>
+                            <div>
+                                <strong style="font-size: 0.9rem; color: #111827;">Nessa</strong>
+                                <span class="badge-utama">Utama</span>
+                                <p style="font-size: 0.82rem; color: #6b7280; margin-top: 4px;">jln.golf 24, Lowokwaru, Malang, Jawa Timur 1234 · Margaretha</p>
+                            </div>
+                        </div>
+
+                        <button class="btn-outline" style="max-width: 240px; margin-bottom: 24px;" onclick="openModalAlamat()">TAMBAH ALAMAT BARU</button>
+                        <button class="btn-orange" onclick="showView('view-tinjau')">LANJUT PENGIRIMAN</button>
+                    </div>
+
+                    <div>
+                        <div class="summary-card">
+                            <h2 class="summary-title">Ringkasan</h2>
+                            <div class="summary-row"><span>Buku paten olimpiade IPS X 1</span><strong>Rp 92.000</strong></div>
+                            <div class="summary-row"><span>Ongkos Kirim</span><strong>Rp 20.000</strong></div>
+                            <div class="summary-row total-row"><span>Total</span><strong>Rp 150.000</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 5: TINJAU PESANAN (IMAGE 15) -->
+            <div id="view-tinjau" class="page-view">
+                <div style="margin-bottom: 24px;">
+                    <h1 class="section-title">Tinjau Pesanan</h1>
+                </div>
+
+                <div class="checkout-grid">
+                    <div>
+                        <div style="border: 1px solid #e5e7eb; border-radius: 8px; padding: 24px; background: #ffffff;">
+                            <span style="font-size: 0.72rem; font-weight: 800; color: #db2777; text-transform: uppercase; letter-spacing: 0.5px;">DIKIRIM KE</span>
+                            <h4 style="font-size: 0.9rem; font-weight: 700; color: #111827; margin-top: 6px;">Nessa . Margaretha</h4>
+                            <p style="font-size: 0.82rem; color: #6b7280; margin-top: 4px;">jln.golf 24, Lowokwaru, Malang, Jawa Timur 1234</p>
+                        </div>
+                        <button class="btn-orange" style="margin-top: 24px;" onclick="showView('view-order-status')">BUAT PESANAN</button>
+                    </div>
+
+                    <div>
+                        <div class="summary-card">
+                            <h2 class="summary-title">Ringkasan</h2>
+                            <div class="summary-row"><span>Buku paten olimpiade IPS X 1</span><strong>Rp 92.000</strong></div>
+                            <div class="summary-row"><span>Ongkos Kirim</span><strong>Rp 20.000</strong></div>
+                            <div class="summary-row total-row"><span>Total</span><strong>Rp 150.000</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 6: STATUS PESANAN & PEMILIHAN METODE PEMBAYARAN (IMAGE 16) -->
+            <div id="view-order-status" class="page-view">
+                <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 24px;">
+                    <div>
+                        <span class="section-category">PESANAN BUKU</span>
+                        <h1 class="section-title">ORD-20261025-0028</h1>
+                    </div>
+                    <span style="border: 1px solid #fde68a; background-color: #fffbeb; color: #d97706; padding: 4px 12px; font-size: 0.72rem; font-weight: 700; border-radius: 4px;">Menunggu Bayar</span>
+                </div>
+
+                <div class="checkout-grid">
+                    <div style="display: flex; flex-direction: column; justify-content: space-between;">
+                        <div class="timeline-box">
+                            <div class="timeline-item">
+                                <div class="dot-active"></div>
+                                <div>
+                                    <strong style="display: block; font-size: 0.85rem;">Pesanan dibuat</strong>
+                                    <span style="font-size: 0.75rem; color: #9ca3af;">21 Okt 2026, 09:12</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="dot-gray"></div>
+                                <div>
+                                    <strong style="display: block; font-size: 0.85rem; color: #6b7280;">Pembayaran diterima</strong>
+                                </div>
+                            </div>
+                            <div style="margin-top: 80px; border-top: 1px solid #f3f4f6; padding-top: 16px;">
+                                <span style="font-size: 0.72rem; color: #9ca3af; display: block;">Batas Pembayaran</span>
+                                <span style="font-size: 0.78rem; color: #374151; font-weight: 600;">25 Oktober 2026, 22:09</span>
+                            </div>
+                        </div>
+                        <button class="btn-outline" style="max-width: 180px; margin-top: 20px;" onclick="showView('view-koleksi')">BATALKAN</button>
+                    </div>
+
+                    <div>
+                        <div class="summary-card" style="margin-bottom: 20px;">
+                            <h2 class="summary-title">Ringkasan</h2>
+                            <div class="summary-row"><span>Buku paten olimpiade IPS X 1</span><strong>Rp 92.000</strong></div>
+                            <div class="summary-row"><span>Ongkos Kirim</span><strong>Rp 20.000</strong></div>
+                            <div class="summary-row total-row"><span>Total</span><strong>Rp 150.000</strong></div>
+                        </div>
+
+                        <span style="font-size: 0.85rem; font-weight: 700; color: #2b0c3d; display: block; margin-bottom: 12px;">Metode Pembayaran</span>
+                        
+                        <div class="payment-option selected" id="book-opt-qris" onclick="selectBookPayment('qris')">
+                            <div class="radio-circle"></div>
+                            <div>
+                                <strong style="display: block; font-size: 0.88rem;">📱 Qris</strong>
+                                <span style="font-size: 0.75rem; color: #6b7280;">Scan dengan e-wallet atau m-banking apa pun</span>
+                            </div>
+                        </div>
+
+                        <div class="payment-option" id="book-opt-va" onclick="selectBookPayment('va')">
+                            <div class="radio-circle"></div>
+                            <div>
+                                <strong style="display: block; font-size: 0.88rem;">💳 Virtual Account</strong>
+                                <span style="font-size: 0.75rem; color: #6b7280;">Lakukan Pembayaran melalui Virtual Account</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 7: SCAN QRIS PEMBAYARAN BUKU (IMAGE 17) -->
+            <div id="view-qris-buku" class="page-view">
+                <div class="pay-center-card">
+                    <span class="section-category">QRIS</span>
+                    <h1 class="section-title" style="font-size: 1.8rem;">Scan untuk membayar</h1>
+                    <p style="font-size: 0.82rem; color: #6b7280; margin-bottom: 24px;">Selesaikan pembayaran dalam 1:59:48</p>
+
+                    <div style="width: 220px; height: 220px; margin: 0 auto 24px auto;">
+                        <svg viewBox="0 0 100 100" width="100%" height="100%">
+                            <path d="M0,0 h30 v30 h-30 z M40,0 h20 v10 h-20 z M70,0 h30 v30 h-30 z M0,40 h10 v20 h-10 z M30,40 h40 v10 h-40 z M80,40 h20 v30 h-20 z M0,70 h30 v30 h-30 z M40,80 h30 v20 h-30 z M80,80 h20 v20 h-20 z" fill="#111827"/>
+                            <rect x="5" y="5" width="20" height="20" fill="none" stroke="#ffffff" stroke-width="2"/>
+                            <rect x="75" y="5" width="20" height="20" fill="none" stroke="#ffffff" stroke-width="2"/>
+                            <rect x="5" y="75" width="20" height="20" fill="none" stroke="#ffffff" stroke-width="2"/>
+                        </svg>
+                    </div>
+
+                    <h2 style="font-size: 1.8rem; font-weight: 800; color: #2b0c3d; margin-bottom: 4px;">Rp 150.000</h2>
+                    <p style="font-size: 0.8rem; color: #6b7280; margin-bottom: 24px;">Pembayaran buku</p>
+
+                    <button class="btn-orange" style="max-width: 280px;" onclick="simulateBookPaymentSuccess()">SIMULASI BAYAR SELESAI</button>
+                </div>
+            </div>
+
+            <!-- VIEW 8: VIRTUAL ACCOUNT PEMBAYARAN BUKU (IMAGE 18) -->
+            <div id="view-va-buku" class="page-view">
+                <div class="pay-center-card" style="margin-bottom: 20px;">
+                    <span class="section-category">VIRTUAL ACCOUNT</span>
+                    <h1 class="section-title" style="font-size: 1.8rem;">Selesaikan pembayaran</h1>
+                    <p style="font-size: 0.82rem; color: #6b7280;">Selesaikan pembayaran dalam 1:59:48</p>
+                </div>
+
+                <div class="va-box">
+                    <label style="font-size: 0.8rem; font-weight: 700; color: #374151;">Pilih Bank</label>
+                    <select class="form-input" style="margin-top: 6px; margin-bottom: 20px;">
+                        <option>Bank BCA / Mandiri / BRI</option>
+                    </select>
+
+                    <label style="font-size: 0.8rem; font-weight: 700; color: #374151;">Nomor Virtual Account</label>
+                    <div class="copy-input-group">
+                        <input type="text" value="1234 5678 3456" readonly>
+                        <button class="btn-copy">📋 salin</button>
+                    </div>
+
+                    <div style="margin-top: 20px; text-align: center;">
+                        <span style="font-size: 0.8rem; color: #6b7280; display: block; margin-bottom: 4px;">Total Pembayaran</span>
+                        <h2 style="font-size: 1.8rem; font-weight: 800; color: #2b0c3d; margin-bottom: 4px;">Rp 150.000</h2>
+                        <p style="font-size: 0.8rem; color: #6b7280; margin-bottom: 24px;">Buku ompetisi Matematika, Sains & Inggris (KMSI)</p>
+                    </div>
+
+                    <button class="btn-orange" onclick="simulateBookPaymentSuccess()">SIMULASI BAYAR SELESAI</button>
+                </div>
+            </div>
+
+            <!-- VIEW 9: PEMBAYARAN BERHASIL (IMAGE 19) -->
+            <div id="view-success" class="page-view">
+                <div class="pay-center-card" style="padding-top: 40px;">
+                    <span class="section-category">QRIS</span>
+                    <h1 class="section-title" style="font-size: 1.8rem; margin-bottom: 6px;">Scan untuk membayar</h1>
+                    <p style="font-size: 0.82rem; color: #9ca3af; margin-bottom: 30px;">Selesaikan pembayaran dalam 1:59:48</p>
+
+                    <div style="position: relative; width: 220px; height: 220px; margin: 0 auto 30px auto; opacity: 0.3;">
+                        <svg viewBox="0 0 100 100" width="100%" height="100%">
+                            <path d="M0,0 h30 v30 h-30 z M40,0 h20 v10 h-20 z M70,0 h30 v30 h-30 z M0,40 h10 v20 h-10 z M30,40 h40 v10 h-40 z M80,40 h20 v30 h-20 z M0,70 h30 v30 h-30 z M40,80 h30 v20 h-30 z M80,80 h20 v20 h-20 z" fill="#111827"/>
+                        </svg>
+                        <div style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); opacity: 1;">
+                            <div style="width: 50px; height: 50px; border-radius: 50%; border: 3px solid #059669; display: flex; align-items: center; justify-content: center; color: #059669; font-size: 1.8rem; font-weight: 800;">✓</div>
+                        </div>
+                    </div>
+
+                    <h1 style="font-size: 2.2rem; font-weight: 800; color: #2b0c3d; margin-bottom: 8px;">Pembayaran Berhasil !</h1>
+                    <p style="font-size: 0.85rem; color: #6b7280; margin-bottom: 36px;">Pembayaran kamu sudah berhasil di konfirmasi.</p>
+
+                    <h2 style="font-size: 1.8rem; font-weight: 800; color: #9ca3af; margin-bottom: 4px;">Rp 150.000</h2>
+                    <p style="font-size: 0.8rem; color: #9ca3af;">Pembayaran buku</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- MODAL TAMBAH ALAMAT (IMAGE 14) -->
+    <div class="modal-overlay" id="modal-alamat">
+        <div class="modal-card">
+            <h2 class="section-title" style="font-size: 1.6rem; margin-bottom: 20px;">Tambah Alamat</h2>
+            
+            <div class="form-group">
+                <label>Cara tujuan pengiriman (kecamatan/kota)</label>
+                <div style="display: flex; gap: 8px;">
+                    <input type="text" class="form-input" placeholder="">
+                    <button class="btn-outline" style="width: 100px; padding: 0;">CARI</button>
+                </div>
+            </div>
+
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label>Nama Penerima</label>
+                    <input type="text" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Telepon</label>
+                    <input type="text" class="form-input">
+                </div>
+            </div>
+
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label>Provinsi</label>
+                    <input type="text" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Kota</label>
+                    <input type="text" class="form-input">
+                </div>
+            </div>
+
+            <div class="form-grid-2">
+                <div class="form-group">
+                    <label>Kecamatan</label>
+                    <input type="text" class="form-input">
+                </div>
+                <div class="form-group">
+                    <label>Kode Pos</label>
+                    <input type="text" class="form-input">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Alamat Lengkap</label>
+                <input type="text" class="form-input" style="height: 60px;">
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 24px;">
+                <input type="checkbox" id="chk-utama">
+                <label for="chk-utama" style="font-size: 0.8rem; color: #4b5563;">Jadikan Alamat Utama</label>
+            </div>
+
+            <div style="display: flex; justify-content: flex-end; gap: 12px;">
+                <button class="btn-outline" style="width: 100px;" onclick="closeModalAlamat()">BATAL</button>
+                <button class="btn-orange" style="width: 120px; background-color: #24143a;" onclick="closeModalAlamat()">SIMPAN</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FOOTER SECTION (DISESUAIKAN PERSIS DESAIN) -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- KOLOM 1: LOGO -->
+            <div class="footer-logo-col">
+                <img src="../Aset/logo-intan-mutia.png" alt="Yayasan Intan Mutia" onerror="this.src='https://via.placeholder.com/180x60?text=YAYASAN+INTAN+MUTIA'">
+            </div>
+
+            <!-- KOLOM 2: DESKRIPSI -->
+            <div class="footer-desc-col">
+                <p>
+                    Yayasan Intan Mutia adalah yayasan yang menyediakan akses ajang kompetisi nasional yang adil dan berkualitas untuk mengasah potensi, melatih keberanian, serta membimbing tumbuh kembang anak Indonesia.
+                </p>
+            </div>
+
+            <!-- KOLOM 3: CUSTOMER SERVICE -->
+            <div>
+                <h4 class="footer-heading">Customer Service</h4>
+                <ul class="footer-list">
+                    <li><i class="footer-icon">📞</i><a href="tel:082177229922">0821-7722-9922</a></li>
+                    <li><i class="footer-icon">💬</i><a href="https://wa.me/6282177229922" target="_blank">0821-7722-9922</a></li>
+                    <li><i class="footer-icon">✉</i><a href="mailto:intanmutiaeducation@gmail.com">intanmutiaeducation@gmail.com</a></li>
+                    <li><i class="footer-icon">📍</i><span>Bandara Erfina Residence Blok D10, Asrikaton, Pakis, Kab. Malang, Jawa Timur.</span></li>
+                </ul>
+            </div>
+
+            <!-- KOLOM 4: SOCIAL MEDIA -->
+            <div>
+                <h4 class="footer-heading">Social Media</h4>
+                <ul class="footer-list">
+                    <li><i class="footer-icon">📷</i><a href="#">@intanmutiaa22</a></li>
+                    <li><i class="footer-icon">🎵</i><a href="#">@intanmutiaa22</a></li>
+                    <li><i class="footer-icon">📘</i><a href="#">Intan Mutia Kmsi Jso</a></li>
+                    <li><i class="footer-icon">🎥</i><a href="#">@intanmutia114</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom-bar"></div>
+    </footer>
+
+    <!-- INTERACTIVITY & STATE MANAGEMENT SCRIPT -->
+    <script>
+        // DATA KERANJANG AWAL DENGAN 4 BUKU SESUAI GAMBAR 20 (DESAIN KERANJANG)
+        let cart = [
+            { name: "Buku Paten Olimpiade IPA", price: 80000, qty: 1, img: "../Aset/buku-ipa.png" },
+            { name: "Buku Paten Olimpiade IPS", price: 80000, qty: 1, img: "../Aset/buku-ips.png" },
+            { name: "Buku Paten Olimpiade Matematika", price: 80000, qty: 1, img: "../Aset/buku-matematika.png" },
+            { name: "Buku Paten Olimpiade Bahasa Inggris", price: 80000, qty: 1, img: "../Aset/buku-inggris.png" }
+        ];
+
+        let selectedBookPayMethod = 'qris';
+
+        function showView(viewId) {
+            const views = document.querySelectorAll('.page-view');
+            views.forEach(v => v.classList.remove('active-view'));
+
+            const targetView = document.getElementById(viewId);
+            if (targetView) targetView.classList.add('active-view');
+
+            // Kontrol Stepper Bar
+            const stepperBar = document.getElementById('stepper-bar');
+            const step1 = document.getElementById('step-1');
+            const step2 = document.getElementById('step-2');
+            const progressBar = document.getElementById('stepper-progress-bar');
+
+            if (['view-alamat', 'view-tinjau'].includes(viewId)) {
+                stepperBar.style.display = 'block';
+            } else {
+                stepperBar.style.display = 'none';
+            }
+
+            step1.className = 'step-item';
+            step2.className = 'step-item';
+
+            if (viewId === 'view-alamat') {
+                step1.classList.add('active');
+                progressBar.style.width = '0%';
+            } else if (viewId === 'view-tinjau') {
+                step1.classList.add('completed');
+                step2.classList.add('active');
+                progressBar.style.width = '100%';
+            }
+
+            if (viewId === 'view-keranjang') renderCart();
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function goBack() {
+            const activeView = document.querySelector('.page-view.active-view').id;
+            if (activeView === 'view-detail-buku') showView('view-koleksi');
+            else if (activeView === 'view-keranjang') showView('view-koleksi');
+            else if (activeView === 'view-alamat') showView('view-keranjang');
+            else if (activeView === 'view-tinjau') showView('view-alamat');
+            else showView('view-koleksi');
+        }
+
+        function addToCart(bookName, price) {
+            const existing = cart.find(item => item.name === bookName);
+            if (existing) {
+                existing.qty++;
+            } else {
+                cart.push({ name: bookName, price: price, qty: 1, img: "../Aset/buku-ips.png" });
+            }
+            updateCartBadge();
+        }
+
+        function updateCartBadge() {
+            const badge = document.getElementById('cart-badge-count');
+            const totalCount = cart.reduce((sum, item) => sum + item.qty, 0);
+            if (totalCount > 0) {
+                badge.style.display = 'flex';
+                badge.innerText = totalCount;
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        function renderCart() {
+            const container = document.getElementById('cart-items-container');
+            const summaryContainer = document.getElementById('summary-items-list');
+            container.innerHTML = '';
+            summaryContainer.innerHTML = '';
+
+            let subtotal = 0;
+
+            cart.forEach((item, index) => {
+                subtotal += item.price * item.qty;
+
+                // Render Item Keranjang
+                const card = document.createElement('div');
+                card.className = 'cart-item-card';
+                card.innerHTML = `
+                    <img src="${item.img}" class="cart-item-img" onerror="this.src='https://via.placeholder.com/50x65?text=Buku'">
+                    <div class="cart-item-info">
+                        <strong style="font-size: 0.85rem; display: block; color: #111827;">${item.name}</strong>
+                        <span style="font-size: 0.72rem; color: #9ca3af; display: block; margin-bottom: 4px;">Oleh pixelindo . 230 halaman</span>
+                        <strong style="font-size: 0.82rem; color: #db2777;">Rp. ${item.price.toLocaleString('id-ID')}</strong>
+                    </div>
+                    <div class="qty-control" style="transform: scale(0.9);">
+                        <button class="qty-btn" onclick="updateQty(${index}, -1)">-</button>
+                        <input type="text" class="qty-input" value="${item.qty}" readonly>
+                        <button class="qty-btn" onclick="updateQty(${index}, 1)">+</button>
+                    </div>
+                    <button class="btn-remove-item" onclick="removeItem(${index})">✕</button>
+                `;
+                container.appendChild(card);
+
+                // Render Ringkasan
+                const sumRow = document.createElement('div');
+                sumRow.className = 'summary-row';
+                sumRow.innerHTML = `
+                    <span>${item.name} X ${item.qty}</span>
+                    <strong>Rp ${(item.price * item.qty).toLocaleString('id-ID')}</strong>
+                `;
+                summaryContainer.appendChild(sumRow);
+            });
+
+            const shipping = cart.length > 0 ? 20000 : 0;
+            const grandTotal = subtotal + shipping;
+            document.getElementById('cart-grand-total').innerText = `Rp ${grandTotal.toLocaleString('id-ID')}`;
+            updateCartBadge();
+        }
+
+        function updateQty(index, delta) {
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) cart.splice(index, 1);
+            renderCart();
+        }
+
+        function removeItem(index) {
+            cart.splice(index, 1);
+            renderCart();
+        }
+
+        function emptyCart() {
+            cart = [];
+            renderCart();
+        }
+
+        function adjustDetailQty(delta) {
+            const input = document.getElementById('detail-qty-val');
+            let val = parseInt(input.value) + delta;
+            if (val < 1) val = 1;
+            input.value = val;
+        }
+
+        function loginAndProceedAddress() {
+            document.getElementById('user-name-text').innerText = 'Nessa';
+            showView('view-alamat');
+        }
+
+        function openModalAlamat() {
+            document.getElementById('modal-alamat').style.display = 'flex';
+        }
+
+        function closeModalAlamat() {
+            document.getElementById('modal-alamat').style.display = 'none';
+        }
+
+        function selectBookPayment(type) {
+            selectedBookPayMethod = type;
+            document.getElementById('book-opt-qris').classList.remove('selected');
+            document.getElementById('book-opt-va').classList.remove('selected');
+
+            if (type === 'qris') {
+                document.getElementById('book-opt-qris').classList.add('selected');
+                showView('view-qris-buku');
+            } else {
+                document.getElementById('book-opt-va').classList.add('selected');
+                showView('view-va-buku');
+            }
+        }
+
+        function simulateBookPaymentSuccess() {
+            showView('view-success');
+        }
+
+        // INITIAL RENDER
+        updateCartBadge();
+    </script>
+</body>
+</html>

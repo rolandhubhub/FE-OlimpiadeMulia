@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transaksi — Panel Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Baloo+2:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --border:#c9c3d2; --sidebar-active:#eadce4; --table-head:#eadce4; --orange:#f98a02; --purple-dark:#2b1245; --pink:#ba5187; --text-gray:#7a7686; --red:#b3261e; --teal:#1f7a4d; --shadow:rgba(20,10,30,.18); }
+    *{box-sizing:border-box;} body{margin:0; font-family:'Poppins',sans-serif; color:var(--purple-dark); background:#fff;} .layout{display:flex; min-height:100vh;} .sidebar{width:220px; flex-shrink:0; background:#fff; border-right:1px solid #eee; padding:28px 0;} .brand{padding:0 24px 22px;} .brand h1{margin:0 0 4px; font-family:'Lora',serif; font-size:21px; font-weight:600; letter-spacing:.03em;} .brand p{margin:0; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--pink);} nav{display:flex; flex-direction:column; margin-top:4px;} .nav-item{display:flex; align-items:center; gap:12px; padding:10px 24px; color:var(--text-gray); text-decoration:none; font-family:'Baloo 2',sans-serif; font-size:14px; font-weight:600; border-left:3px solid transparent;} .nav-item svg{width:16px; height:16px; flex-shrink:0;} .nav-item.active{background:var(--sidebar-active); color:var(--purple-dark); border-left-color:var(--orange);} main{flex:1; padding:46px 34px 50px; min-width:0;} .eyebrow{margin:0 0 4px; font-size:12px; font-weight:700; color:var(--pink);} h1{margin:0 0 4px; font-family:'Lora',serif; font-size:26px; font-weight:600;} .page-sub{margin:0 0 18px; font-size:12px; color:var(--pink); font-weight:600;} .toolbar{display:flex; gap:12px; align-items:center; margin-bottom:18px;} .toolbar select{border:1px solid var(--border); border-radius:4px; background:#fff; padding:10px 12px; font-family:'Baloo 2',sans-serif; color:var(--purple-dark); min-width:220px;} table{width:100%; border-collapse:collapse; border:1px solid var(--border); font-size:12px;} thead th{background:var(--table-head); text-align:left; padding:10px 12px; font-family:'Baloo 2',sans-serif; font-weight:700; color:var(--purple-dark);} tbody td{padding:10px 12px; border-top:1px solid #ededed; vertical-align:middle; color:var(--purple-dark);} .code{font-weight:700;} .small{display:block; color:var(--text-gray); font-size:11px; margin-top:2px;} .badge{display:inline-block; padding:4px 12px; border-radius:4px; font-size:11px; font-weight:600; font-family:'Baloo 2',sans-serif;} .badge.pending{background:#fdf0dc; color:#c17d12;} .badge.paid{background:#deebe5; color:#2f7a56;} .badge.cancelled{background:#fbdede; color:#c0423b;} .status-col{ text-align:center; } .status-cell{ display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; } .status-box{ display:inline-block; width:120px; padding:4px 0; border-radius:2px; border:1px solid currentColor; text-align:center; font-family:'Baloo 2',sans-serif; font-size:12px; font-weight:500; letter-spacing:0; text-transform:none; line-height:1.4; } .status-box.paid{ background:#deebe5; color:#2f7a56; border-color:#2f7a56; } .status-box.pending{ background:#fff8ee; color:#f98a02; border-color:#f98a02; } .status-box.cancelled{ background:#fbcccd; color:#c0222b; border-color:#c0222b; } .sisa-waktu{ margin-top:4px; font-family:'Poppins',sans-serif; font-size:10px; color:#9a96a5; line-height:1.2; text-align:center; } th.col-status { text-align:center; letter-spacing:.08em; } .table-foot{text-align:right; font-size:11px; color:var(--text-gray); margin-top:10px; font-family:'Baloo 2',sans-serif;} @media (max-width:760px){ .layout{flex-direction:column;} .sidebar{width:100%;} nav{flex-direction:row; overflow-x:auto;} .toolbar{flex-direction:column; align-items:stretch;} .toolbar select{min-width:0; width:100%;} table{display:block; overflow-x:auto;} }
+  </style>
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="brand"><h1>INTAN MUTIA</h1><p>PANEL ADMIN</p></div>
+      <nav>
+        <a class="nav-item" href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5" rx="1"></rect></svg>Dashboard</a>
+        <a class="nav-item" href="event.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="2"></rect><path d="M8 2v4M16 2v4M3 10h18"></path></svg>Event</a>
+        <a class="nav-item" href="peserta.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"></circle><path d="M5 20c0-3.3 3.1-6 7-6s7 2.7 7 6"></path></svg>Peserta</a>
+        <a class="nav-item" href="nominasi.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.6 6.6L21 9l-5 4.5L17.4 21 12 17.3 6.6 21 8 13.5 3 9l6.4-.4z"></path></svg>Nominasi &amp; Sertifikat</a>
+        <a class="nav-item" href="buku.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="1"></rect><path d="M8 8h8M8 12h8M8 16h5"></path></svg>Buku</a>
+        <a class="nav-item" href="pesanan.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 7h12l-1 13H7z"></path><path d="M9 7V5a3 3 0 0 1 6 0v2"></path></svg>Pesanan</a>
+        <a class="nav-item active" href="transaksi.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="12" rx="2"></rect><path d="M7 7V5h10v2"></path><path d="M8 12h8"></path></svg>Transaksi</a>
+        <a class="nav-item" href="pengguna.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg>Pengguna</a>
+      </nav>
+    </aside>
+
+    <main>
+      <p class="eyebrow">Transaksi</p>
+      <h1>Transaksi</h1>
+      <p class="page-sub">Verifikasi Pembayaran</p>
+
+      <div class="toolbar">
+        <select id="statusFilter">
+          <option value="">Semua status</option>
+          <option value="Pending">Pending</option>
+          <option value="Paid">Paid</option>
+          <option value="Cancelled">Cancelled</option>
+        </select>
+        <select id="methodFilter">
+          <option value="">Semua metode</option>
+          <option value="Virtual Account">Virtual Account</option>
+          <option value="Qris">Qris</option>
+        </select>
+      </div>
+
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>No. Registrasi</th>
+            <th>Jenis</th>
+            <th>Nominal</th>
+            <th>Metode</th>
+            <th>Batas Bayar</th>
+            <th class="col-status">Status</th>
+          </tr>
+        </thead>
+        <tbody id="transaksiTableBody"></tbody>
+      </table>
+      <div class="table-foot" id="transaksiFoot">0 data, Halaman 1/1</div>
+    </main>
+  </div>
+
+  <script>
+    const transaksiData = [
+      { no: 1, ref: 'REG-20261014-0001', nama: 'Nabila Maharani', date: '14 Okt 2026', type: 'Event', nominal: 150000, method: 'Virtual Account', batas: '14 Okt 2026 18:30', status: 'Pending' },
+      { no: 2, ref: 'ORD-20261014-0024', nama: 'Hana Maulana', date: '14 Okt 2026', type: 'Buku', nominal: 80000, method: 'Qris', batas: '14 Okt 2026 20:00', status: 'Paid' },
+      { no: 3, ref: 'REG-20261014-0002', nama: 'Bagas Pratama', date: '15 Okt 2026', type: 'Event', nominal: 150000, method: 'Virtual Account', batas: '15 Okt 2026 09:00', status: 'Paid' },
+      { no: 4, ref: 'ORD-20261014-0025', nama: 'Rizky Pratama', date: '15 Okt 2026', type: 'Buku', nominal: 150000, method: 'Qris', batas: '15 Okt 2026 14:20', status: 'Pending' },
+      { no: 5, ref: 'REG-20261014-0003', nama: 'Salsabila Putri', date: '16 Okt 2026', type: 'Event', nominal: 150000, method: 'Virtual Account', batas: '16 Okt 2026 21:00', status: 'Cancelled' },
+      { no: 6, ref: 'ORD-20261014-0026', nama: 'Aisyah Putri', date: '16 Okt 2026', type: 'Buku', nominal: 120000, method: 'Qris', batas: '16 Okt 2026 17:45', status: 'Pending' },
+      { no: 7, ref: 'REG-20261014-0004', nama: 'Eka Sari', date: '17 Okt 2026', type: 'Event', nominal: 150000, method: 'Virtual Account', batas: '17 Okt 2026 22:15', status: 'Paid' }
+    ];
+
+    function escapeHtml(value) { return String(value ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
+    function renderTransaksi() {
+      const status = document.getElementById('statusFilter').value;
+      const method = document.getElementById('methodFilter').value;
+      const rows = transaksiData.filter(item => {
+        const matchStatus = !status || item.status === status;
+        const matchMethod = !method || item.method === method;
+        return matchStatus && matchMethod;
+      });
+
+      document.getElementById('transaksiTableBody').innerHTML = rows.length ? rows.map((item, idx) => {
+        const statusClass = item.status === 'Paid' ? 'paid' : item.status === 'Pending' ? 'pending' : 'cancelled';
+        const statusHtml = item.status === 'Pending'
+          ? `<div class="status-cell"><span class="status-box ${statusClass}">${escapeHtml(item.status)}</span>`
+          : `<div class="status-cell"><span class="status-box ${statusClass}">${escapeHtml(item.status)}</span></div>`;
+
+        return `
+          <tr>
+            <td>${idx + 1}</td>
+            <td><span class="code">${escapeHtml(item.ref)}</span><span class="small">${escapeHtml(item.nama)} · ${escapeHtml(item.date)}</span></td>
+            <td>${escapeHtml(item.type)}</td>
+            <td>Rp ${Number(item.nominal).toLocaleString('id-ID')}</td>
+            <td>${escapeHtml(item.method)}</td>
+            <td>${escapeHtml(item.batas)}</td>
+            <td class="status-col">${statusHtml}</td>
+          </tr>
+        `;
+      }).join('') : '<tr><td colspan="7" style="padding:18px; text-align:center; color:var(--text-gray);">Tidak ada data</td></tr>';
+      document.getElementById('transaksiFoot').textContent = `${rows.length} data, Halaman 1/1`;
+    }
+
+    document.getElementById('statusFilter').addEventListener('change', renderTransaksi);
+    document.getElementById('methodFilter').addEventListener('change', renderTransaksi);
+    renderTransaksi();
+  </script>
+</body>
+</html>

@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kelola Nominasi — Panel Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Baloo+2:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --border:#c9c3d2; --sidebar-active:#eadce4; --table-head:#eadce4; --orange:#f98a02; --purple-dark:#2b1245; --pink:#ba5187; --maroon:#9c1457; --purple-bar:#4a2c82; --text-gray:#7a7686; --red:#b3261e; --shadow:rgba(25,15,33,.25);
+      --muted:#e3e3e3; --muted-text:#6e6e6e;
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; background:#fff; color:var(--purple-dark); font-family:'Poppins',sans-serif; }
+    .layout { display:flex; min-height:100vh; }
+    .sidebar { width:220px; flex-shrink:0; background:#fff; border-right:1px solid #eee; padding:28px 0; }
+    .brand { padding:0 24px 22px; }
+    .brand h1 { margin:0 0 4px; font-family:'Lora',serif; font-weight:600; font-size:21px; letter-spacing:.03em; }
+    .brand p { margin:0; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--pink); }
+    nav { display:flex; flex-direction:column; margin-top:4px; }
+    .nav-item { display:flex; align-items:center; gap:12px; padding:10px 24px; color:var(--text-gray); text-decoration:none; font-family:'Baloo 2',sans-serif; font-size:14px; font-weight:600; border-left:3px solid transparent; }
+    .nav-item svg { width:16px; height:16px; flex-shrink:0; }
+    .nav-item.active { background:var(--sidebar-active); color:var(--purple-dark); border-left-color:var(--orange); }
+    main { flex:1; padding:46px 34px 50px; min-width:0; }
+    .eyebrow { margin:0 0 4px; font-size:12px; font-weight:700; color:var(--pink); }
+    .title { margin:0 0 4px; font-family:'Lora',serif; font-size:26px; font-weight:600; }
+    .page-sub { margin:0 0 18px; font-size:12px; color:var(--pink); font-weight:600; }
+    .toolbar { display:flex; gap:12px; align-items:center; margin-bottom:14px; }
+    .select-wrap { display:flex; align-items:center; }
+    .toolbar select { border:1px solid var(--border); border-radius:4px; background:#fff; padding:10px 14px; min-width:200px; font-family:'Baloo 2',sans-serif; color:var(--purple-dark); outline:none; }
+    .btn { font-family:'Baloo 2',sans-serif; font-size:12px; font-weight:700; border-radius:4px; padding:10px 16px; border:none; cursor:pointer; }
+    .btn.dark { background:var(--purple-dark); color:#fff; }
+    .btn.outline { background:#fff; color:var(--purple-dark); border:1px solid var(--purple-dark); }
+    .btn.add { background:var(--purple-dark); color:#fff; }
+    .btn.warn { background:var(--orange); color:#fff; }
+    .btn.danger { background:var(--red); color:#fff; }
+    table { width:100%; border-collapse:collapse; border:1px solid var(--border); font-size:12px; }
+    th, td { padding:10px 12px; border-top:1px solid #ededed; vertical-align:middle; }
+    thead th { background:var(--table-head); text-align:left; font-family:'Baloo 2',sans-serif; font-weight:700; color:var(--purple-dark); }
+    tbody td { color:var(--purple-dark); }
+    .img-box { width:72px; height:44px; border-radius:3px; object-fit:cover; background:#f8e2ee; }
+    .doc-link { color:var(--purple-dark); text-decoration:underline; font-weight:500; }
+    .table-actions { display:flex; gap:6px; }
+    .btn-edit, .btn-del { border:none; border-radius:4px; padding:6px 12px; font-size:11px; font-weight:700; color:#fff; cursor:pointer; font-family:'Baloo 2',sans-serif; }
+    .btn-edit { background:var(--orange); }
+    .btn-del { background:var(--red); }
+    .table-foot { text-align:right; font-size:11px; color:var(--text-gray); margin-top:10px; font-family:'Baloo 2',sans-serif; }
+    .overlay { position:fixed; inset:0; background:rgba(20,10,30,.45); display:none; align-items:flex-start; justify-content:center; padding:40px 16px; z-index:50; }
+    .overlay.active { display:flex; }
+    .modal { background:#fff; border-radius:6px; width:100%; max-width:580px; padding:28px 30px; box-shadow:0 18px 34px var(--shadow); }
+    .modal h3 { margin:0 0 18px; font-family:'Lora',serif; font-size:22px; font-weight:600; }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px 20px; }
+    .field { display:flex; flex-direction:column; }
+    .field label { display:block; font-size:12px; font-weight:600; font-family:'Baloo 2',sans-serif; margin-bottom:6px; }
+    .field input, .field select { width:100%; border:1px solid var(--border); border-radius:4px; padding:10px 12px; font-size:12px; font-family:'Baloo 2',sans-serif; color:var(--purple-dark); outline:none; }
+    .field.full { grid-column:1 / -1; }
+    .field input.invalid, .field select.invalid { border-color:var(--red); }
+    .modal-actions { display:flex; justify-content:flex-end; gap:10px; margin-top:22px; }
+    .flow-step { display:none; }
+    .flow-step.active { display:block; }
+    .step-subtitle { margin:0 0 14px; color:var(--text-gray); font-size:13px; font-weight:600; }
+    .toast { position:fixed; right:22px; bottom:22px; background:var(--purple-dark); color:#fff; padding:12px 18px; border-radius:6px; font-size:12px; font-weight:600; opacity:0; transform:translateY(12px); transition:all .25s ease; pointer-events:none; z-index:60; }
+    .toast.show { opacity:1; transform:translateY(0); }
+    @media (max-width:760px){
+      .layout{flex-direction:column;}
+      .sidebar{width:100%;}
+      nav{flex-direction:row; overflow-x:auto;}
+      .toolbar{flex-direction:column; align-items:stretch;}
+      .toolbar select{min-width:unset;}
+      .form-grid{grid-template-columns:1fr;}
+      table{display:block; overflow-x:auto;}
+    }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand"><h1>INTAN MUTIA</h1><p>PANEL ADMIN</p></div>
+    <nav>
+      <a class="nav-item" href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5" rx="1"></rect></svg>Dashboard</a>
+      <a class="nav-item" href="event.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="2"></rect><path d="M8 2v4M16 2v4M3 10h18"></path></svg>Event</a>
+      <a class="nav-item" href="peserta.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"></circle><path d="M5 20c0-3.3 3.1-6 7-6s7 2.7 7 6"></path></svg>Peserta</a>
+      <a class="nav-item active" href="nominasi.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.6 6.6L21 9l-5 4.5L17.4 21 12 17.3 6.6 21 8 13.5 3 9l6.4-.4z"></path></svg>Nominasi &amp; Sertifikat</a>
+      <a class="nav-item" href="buku.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="1"></rect><path d="M8 8h8M8 12h8M8 16h5"></path></svg>Buku</a>
+      <a class="nav-item" href="pesanan.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 7h12l-1 13H7z"></path><path d="M9 7V5a3 3 0 0 1 6 0v2"></path></svg>Pesanan</a>
+      <a class="nav-item" href="transaksi.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="12" rx="2"></rect><path d="M7 7V5h10v2"></path><path d="M8 12h8"></path></svg>Transaksi</a>
+      <a class="nav-item" href="pengguna.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg>Pengguna</a>
+    </nav>
+  </aside>
+
+  <main>
+    <p class="eyebrow">Kelola Nominasi</p>
+    <h1 class="title">Kelola Nominasi</h1>
+    <p class="page-sub">Tambah,Edit,Hapus Nominasi</p>
+
+    <div class="toolbar">
+      <select id="filterEventSelect">
+        <option value="">Cari Nama event</option>
+        <option value="KMSI">KMSI</option>
+        <option value="JSO">JSO</option>
+        <option value="IMC">IMC</option>
+      </select>
+      <button class="btn warn" type="button" id="openJuaraFlow">JUARA</button>
+      <button class="btn dark" type="button" id="openSertiFlow">SERTI</button>
+      <button class="btn add" type="button" id="addNominationBtn">+ TAMBAH NOMINASI</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Gambar</th>
+          <th>Nama Nominasi</th>
+          <th>Link Dokumen</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="nominasiTableBody"></tbody>
+    </table>
+    <div class="table-foot" id="nominasiFoot">0 data, Halaman 1/1</div>
+  </main>
+</div>
+
+<div id="nominationModal" class="overlay" aria-hidden="true">
+  <div class="modal">
+    <h3 id="nominationModalTitle">Tambah Nominasi</h3>
+    <form id="nominationForm">
+      <div class="form-grid">
+        <div class="field full">
+          <label for="nomName">Nama Nominasi <span style="color:var(--red);">*</span></label>
+          <input id="nomName" type="text" placeholder="Nama Nominasi">
+        </div>
+        <div class="field full">
+          <label for="nomEvent">Event <span style="color:var(--red);">*</span></label>
+          <select id="nomEvent">
+            <option value="">Pilih Event</option>
+            <option value="KMSI">KMSI</option>
+            <option value="JSO">JSO</option>
+            <option value="IMC">IMC</option>
+          </select>
+        </div>
+        <div class="field full">
+          <label for="nomLink">Link Dokumen</label>
+          <input id="nomLink" type="text" placeholder="https://drive.google.com/...">
+        </div>
+        <div class="field full">
+          <label for="nomImage">Gambar <span style="color:var(--red);">*</span></label>
+          <input id="nomImage" type="file" accept="image/*">
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn outline" type="button" data-close="nominationModal">BATAL</button>
+        <button class="btn dark" type="submit">SIMPAN</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="flowModal" class="overlay" aria-hidden="true">
+  <div class="modal">
+    <div class="flow-step active" data-step="1">
+      <h3>Pilih Event</h3>
+      <p class="step-subtitle">Pilih event untuk menginput nilai pada setiap event</p>
+      <div class="field">
+        <label for="flowEvent">Event</label>
+        <select id="flowEvent">
+          <option value="">Pilih event</option>
+          <option value="KMSI">KMSI</option>
+          <option value="JSO">JSO</option>
+          <option value="IMC">IMC</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button class="btn outline" type="button" data-close="flowModal">BATAL</button>
+        <button class="btn dark" type="button" id="step1Next">LANJUT</button>
+      </div>
+    </div>
+
+    <div class="flow-step" data-step="2">
+      <h3>Pilih Pelajaran</h3>
+      <p class="step-subtitle" id="step2EventLabel">KMSI</p>
+      <div class="field">
+        <label for="flowMapel">Pelajaran</label>
+        <select id="flowMapel">
+          <option value="">Pilih pelajaran</option>
+          <option value="Matematika">Matematika</option>
+          <option value="Sains">Sains</option>
+          <option value="Bahasa Inggris">Bahasa Inggris</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button class="btn outline" type="button" id="step2Back">KEMBALI</button>
+        <button class="btn dark" type="button" id="step2Next">LANJUT</button>
+      </div>
+    </div>
+
+    <div class="flow-step" data-step="3">
+      <h3>Pilih Jenjang</h3>
+      <p class="step-subtitle" id="step3EventLabel">KMSI · SAINS</p>
+      <div class="field">
+        <label for="flowJenjang">Jenjang</label>
+        <select id="flowJenjang">
+          <option value="">Pilih jenjang</option>
+          <option value="SD">TK</option>
+          <option value="SMP">SD</option>
+          <option value="SMA">SMP</option>
+        </select>
+      </div>
+      <div class="modal-actions">
+        <button class="btn outline" type="button" id="step3Back">KEMBALI</button>
+        <button class="btn dark" type="button" id="step3Action">INPUT</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast" aria-live="polite"></div>
+
+<script>
+  const nominasiData = [
+    { id: 1, name: 'PESERTA GRAND FINAL KMSI', doc: 'PESERTA GRAND FINAL KMSI - Google Drive', img: '../Aset/DSC00118.JPG' },
+    { id: 2, name: 'NOMINASI JSO', doc: 'NOMINASI JSO - Google Drive', img: '../Aset/DSC00118.JPG' },
+    { id: 3, name: 'NOMINASI IMC', doc: 'NOMINASI IMC - Google Drive', img: '../Aset/DSC00118.JPG' },
+    { id: 4, name: 'PESERTA GRAND FINAL KMSI', doc: 'PESERTA GRAND FINAL KMSI - Google Drive', img: '../Aset/DSC00118.JPG' }
+  ];
+  let flowMode = 'juara';
+
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+  }
+
+  function getNominasiFallback() {
+    return 'https://placehold.co/72x44/f8e2ee/2b1245?text=NOM';
+  }
+
+  function toast(message) {
+    const el = document.getElementById('toast');
+    el.textContent = message;
+    el.classList.add('show');
+    clearTimeout(toast.timer);
+    toast.timer = setTimeout(() => el.classList.remove('show'), 2200);
+  }
+
+  function getFilteredData() {
+    const eventFilter = document.getElementById('filterEventSelect').value;
+    return nominasiData.filter(item => !eventFilter || item.name.toLowerCase().includes(eventFilter.toLowerCase()));
+  }
+
+  function renderNominasi() {
+    const rows = getFilteredData();
+    const body = document.getElementById('nominasiTableBody');
+    body.innerHTML = rows.length ? rows.map((item, idx) => `
+      <tr>
+        <td>${idx + 1}</td>
+        <td><img class="img-box" src="${escapeHtml(item.img || '../Aset/DSC00118.JPG')}" alt="${escapeHtml(item.name)} foto nominasi" onerror="this.onerror=null;this.src='${getNominasiFallback()}';"></td>
+        <td>${escapeHtml(item.name)}</td>
+        <td><a class="doc-link" href="#">${escapeHtml(item.doc)}</a></td>
+        <td>
+          <div class="table-actions">
+            <button class="btn-edit" type="button">Edit</button>
+            <button class="btn-del" type="button">Hapus</button>
+          </div>
+        </td>
+      </tr>
+    `).join('') : '<tr><td colspan="5" style="padding:18px; text-align:center; color:var(--text-gray);">Tidak ada data</td></tr>';
+    document.getElementById('nominasiFoot').textContent = `${rows.length} data, Halaman 1/1`;
+  }
+
+  function openModal(id) {
+    document.getElementById(id).classList.add('active');
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+  }
+
+  function resetFlowState() {
+    document.querySelectorAll('.flow-step').forEach(step => step.classList.remove('active'));
+    document.querySelector('[data-step="1"]').classList.add('active');
+    document.getElementById('flowEvent').value = '';
+    document.getElementById('flowMapel').value = '';
+    document.getElementById('flowJenjang').value = '';
+    document.getElementById('step3Action').textContent = 'INPUT';
+  }
+
+  function openNominationModal() {
+    document.getElementById('nominationModalTitle').textContent = 'Tambah Nominasi';
+    document.getElementById('nominationForm').reset();
+    openModal('nominationModal');
+  }
+
+  function validateNominationForm() {
+    const fields = ['nomName','nomEvent'];
+    let ok = true;
+    fields.forEach(id => {
+      const el = document.getElementById(id);
+      el.classList.remove('invalid');
+      if (!el.value.trim()) {
+        el.classList.add('invalid');
+        ok = false;
+      }
+    });
+    if (!ok) {
+      toast('Field wajib belum lengkap');
+    }
+    return ok;
+  }
+
+  document.getElementById('filterEventSelect').addEventListener('change', renderNominasi);
+  document.getElementById('addNominationBtn').addEventListener('click', openNominationModal);
+  document.getElementById('nominationForm').addEventListener('submit', function (event) {
+    event.preventDefault();
+    if (!validateNominationForm()) return;
+    const name = document.getElementById('nomName').value.trim();
+    nominasiData.push({
+      id: Date.now(),
+      name: name,
+      doc: document.getElementById('nomLink').value.trim() || `${name} - Google Drive`,
+      img: '../Aset/DSC00118.JPG'
+    });
+    closeModal('nominationModal');
+    renderNominasi();
+    toast('Nominasi berhasil disimpan');
+  });
+
+  document.getElementById('openJuaraFlow').addEventListener('click', function () {
+    flowMode = 'juara';
+    resetFlowState();
+    openModal('flowModal');
+    document.getElementById('step3Action').textContent = 'INPUT';
+  });
+
+  document.getElementById('openSertiFlow').addEventListener('click', function () {
+    flowMode = 'serti';
+    resetFlowState();
+    openModal('flowModal');
+    document.getElementById('step3Action').textContent = 'LANJUT';
+  });
+
+  document.getElementById('step1Next').addEventListener('click', function () {
+    if (!document.getElementById('flowEvent').value) {
+      toast('Pilih event terlebih dahulu');
+      return;
+    }
+    const eventName = document.getElementById('flowEvent').value;
+    document.getElementById('step2EventLabel').textContent = eventName;
+    document.querySelector('[data-step="1"]').classList.remove('active');
+    document.querySelector('[data-step="2"]').classList.add('active');
+  });
+
+  document.getElementById('step2Back').addEventListener('click', function () {
+    document.querySelector('[data-step="2"]').classList.remove('active');
+    document.querySelector('[data-step="1"]').classList.add('active');
+  });
+
+  document.getElementById('step2Next').addEventListener('click', function () {
+    if (!document.getElementById('flowMapel').value) {
+      toast('Pilih pelajaran terlebih dahulu');
+      return;
+    }
+    const eventName = document.getElementById('flowEvent').value;
+    const mapel = document.getElementById('flowMapel').value;
+    document.getElementById('step3EventLabel').textContent = `${eventName} · ${mapel}`;
+    document.querySelector('[data-step="2"]').classList.remove('active');
+    document.querySelector('[data-step="3"]').classList.add('active');
+  });
+
+  document.getElementById('step3Back').addEventListener('click', function () {
+    document.querySelector('[data-step="3"]').classList.remove('active');
+    document.querySelector('[data-step="2"]').classList.add('active');
+  });
+
+  document.getElementById('step3Action').addEventListener('click', function () {
+    if (!document.getElementById('flowJenjang').value) {
+      toast('Pilih jenjang terlebih dahulu');
+      return;
+    }
+    const eventName = document.getElementById('flowEvent').value;
+    const mapel = document.getElementById('flowMapel').value;
+    const jenjang = document.getElementById('flowJenjang').value;
+    const destination = flowMode === 'juara' ? 'input-nilai.html' : 'sertifikat.html';
+    window.location.href = `${destination}?event=${encodeURIComponent(eventName)}&mapel=${encodeURIComponent(mapel)}&jenjang=${encodeURIComponent(jenjang)}`;
+  });
+
+  document.addEventListener('click', function (event) {
+    const closeTarget = event.target.getAttribute('data-close');
+    if (closeTarget) {
+      closeModal(closeTarget);
+    }
+  });
+
+  document.querySelectorAll('.overlay').forEach(el => {
+    el.addEventListener('click', function (e) {
+      if (e.target === el) {
+        el.classList.remove('active');
+      }
+    });
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      closeModal('nominationModal');
+      closeModal('flowModal');
+    }
+  });
+
+  renderNominasi();
+</script>
+</body>
+</html>

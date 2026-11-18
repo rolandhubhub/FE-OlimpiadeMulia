@@ -1,0 +1,1 @@
+export const BATAS_PERINGKAT_SERTIFIKAT = 30;

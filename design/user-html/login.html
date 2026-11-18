@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Bersama Tumbuh Berani Berprestasi</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Playfair Display (Serif) & Inter (Sans-serif) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        brand: {
+                            navy: '#1a103c',
+                            primary: '#241442',
+                            pink: '#cf2e69',
+                            gold: '#e69041',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Smooth transitions for interactive elements */
+        input:focus {
+            outline: none;
+            border-color: #cf2e69 !important;
+            box-shadow: 0 0 0 3px rgba(207, 46, 105, 0.15);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased bg-gray-50 text-gray-800 min-h-screen flex flex-col justify-center">
+
+    <div class="w-full min-h-screen flex flex-col lg:flex-row">
+        
+        <!-- BAGIAN KIRI: Hero / Gambar Banner -->
+        <div class="relative lg:w-1/2 min-h-[350px] lg:min-h-screen bg-cover bg-center flex items-center p-8 sm:p-12 md:p-16 overflow-hidden" 
+             style="background-image: url('https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1600&auto=format&fit=crop');">
+            
+            <!-- Dark Purple Overlay (Visual Filter sesuai sampel) -->
+            <div class="absolute inset-0 bg-[#291e4a]/85 backdrop-brightness-75 mix-blend-multiply"></div>
+            <div class="absolute inset-0 bg-gradient-to-t from-[#1b1037] via-[#291e4a]/70 to-transparent"></div>
+
+            <!-- Content overlay -->
+            <div class="relative z-10 max-w-lg text-white">
+                <!-- Subtitle / Tagline Atas -->
+                <p class="text-brand-gold font-semibold text-xs sm:text-sm tracking-widest uppercase mb-3">
+                    Selamat Datang Kembali
+                </p>
+                
+                <!-- Main Serif Title -->
+                <h1 class="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-wide">
+                    Bersama tumbuh,<br class="hidden sm:inline"/> berani berprestasi.
+                </h1>
+            </div>
+        </div>
+
+        <!-- BAGIAN KANAN: Form Login -->
+        <div class="lg:w-1/2 flex items-center justify-center p-6 sm:p-12 lg:p-20 bg-white">
+            <div class="w-full max-w-md space-y-6">
+                
+                <!-- Header Form -->
+                <div>
+                    <span class="text-brand-pink text-xs font-bold tracking-widest uppercase block mb-1">
+                        LOGIN
+                    </span>
+                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-brand-navy tracking-tight">
+                        Login Ke Akun
+                    </h2>
+                </div>
+
+                <!-- Form Input -->
+                <form onsubmit="event.preventDefault();" class="space-y-5 pt-2">
+                    <!-- Field Email -->
+                    <div class="space-y-2">
+                        <label for="email" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                            Email
+                        </label>
+                        <input 
+                            type="email" 
+                            id="email" 
+                            name="email"
+                            placeholder="Masukan Alamat Email..." 
+                            required
+                            class="w-full px-4 py-3 rounded-md border border-gray-300 text-sm placeholder-gray-400 focus:bg-white transition duration-200"
+                        />
+                    </div>
+
+                    <!-- Field Kata Sandi -->
+                    <div class="space-y-2">
+                        <label for="password" class="block text-xs font-semibold text-gray-500 uppercase tracking-wider">
+                            Kata Sandi
+                        </label>
+                        <input 
+                            type="password" 
+                            id="password" 
+                            name="password"
+                            placeholder="Masukan Kata Sandi..." 
+                            required
+                            class="w-full px-4 py-3 rounded-md border border-gray-300 text-sm placeholder-gray-400 focus:bg-white transition duration-200"
+                        />
+                    </div>
+
+                    <!-- Tombol Masuk -->
+                    <div class="pt-2">
+                        <button 
+                            type="submit" 
+                            class="w-full py-3.5 px-4 bg-brand-primary hover:bg-brand-navy text-white font-medium text-sm rounded-md shadow-md hover:shadow-lg transition duration-200 active:scale-[0.99] tracking-wider uppercase"
+                        >
+                            MASUK
+                        </button>
+                    </div>
+                </form>
+
+                <!-- Footer Link (Daftar & Lupa Password) -->
+                <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between text-xs sm:text-sm text-gray-600 pt-4 gap-2">
+                    <p class="text-gray-500">
+                        Belum punya akun? 
+                        <a href="#" class="text-brand-pink font-semibold hover:underline transition">
+                            Daftar Sekarang
+                        </a>
+                    </p>
+                    <a href="#" class="text-gray-400 hover:text-gray-600 transition">
+                        lupa password?
+                    </a>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

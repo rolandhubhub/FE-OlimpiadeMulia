@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tentang Kami - Yayasan Intan Mutia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Lora:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+<style>
+:root {
+  --border:#c9c3d2; --soft-pink:#eadce4; --pink-border:#e9c4d6; --orange:#f98a02; --purple-dark:#2b1245; --pink:#ba5187; --maroon:#9c1457; --green:#2f7a56; --text-gray:#7a7686; --red:#b3261e;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0; font-family:'Poppins',sans-serif; background:#fff; color:#241c35;
+}
+img { display:block; max-width:100%; }
+a { color:inherit; text-decoration:none; }
+button,input,select,textarea { font:inherit; }
+.container { max-width:1180px; margin:0 auto; padding:0 24px; }
+.site-header { position:sticky; top:0; z-index:20; background:rgba(255,255,255,.96); border-bottom:1px solid var(--border); }
+.nav-wrap { display:flex; align-items:center; justify-content:space-between; min-height:78px; }
+.brand-wrap { display:inline-flex; align-items:center; }
+.brand-logo { width:110px; }
+.brand-badge { display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border-radius:50%; background:var(--soft-pink); color:var(--purple-dark); font-weight:700; font-family:'Lora',serif; }
+.brand-badge.big { width:60px; height:60px; font-size:1.4rem; }
+.nav-menu { display:flex; align-items:center; justify-content:center; gap:28px; flex:1; }
+.nav-link { position:relative; font-family:'Baloo 2',sans-serif; font-size:1.05rem; font-weight:600; color:var(--purple-dark); padding:18px 0 14px; }
+.nav-link.active::after, .nav-link:hover::after { content:''; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--orange); border-radius:2px; }
+.nav-actions { display:flex; align-items:center; gap:12px; }
+.icon-btn { width:40px; height:40px; border:1px solid var(--border); background:#fff; border-radius:6px; cursor:pointer; }
+.account-wrap { position:relative; }
+.account-btn { display:inline-flex; align-items:center; justify-content:center; min-width:120px; height:40px; border:none; border-radius:6px; background:var(--purple-dark); color:#fff; font-family:'Baloo 2',sans-serif; font-weight:700; letter-spacing:.06em; cursor:pointer; }
+.account-btn.outline { background:#fff; color:var(--purple-dark); border:1px solid var(--purple-dark); }
+.account-btn.user { background:var(--purple-dark); min-width:fit-content; padding:0 18px; }
+.account-menu { position:absolute; right:0; top:calc(100% + 8px); display:none; flex-direction:column; min-width:180px; background:#fff; border:1px solid var(--border); border-radius:8px; box-shadow:0 10px 30px rgba(0,0,0,.08); overflow:hidden; }
+.account-menu.show { display:flex; }
+.account-menu a, .account-menu button { padding:12px 16px; background:#fff; border:none; text-align:left; color:var(--purple-dark); font-weight:600; cursor:pointer; border-bottom:1px solid #f1eef3; }
+.account-menu a:last-child, .account-menu button:last-child { border-bottom:none; }
+.page-shell { padding:42px 0 80px; }
+.page-head { margin-bottom:24px; }
+.eyebrow { font-family:'Baloo 2',sans-serif; letter-spacing:.08em; text-transform:uppercase; font-weight:700; font-size:.8rem; color:var(--maroon); }
+.h1-style { font-family:'Lora',serif; font-size:clamp(2.1rem, 3vw, 3.1rem); color:var(--purple-dark); margin:8px 0 10px; }
+.subtle { color:var(--text-gray); }
+.site-footer { background:#fff; border-top:1px solid var(--border); }
+.footer-wrap { padding:24px 0 0; }
+.footer-grid { display:grid; grid-template-columns:1.6fr 1fr 1fr; gap:24px; padding:28px 0; }
+.footer-col h4 { margin:0 0 12px; font-family:'Lora',serif; color:var(--purple-dark); }
+.footer-col p, .footer-col li { color:var(--text-gray); line-height:1.7; font-size:.96rem; }
+.footer-col ul { list-style:none; padding:0; margin:0; }
+.footer-logo { width:130px; margin-bottom:14px; }
+.footer-bar { height:4px; background:var(--purple-dark); }
+.toast { position:fixed; right:22px; bottom:22px; background:var(--purple-dark); color:#fff; padding:12px 16px; border-radius:8px; box-shadow:0 8px 30px rgba(43,18,69,.25); opacity:0; transform:translateY(12px); transition:all .25s ease; pointer-events:none; z-index:60; }
+.toast.show { opacity:1; transform:translateY(0); }
+@media (max-width:760px) {
+  .container { padding:0 18px; }
+  .nav-wrap { flex-wrap:wrap; gap:12px; padding:12px 0; }
+  .nav-menu { order:3; width:100%; overflow-x:auto; justify-content:flex-start; gap:20px; }
+  .footer-grid { grid-template-columns:1fr; }
+}
+</style>
+
+  <style>
+    .about-page { padding: 36px 0 60px; }
+    .hero { background: var(--soft-pink); border:1px solid var(--pink-border); border-radius:18px; padding:28px 32px; }
+    .hero .eyebrow { color: var(--maroon); }
+    .hero h1 { margin:12px 0 12px; }
+    .hero p { color: var(--text-gray); font-size:1.02rem; line-height:1.8; }
+    .stats { display:grid; grid-template-columns:repeat(4, minmax(0,1fr)); gap:18px; margin-top:26px; }
+    .stat-card { background:#fff; border:1px solid var(--pink-border); border-radius:12px; padding:20px; text-align:center; }
+    .stat-label { display:block; font-size:.8rem; color:var(--text-gray); }
+    .stat-value { font-family:'Lora',serif; font-size:2rem; color:var(--maroon); margin-top:10px; }
+    .split { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin-top:26px; }
+    .panel { background:#fff; border:1px solid var(--pink-border); border-radius:12px; padding:22px; }
+    .panel h3 { font-family:'Lora',serif; color:var(--purple-dark); margin:0 0 12px; font-size:2rem; }
+    .panel ol { margin:0; padding-left:20px; line-height:1.8; color:var(--text-gray); }
+    .panel p { margin:0; line-height:1.8; color:var(--text-gray); }
+    .values { margin-top:30px; }
+    .values-grid { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:18px; margin-top:18px; }
+    .value-card { background:#fff; border:1px solid var(--border); border-radius:12px; padding:18px; }
+    .value-no { font-family:'Lora',serif; font-size:2.3rem; color:var(--orange); margin-bottom:8px; }
+    .value-card h4 { margin:0 0 8px; color:var(--purple-dark); }
+    .value-card p { margin:0; color:var(--text-gray); line-height:1.8; }
+    .prestasi-grid { display:grid; grid-template-columns:repeat(3, minmax(0,1fr)); gap:18px; margin-top:18px; }
+    .prestasi-card { background:var(--purple-dark); color:#fff; border-radius:12px; padding:20px; min-height:160px; display:flex; align-items:center; justify-content:center; text-align:center; }
+    .gallery-strip { display:flex; overflow-x:auto; gap:18px; padding:8px 0 18px; scroll-snap-type:x mandatory; }
+    .gallery-strip img { width:260px; height:380px; object-fit:cover; border-radius:12px; scroll-snap-align:start; border:1px solid var(--border); }
+    @media (max-width:900px) { .stats,.split,.values-grid,.prestasi-grid { grid-template-columns:1fr 1fr; } }
+    @media (max-width:680px) { .stats,.split,.values-grid,.prestasi-grid { grid-template-columns:1fr; } }
+  </style>
+</head>
+<body>
+  
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a href="index.html" class="brand-wrap" aria-label="Beranda"><img src="../Aset/footer_logo_insan_mutia.png" alt="Logo Yayasan Intan Mutia" class="brand-logo" onerror="this.style.display='none';this.onerror=null;this.parentNode.innerHTML='<span class='brand-badge'>IM</span>'"></a>
+    <nav class="nav-menu" aria-label="Navigasi utama">
+      <a href="index.html" class="nav-link">Beranda</a>
+      <a href="event.html" class="nav-link">Event</a>
+      <a href="buku.html" class="nav-link">Buku</a>
+      <a href="nominasi.html" class="nav-link">Nominasi</a>
+      <a href="tentang-kami.html" class="nav-link">Tentang Kami</a>
+    </nav>
+    <div class="nav-actions">
+      <button type="button" class="icon-btn" id="cartBtn" aria-label="Keranjang">🛒</button>
+      <div class="account-wrap">
+        <button type="button" id="accountBtn" class="account-btn">LOGIN</button>
+        <div class="account-menu" id="accountMenu"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+  <main class="about-page">
+    <div class="container">
+      <section class="hero">
+        <span class="eyebrow">Tentang Kami</span>
+        <h1 class="h1-style">Bersama tumbuh, berani berprestasi.</h1>
+        <p>Yayasan Intan Mutia lahir dari keyakinan sederhana: setiap anak punya potensi yang layak diberi panggung. Kami menghadirkan kompetisi yang adil, buku yang mendidik, dan apresiasi yang tulus bagi para juara.</p>
+      </section>
+
+      <div class="stats">
+        <div class="stat-card"><span class="stat-label">Tahun berdiri</span><div class="stat-value">2022</div></div>
+        <div class="stat-card"><span class="stat-label">Telah dilaksanakan di</span><div class="stat-value">17</div><span class="stat-label">Provinsi</span></div>
+        <div class="stat-card"><span class="stat-label">Telah dilaksanakan di</span><div class="stat-value">112</div><span class="stat-label">Rayon</span></div>
+        <div class="stat-card"><span class="stat-label">Total Peserta</span><div class="stat-value">29.953+</div></div>
+      </div>
+
+      <div class="split">
+        <div class="panel">
+          <h3>Visi</h3>
+          <p>Yayasan Pendidikan Intan Mutia akan menjadi Lembaga Pelaksana Olimpiade Pendidikan untuk Memajukan Prestasi Pendidikan Anak-Anak Indonesia. Baik Kancah Nasional maupun Internasional.</p>
+        </div>
+        <div class="panel">
+          <h3>Misi</h3>
+          <ol>
+            <li>Meningkatkan ilmu pengetahuan bagi para pelajar, mengembangkan semangat dalam bidang akademis yang positif dikalangan pelajar, serta mengembangkan rasa keberanian dan rasa percaya diri bagi para peserta.</li>
+            <li>Memberikan kesempatan bagi anak didik yang kurang mampu agar bisa ikut berkompetisi di jalur pendidikan.</li>
+            <li>Menjalin tali silaturahmi dan kekeluargaan antar pelajar.</li>
+          </ol>
+        </div>
+      </div>
+
+      <section class="values">
+        <span class="eyebrow">Nilai Kami</span>
+        <h2 class="h1-style" style="font-size:2.1rem;">Nilai yang kami pegang</h2>
+        <div class="values-grid">
+          <div class="value-card"><div class="value-no">01</div><h4>Integritas</h4><p>Penilaian dan pengumuman juara dilakukan terbuka dan dapat dipertanggungjawabkan.</p></div>
+          <div class="value-card"><div class="value-no">02</div><h4>Kualitas</h4><p>Soal dan buku disusun serta ditelaah oleh pendidik berpengalaman.</p></div>
+          <div class="value-card"><div class="value-no">03</div><h4>Inklusif</h4><p>Biaya terjangkau dan pendaftaran mudah untuk semua jenjang.</p></div>
+        </div>
+      </section>
+
+      <section class="values" style="margin-top:32px;">
+        <span class="eyebrow">Prestasi</span>
+        <h2 class="h1-style" style="font-size:2.1rem;">Prestasi dan kerja sama Yayasan Intan Mutia</h2>
+        <div class="prestasi-grid">
+          <div class="prestasi-card">Kerja sama dengan beberapa kabupaten/kota</div>
+          <div class="prestasi-card">Soal dan buku disusun serta ditelaah oleh pendidik berpengalaman.</div>
+          <div class="prestasi-card">Biaya terjangkau dan pendaftaran mudah untuk semua jenjang.</div>
+        </div>
+      </section>
+
+      <section class="values" style="margin-top:30px;">
+        <span class="eyebrow">Galeri</span>
+        <h2 class="h1-style" style="font-size:2.1rem;">Momen bersama Yayasan Intan Mutia</h2>
+        <div class="gallery-strip">
+          <img src="../Aset/IMG_6612.JPG" alt="Galeri Intan Mutia 1" />
+          <img src="../Aset/IMG_1851.JPG" alt="Galeri Intan Mutia 2" />
+          <img src="../Aset/IMG_1833.JPG" alt="Galeri Intan Mutia 3" />
+          <img src="../Aset/IMG_6578.JPG" alt="Galeri Intan Mutia 4" />
+          <img src="../Aset/IMG_6591.JPG" alt="Galeri Intan Mutia 5" />
+          <img src="../Aset/IMG_6615.JPG" alt="Galeri Intan Mutia 6" />
+        </div>
+      </section>
+    </div>
+  </main>
+  
+<footer class="site-footer">
+  <div class="container footer-wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <img src="../Aset/footer_logo_insan_mutia.png" alt="Logo Yayasan Intan Mutia" class="footer-logo" onerror="this.style.display='none';this.onerror=null;this.parentNode.innerHTML='<span class='brand-badge big'>IM</span>'">
+        <p>Yayasan Intan Mutia adalah yayasan yang menyediakan akses ajang kompetisi nasional yang adil dan berkualitas untuk mengasah potensi, melatih keberanian, serta membimbing tumbuh kembang anak Indonesia.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Customer Service</h4>
+        <ul>
+          <li><a href="tel:082177229922">0821-7722-9922</a> (telepon)</li>
+          <li><a href="https://wa.me/6282177229922">0821-7722-9922</a> (WhatsApp)</li>
+          <li><a href="mailto:intanmutiaeducation@gmail.com">intanmutiaeducation@gmail.com</a></li>
+          <li>Bandara Erfina Residence Blok D10, Asrikaton, Pakis, Kab. Malang, Jawa Timur.</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Social Media</h4>
+        <ul>
+          <li>Instagram: @intanmutiaa22</li>
+          <li>TikTok: @intanmutiaa22</li>
+          <li>Facebook: Intan Mutia Kmsi Jso</li>
+          <li>YouTube: @intanmutia114</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar"></div>
+</footer>
+
+  <div class="toast" id="toast"></div>
+  
+<script>
+  function getUsers(){
+    try { return JSON.parse(localStorage.getItem('im_users') || '[]'); }
+    catch (e) { return []; }
+  }
+  function saveUsers(users){ localStorage.setItem('im_users', JSON.stringify(users)); }
+  function currentUser(){
+    const email = localStorage.getItem('im_session');
+    if (!email) return null;
+    const users = getUsers();
+    return users.find(u => String(u.email).toLowerCase() === String(email).toLowerCase()) || null;
+  }
+  function login(email, sandi){
+    const users = getUsers();
+    const user = users.find(u => String(u.email).toLowerCase() === String(email).toLowerCase() && String(u.sandi) === String(sandi));
+    if (!user) return null;
+    localStorage.setItem('im_session', user.email);
+    return user;
+  }
+  function logout(){
+    localStorage.removeItem('im_session');
+    window.location.href = 'index.html';
+  }
+  function parseNext(){
+    const params = new URLSearchParams(window.location.search);
+    const next = params.get('next');
+    if (!next) return 'index.html';
+    if (/^[a-z0-9-]+\.html(\?[^#]*)?$/.test(next)) return next;
+    return 'index.html';
+  }
+  function requireLogin(nextTarget){
+    if (!currentUser()) {
+      const target = nextTarget || (window.location.pathname.split('/').pop() || 'index.html');
+      const url = 'login.html?next=' + encodeURIComponent(target);
+      window.location.href = url;
+      return false;
+    }
+    return true;
+  }
+  function toast(msg){
+    const el = document.getElementById('toast');
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 1800);
+  }
+  function renderAccount(){
+    const user = currentUser();
+    const btn = document.getElementById('accountBtn');
+    const menu = document.getElementById('accountMenu');
+    if (!btn || !menu) return;
+    if (!user) {
+      btn.textContent = 'LOGIN';
+      btn.className = 'account-btn outline';
+      menu.innerHTML = '';
+      return;
+    }
+    const name = user.panggilan || user.nama.split(' ')[0];
+    btn.textContent = name;
+    btn.className = 'account-btn user';
+    menu.innerHTML = '<a href="profil.html">Profil Saya</a><button type="button" id="logoutBtn">Keluar</button>';
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) logoutBtn.addEventListener('click', function(){ logout(); });
+    btn.onclick = function(){ menu.classList.toggle('show'); };
+    document.addEventListener('click', function(event){
+      if (!event.target.closest('.account-wrap')) menu.classList.remove('show');
+    });
+    const cartBtn = document.getElementById('cartBtn');
+    if (cartBtn) {
+      cartBtn.onclick = function(){
+        if (!currentUser()) {
+          window.location.href = 'login.html?next=' + encodeURIComponent(window.location.pathname.split('/').pop() || 'index.html');
+          return;
+        }
+        toast('Keranjang belum tersedia');
+      };
+    }
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    renderAccount();
+    const currentPage = (window.location.pathname.split('/').pop() || 'index.html');
+    document.querySelectorAll('.nav-link').forEach(function(link){
+      const href = link.getAttribute('href');
+      if (href === currentPage) link.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>

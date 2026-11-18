@@ -1,0 +1,60 @@
+import type { AdminUser } from "@/types/admin";
+
+export const adminUsers: AdminUser[] = [
+  {
+    id: 1,
+    name: "Budi Santoso",
+    email: "budi.santoso@gmail.com",
+    role: "Admin",
+    status: "Active",
+    joined: "24 Sep 2025",
+  },
+  {
+    id: 2,
+    name: "Admin Yayasan",
+    email: "adminyayasan@email.com",
+    role: "Admin",
+    status: "Active",
+    joined: "12 Jan 2025",
+  },
+  {
+    id: 3,
+    name: "Galih Alexander",
+    email: "galih.alexander@gmail.com",
+    role: "User",
+    status: "Active",
+    joined: "06 Mar 2026",
+  },
+  {
+    id: 4,
+    name: "Rizky Maulana",
+    email: "rizky.maulana@gmail.com",
+    role: "User",
+    status: "Active",
+    joined: "09 Apr 2026",
+  },
+  {
+    id: 5,
+    name: "Zahra Ramadhani",
+    email: "zahra.r@gmail.com",
+    role: "User",
+    status: "Active",
+    joined: "15 Feb 2026",
+  },
+  {
+    id: 6,
+    name: "Intan Prakoso",
+    email: "intan.prakoso@gmail.com",
+    role: "User",
+    status: "Active",
+    joined: "20 Jun 2026",
+  },
+  {
+    id: 7,
+    name: "Hana Ramadhani",
+    email: "hana.rama@gmail.com",
+    role: "User",
+    status: "Active",
+    joined: "18 Jul 2025",
+  },
+];

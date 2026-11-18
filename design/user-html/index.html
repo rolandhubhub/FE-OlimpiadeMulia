@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yayasan Bintang Mutia - Landing Page</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-serif-custom {
+      font-family: 'Playfair Display', Georgia, serif;
+    }
+  </style>
+</head>
+<body class="bg-[#fcfbfe] text-gray-800 antialiased">
+
+  <!-- Navigation Bar -->
+  <header class="w-full bg-white border-b border-gray-100 sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      <nav class="hidden md:flex items-center space-x-8 text-xs font-semibold text-gray-600">
+        <a href="#" class="text-[#9e1c4e] font-bold">Beranda</a>
+        <a href="#" class="hover:text-[#9e1c4e] transition-colors">Lomba</a>
+        <a href="#" class="hover:text-[#9e1c4e] transition-colors">Toko</a>
+        <a href="#" class="hover:text-[#9e1c4e] transition-colors">Informasi</a>
+        <a href="#" class="hover:text-[#9e1c4e] transition-colors">Tentang Kami</a>
+      </nav>
+
+      <div class="flex items-center space-x-4">
+        <button class="p-2 text-gray-600 hover:text-gray-900">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+        </button>
+        <a href="#" class="flex items-center space-x-2 text-xs font-bold border border-gray-300 px-4 py-2 rounded-full hover:bg-gray-50 transition-colors">
+          <svg class="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+          <span>MASUK</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section -->
+  <section class="bg-[#eee6f3] py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-7xl mx-auto">
+      <p class="text-[#9e1c4e] font-bold text-xs tracking-wider uppercase mb-3">
+        TENTANG YASINTA BINTANG MUTIA
+      </p>
+      <h1 class="font-serif-custom text-4xl sm:text-5xl lg:text-6xl font-bold text-[#1c1236] leading-tight mb-6">
+        Bersama<br>tumbuh, berani<br>berprestasi.
+      </h1>
+      <p class="text-gray-600 text-xs sm:text-sm leading-relaxed mb-8 max-w-xl">
+        Mewujudkan generasi emas Indonesia yang unggul, berkarakter, dan berdaya saing global melalui ajang kompetisi sains dan seni berstandar nasional.
+      </p>
+      <div class="flex flex-wrap gap-4">
+        <a href="#" class="px-6 py-3.5 bg-[#1c1236] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#2c1d54] transition-colors">
+          LIHAT BUKU DAN LOMBA
+        </a>
+        <a href="#" class="px-6 py-3.5 border border-gray-400 text-[#1c1236] text-xs font-bold uppercase tracking-wider hover:bg-white transition-colors">
+          BACA LENGKAP
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Event Section -->
+  <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-end justify-between mb-8">
+      <div>
+        <span class="text-[#9e1c4e] font-bold text-xs uppercase tracking-widest block mb-1">EVENT</span>
+        <h2 class="font-serif-custom text-2xl sm:text-3xl font-bold text-[#1c1236]">Event Pasar Murah</h2>
+      </div>
+      <a href="#" class="text-xs font-bold text-gray-400 hover:text-[#9e1c4e] uppercase tracking-wider">LIHAT DOKUMENTASI LOMBA &rarr;</a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Card 1 -->
+      <div class="border border-gray-200 bg-white p-6 rounded-sm shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="h-24 flex items-center justify-center mb-6 p-2">
+            <img src="Aset/event_logo_kmsi.png" alt="Logo KMSI" class="h-full object-contain">
+          </div>
+          <h3 class="font-bold text-sm text-[#1c1236] mb-2">Kompetisi Matematika Sains dan Inggris</h3>
+          <p class="text-xs text-gray-500 leading-relaxed">
+            Ajang kompetisi sains berskala nasional yang dirancang khusus untuk menguji serta meningkatkan wawasan siswa dalam bidang Matematika, Sains, dan Bahasa Inggris.
+          </p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="border border-gray-200 bg-white p-6 rounded-sm shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="h-24 flex items-center justify-center mb-6 p-2">
+            <img src="Aset/event_logo_jso.png" alt="Logo Genius Science Olympiad" class="h-full object-contain">
+          </div>
+          <h3 class="font-bold text-sm text-[#1c1236] mb-2">Genius Science Olympiad</h3>
+          <p class="text-xs text-gray-500 leading-relaxed">
+            Olimpiade bereputasi yang menghubungkan bakat-bakat muda terbaik dari berbagai daerah untuk bertanding dan meraih prestasi di tingkat nasional.
+          </p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="border border-gray-200 bg-white p-6 rounded-sm shadow-sm flex flex-col justify-between">
+        <div>
+          <div class="h-24 flex items-center justify-center mb-6 p-2">
+            <img src="Aset/event_logo_insan_mutia.png" alt="Logo Insan Mutia Competition" class="h-full object-contain">
+          </div>
+          <h3 class="font-bold text-sm text-[#1c1236] mb-2">Insan Mutia Competition</h3>
+          <p class="text-xs text-gray-500 leading-relaxed">
+            Ajang internasional bertaraf tinggi yang menjadi wadah kolaborasi serta kompetisi generasi muda global dalam bidang akademik dan riset.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Toko Section -->
+  <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-gray-100">
+    <div class="flex items-end justify-between mb-8">
+      <div>
+        <span class="text-[#9e1c4e] font-bold text-xs uppercase tracking-widest block mb-1">TOKO</span>
+        <h2 class="font-serif-custom text-2xl sm:text-3xl font-bold text-[#1c1236]">Koleksi Pilihan</h2>
+      </div>
+      <a href="#" class="text-xs font-bold text-gray-400 hover:text-[#9e1c4e] uppercase tracking-wider">LIHAT TOKO &rarr;</a>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <!-- Product Card 1 (IPS) -->
+      <div class="bg-white border border-gray-200 p-4 rounded-sm flex flex-col justify-between">
+        <div class="h-64 flex items-center justify-center mb-4 bg-gray-50 p-2">
+          <img src="Aset/buku_osn_ips_sd.png" alt="BUKU SUKSES OSN IPS SD" class="h-full object-contain">
+        </div>
+        <div>
+          <span class="text-[10px] bg-[#1c1236] text-white font-bold px-2 py-0.5 uppercase tracking-wider">BUKU</span>
+          <h4 class="font-bold text-xs text-[#1c1236] mt-2 mb-1">BUKU SUKSES OSN IPS SD Part 1</h4>
+          <p class="text-xs font-bold text-[#9e1c4e] mb-4">Rp 55.000</p>
+        </div>
+        <div class="flex gap-2">
+          <button class="flex-1 py-2 border border-gray-300 text-xs font-bold text-gray-700 hover:bg-gray-50">BELI BUKU</button>
+          <button class="px-3 py-2 bg-[#1c1236] text-white">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Product Card 2 (IPA) -->
+      <div class="bg-white border border-gray-200 p-4 rounded-sm flex flex-col justify-between">
+        <div class="h-64 flex items-center justify-center mb-4 bg-gray-50 p-2">
+          <img src="Aset/buku_osn_ipa_sd.png" alt="BUKU SUKSES OSN IPA SD" class="h-full object-contain">
+        </div>
+        <div>
+          <span class="text-[10px] bg-[#1c1236] text-white font-bold px-2 py-0.5 uppercase tracking-wider">BUKU</span>
+          <h4 class="font-bold text-xs text-[#1c1236] mt-2 mb-1">BUKU SUKSES OSN IPA SD Part 1</h4>
+          <p class="text-xs font-bold text-[#9e1c4e] mb-4">Rp 65.000</p>
+        </div>
+        <div class="flex gap-2">
+          <button class="flex-1 py-2 border border-gray-300 text-xs font-bold text-gray-700 hover:bg-gray-50">BELI BUKU</button>
+          <button class="px-3 py-2 bg-[#1c1236] text-white">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Product Card 3 (Matematika) -->
+      <div class="bg-white border border-gray-200 p-4 rounded-sm flex flex-col justify-between">
+        <div class="h-64 flex items-center justify-center mb-4 bg-gray-50 p-2">
+          <img src="Aset/buku_osn_matematika_sd.png" alt="BUKU SUKSES OSN MATEMATIKA" class="h-full object-contain">
+        </div>
+        <div>
+          <span class="text-[10px] bg-[#1c1236] text-white font-bold px-2 py-0.5 uppercase tracking-wider">BUKU OSN</span>
+          <h4 class="font-bold text-xs text-[#1c1236] mt-2 mb-1">BUKU SUKSES OSN MATEMATIKA Part 1</h4>
+          <p class="text-xs font-bold text-[#9e1c4e] mb-4">Rp 65.000</p>
+        </div>
+        <div class="flex gap-2">
+          <button class="flex-1 py-2 border border-gray-300 text-xs font-bold text-gray-700 hover:bg-gray-50">BELI BUKU</button>
+          <button class="px-3 py-2 bg-[#1c1236] text-white">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Product Card 4 (Bahasa Inggris) -->
+      <div class="bg-white border border-gray-200 p-4 rounded-sm flex flex-col justify-between">
+        <div class="h-64 flex items-center justify-center mb-4 bg-gray-50 p-2">
+          <img src="Aset/buku_osn_bahasa_inggris_sd.png" alt="BUKU SUKSES OSN BAHASA INGGRIS" class="h-full object-contain">
+        </div>
+        <div>
+          <span class="text-[10px] bg-[#1c1236] text-white font-bold px-2 py-0.5 uppercase tracking-wider">BUKU OSN</span>
+          <h4 class="font-bold text-xs text-[#1c1236] mt-2 mb-1">BUKU SUKSES OSN INGGRIS SD Part 1</h4>
+          <p class="text-xs font-bold text-[#9e1c4e] mb-4">Rp 55.000</p>
+        </div>
+        <div class="flex gap-2">
+          <button class="flex-1 py-2 border border-gray-300 text-xs font-bold text-gray-700 hover:bg-gray-50">BELI BUKU</button>
+          <button class="px-3 py-2 bg-[#1c1236] text-white">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dokumentasi / Galeri Section -->
+  <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-gray-100">
+    <div class="flex items-end justify-between mb-8">
+      <div>
+        <span class="text-[#9e1c4e] font-bold text-xs uppercase tracking-widest block mb-1">DOKUMENTASI</span>
+        <h2 class="font-serif-custom text-2xl sm:text-3xl font-bold text-[#1c1236]">Kategori</h2>
+      </div>
+      <a href="#" class="text-xs font-bold text-gray-400 hover:text-[#9e1c4e] uppercase tracking-wider">LIHAT DOKUMENTASI &rarr;</a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="bg-gray-100 rounded-sm overflow-hidden group">
+        <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=600&auto=format&fit=crop');"></div>
+        <div class="bg-[#1c1236] text-white text-center py-3 text-xs font-bold tracking-wider uppercase">
+          LOMBA SAINS NASIONAL 2023
+        </div>
+      </div>
+      <div class="bg-gray-100 rounded-sm overflow-hidden group">
+        <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1543269865-cbf427effbad?q=80&w=600&auto=format&fit=crop');"></div>
+        <div class="bg-[#1c1236] text-white text-center py-3 text-xs font-bold tracking-wider uppercase">
+          LOMBA MATEMATIKA 2023
+        </div>
+      </div>
+      <div class="bg-gray-100 rounded-sm overflow-hidden group">
+        <div class="h-48 bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=600&auto=format&fit=crop');"></div>
+        <div class="bg-[#1c1236] text-white text-center py-3 text-xs font-bold tracking-wider uppercase">
+          EVENT PASAR MURAH 2023
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fasilitas Utama (8 Cards Grid) -->
+  <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-gray-100 text-center">
+    <h2 class="font-serif-custom text-3xl font-bold text-[#1c1236] mb-2">Fasilitas Utama</h2>
+    <p class="text-xs text-gray-500 max-w-2xl mx-auto mb-12">
+      Layanan menyeluruh untuk mendukung kemudahan dan kenyamanan seluruh peserta dalam mengikuti ajang kompetisi.
+    </p>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div class="p-6 border border-gray-200 bg-white rounded-sm text-center">
+        <div class="w-10 h-10 mx-auto mb-3 text-purple-900 flex items-center justify-center">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/></svg>
+        </div>
+        <h4 class="font-bold text-xs text-[#1c1236] mb-1">Materi Terstandar</h4>
+        <p class="text-[11px] text-gray-500">Soal-soal berkualitas tinggi disusun oleh tim ahli.</p>
+      </div>
+
+      <div class="p-6 border border-gray-200 bg-white rounded-sm text-center">
+        <div class="w-10 h-10 mx-auto mb-3 text-purple-900 flex items-center justify-center">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h4 class="font-bold text-xs text-[#1c1236] mb-1">Sertifikat Resmi</h4>
+        <p class="text-[11px] text-gray-500">Sertifikat nasional ber-QR Code untuk verifikasi.</p>
+      </div>
+
+      <div class="p-6 border border-gray-200 bg-white rounded-sm text-center">
+        <div class="w-10 h-10 mx-auto mb-3 text-purple-900 flex items-center justify-center">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <h4 class="font-bold text-xs text-[#1c1236] mb-1">Hasil Cepat</h4>
+        <p class="text-[11px] text-gray-500">Pengumuman pemenang transparan dan real-time.</p>
+      </div>
+
+      <div class="p-6 border border-gray-200 bg-white rounded-sm text-center">
+        <div class="w-10 h-10 mx-auto mb-3 text-purple-900 flex items-center justify-center">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+        </div>
+        <h4 class="font-bold text-xs text-[#1c1236] mb-1">Komunitas Pembelajar</h4>
+        <p class="text-[11px] text-gray-500">Wadah jaringan antar pelajar berprestasi se-Indonesia.</p>
+      </div>
+
+      <div class="p-6 border border-gray-200 bg-white rounded-sm text-center">
+        <div class="w-10 h-10 mx-auto mb-3 text-purple-900 flex items-center justify-center">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
+        </div>
+        <h4 class="font-bold text-xs text-[#1c1236] mb-1">Medali & Trophy</h4>
+        <p class="text-[11px] text-gray-500">Penghargaan eksklusif untuk para juara terbaik.</p>
+      </div>
+
+      <div class="p-6 border border-gray-200 bg-white rounded-sm text-center">
+        <div class="w-10 h-10 mx-auto mb-3 text-purple-900 flex items-center justify-center">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h4 class="font-bold text-xs text-[#1c1236] mb-1">Beasiswa Prestasi</h4>
+        <p class="text-[11px] text-gray-500">Dukungan dana pendidikan bagi peserta berprestasi.</p>
+      </div>
+
+      <div class="p-6 border border-gray-200 bg-white rounded-sm text-center">
+        <div class="w-10 h-10 mx-auto mb-3 text-purple-900 flex items-center justify-center">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z"/></svg>
+        </div>
+        <h4 class="font-bold text-xs text-[#1c1236] mb-1">Webinar Pembekalan</h4>
+        <p class="text-[11px] text-gray-500">Sesi bimbingan intensif bersama pengajar berpengalaman.</p>
+      </div>
+
+      <div class="p-6 border border-gray-200 bg-white rounded-sm text-center">
+        <div class="w-10 h-10 mx-auto mb-3 text-purple-900 flex items-center justify-center">
+          <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        </div>
+        <h4 class="font-bold text-xs text-[#1c1236] mb-1">Bantuan 24/7</h4>
+        <p class="text-[11px] text-gray-500">Tim Customer Support yang siap membantu kapan saja.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Banner Promosi Olimpiade dengan File Maskot -->
+  <section class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="bg-[#f5eef8] border border-purple-100 rounded-sm p-8 sm:p-12 relative overflow-hidden flex flex-col md:flex-row items-center justify-between">
+      
+      <!-- Maskot Perempuan (Kiri) -->
+      <div class="w-full md:w-1/4 flex justify-center mb-6 md:mb-0">
+        <img src="Aset/maskot1.png" alt="Maskot Perempuan" class="h-48 sm:h-60 object-contain">
+      </div>
+
+      <!-- Teks Banner Tengah -->
+      <div class="w-full md:w-2/4 text-center">
+        <span class="text-[11px] font-bold text-gray-500 uppercase tracking-widest block mb-2">PENDAFTARAN TELAH DIBUKA</span>
+        <h2 class="font-serif-custom text-3xl sm:text-4xl font-extrabold text-[#1c1236] tracking-tight mb-2">
+          OLIMPIADE
+        </h2>
+        <p class="text-xs font-bold text-[#9e1c4e] tracking-widest uppercase mb-4">YAYASAN BINTANG MUTIA</p>
+        <p class="text-xs text-gray-600 max-w-md mx-auto mb-6">Segera daftarkan dirimu dan raih kesempatan emas menjuarai kompetisi!</p>
+        <a href="#" class="inline-block px-8 py-3 bg-[#1c1236] text-white text-xs font-bold uppercase tracking-wider hover:bg-[#2c1d54]">
+          MASUK ATAU DAFTAR
+        </a>
+      </div>
+
+      <!-- Maskot Laki-Laki (Kanan) -->
+      <div class="w-full md:w-1/4 flex justify-center mt-6 md:mt-0">
+        <img src="Aset/maskot2.png" alt="Maskot Laki-Laki" class="h-48 sm:h-60 object-contain">
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Tentang Kami & Statistik -->
+  <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="font-serif-custom text-3xl font-bold text-[#1c1236] mb-2">Tentang Kami</h2>
+      <p class="text-xs text-gray-500 max-w-2xl mx-auto">
+        Yayasan Bintang Mutia berkomitmen menyelenggarakan olimpiade dan edukasi berkualitas tinggi.
+      </p>
+    </div>
+
+    <!-- Banner Tentang Kami -->
+    <div class="bg-[#ebdff0] p-8 sm:p-12 rounded-sm mb-8 flex flex-col md:flex-row items-center justify-between">
+      <div class="max-w-xl mb-6 md:mb-0">
+        <span class="text-[#9e1c4e] font-bold text-xs uppercase tracking-wider block mb-2">TENTANG KAMI</span>
+        <h3 class="font-serif-custom text-3xl font-bold text-[#1c1236] mb-4">Bersama tumbuh, berani berprestasi.</h3>
+        <p class="text-xs text-gray-600 leading-relaxed">
+          Kami mendampingi setiap langkah putra-putri bangsa untuk menemukan potensi terbaik mereka melintasi berbagai cabang perlombaan nasional.
+        </p>
+      </div>
+      <a href="#" class="px-6 py-3 border border-gray-400 text-xs font-bold text-[#1c1236] uppercase tracking-wider hover:bg-white">SELENGKAPNYA</a>
+    </div>
+
+    <!-- Counters Grid -->
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div class="bg-white border border-gray-200 p-6 text-center rounded-sm">
+        <span class="text-[10px] text-gray-400 block uppercase">Mulai Dari</span>
+        <span class="text-2xl font-bold text-[#1c1236]">2022</span>
+      </div>
+      <div class="bg-white border border-gray-200 p-6 text-center rounded-sm">
+        <span class="text-[10px] text-gray-400 block uppercase">Ada Lebih Dari</span>
+        <span class="text-2xl font-bold text-[#1c1236]">17 Prestasi</span>
+      </div>
+      <div class="bg-white border border-gray-200 p-6 text-center rounded-sm">
+        <span class="text-[10px] text-gray-400 block uppercase">Tersebar Di</span>
+        <span class="text-2xl font-bold text-[#1c1236]">102 Rayon</span>
+      </div>
+      <div class="bg-white border border-gray-200 p-6 text-center rounded-sm">
+        <span class="text-[10px] text-gray-400 block uppercase">Peserta</span>
+        <span class="text-2xl font-bold text-[#1c1236]">28.910+</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Partner Kami -->
+  <section class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-gray-100 text-center">
+    <h2 class="font-serif-custom text-2xl font-bold text-[#1c1236] mb-2">Partner Kami</h2>
+    <p class="text-xs text-gray-500 mb-8">Bekerjasama dengan berbagai instansi terpercaya.</p>
+
+    <div class="flex flex-wrap items-center justify-center gap-6 md:gap-10 p-4">
+      <img src="Aset/footer_logo_kmsi.png" alt="Logo KMSI" class="h-10 object-contain">
+      <img src="Aset/footer_logo_kemendikdasmen.png" alt="Logo Kemendikdasmen" class="h-10 object-contain">
+      <img src="Aset/footer_logo_insan_mutia.png" alt="Logo Insan Mutia Competition" class="h-10 object-contain">
+      <img src="Aset/footer_logo_jso.png" alt="Logo Genius Science Olympiad" class="h-10 object-contain">
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t border-gray-200 py-12 text-xs text-gray-500">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8">
+      <div>
+        <span class="font-extrabold text-base text-[#1c1236] block mb-3">YASINTA BINTANG MUTIA</span>
+        <p class="leading-relaxed">Wadah pengembangan bakat dan potensi anak bangsa di bidang sains, matematika, dan ilmu pengetahuan.</p>
+      </div>
+      <div>
+        <h5 class="font-bold text-gray-800 uppercase mb-3">HALAMAN UTAMA</h5>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:underline">Beranda</a></li>
+          <li><a href="#" class="hover:underline">Lomba</a></li>
+          <li><a href="#" class="hover:underline">Toko Buku</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-bold text-gray-800 uppercase mb-3">INFORMASI</h5>
+        <ul class="space-y-2">
+          <li><a href="#" class="hover:underline">Dokumentasi</a></li>
+          <li><a href="#" class="hover:underline">Syarat & Ketentuan</a></li>
+          <li><a href="#" class="hover:underline">Kebijakan Privasi</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5 class="font-bold text-gray-800 uppercase mb-3">KONTAK KAMI</h5>
+        <p class="mb-1">Email: info@yasinta.or.id</p>
+        <p>Telepon: +62 812-3456-7890</p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

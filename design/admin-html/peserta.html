@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kelola Peserta — Panel Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Baloo+2:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:#fff; --border:#c9c3d2; --sidebar-active:#eadce4; --table-head:#eadce4; --orange:#f98a02; --purple-dark:#2b1245; --pink:#ba5187; --text-gray:#7a7686;
+      --badge-confirmed-bg:#deebe5; --badge-confirmed-text:#2f7a56; --badge-confirmed-border:#9fc9b2;
+      --badge-pending-bg:#fdf0dc; --badge-pending-text:#c17d12; --badge-pending-border:#f0c585;
+      --badge-cancel-bg:#fbdede; --badge-cancel-text:#c0423b; --badge-cancel-border:#f0a9a4;
+    }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:'Poppins',sans-serif; color:var(--purple-dark); background:#fff; }
+    .layout { display:flex; min-height:100vh; }
+    .sidebar { width:220px; flex-shrink:0; background:#fff; border-right:1px solid #eee; padding:28px 0; }
+    .brand { padding:0 24px 22px; }
+    .brand h1 { margin:0 0 4px; font-family:'Lora',serif; font-weight:600; font-size:21px; letter-spacing:.03em; }
+    .brand p { margin:0; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--pink); }
+    nav { display:flex; flex-direction:column; margin-top:4px; }
+    .nav-item { display:flex; align-items:center; gap:12px; padding:10px 24px; color:var(--text-gray); text-decoration:none; font-family:'Baloo 2',sans-serif; font-size:14px; font-weight:600; border-left:3px solid transparent; }
+    .nav-item svg { width:16px; height:16px; flex-shrink:0; }
+    .nav-item.active { background:var(--sidebar-active); color:var(--purple-dark); border-left-color:var(--orange); }
+    main { flex:1; padding:46px 34px 50px; min-width:0; }
+    .title { margin:0 0 4px; font-family:'Lora',serif; font-size:26px; font-weight:600; }
+    .page-sub { margin:0 0 22px; font-size:12px; color:var(--pink); font-weight:600; }
+    .filter-bar { display:flex; gap:12px; margin-bottom:18px; }
+    .filter-bar input, .filter-bar select { border:1px solid var(--border); border-radius:4px; padding:10px 14px; font-size:13px; font-family:'Baloo 2',sans-serif; color:var(--purple-dark); outline:none; background:#fff; }
+    .filter-bar input { flex:1.3; max-width:280px; }
+    .filter-bar select { flex:1; max-width:220px; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%237a7686' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 12px center; background-size:14px; }
+    table { width:100%; border-collapse:collapse; border:1px solid var(--border); font-size:12px; }
+    thead th { background:var(--table-head); text-align:left; padding:10px 12px; font-family:'Baloo 2',sans-serif; font-weight:700; color:var(--purple-dark); }
+    tbody td { padding:10px 12px; border-top:1px solid #ededed; vertical-align:middle; color:var(--purple-dark); }
+    .reg-no { font-weight:700; font-size:12px; }
+    .reg-date, .persub { color:var(--text-gray); font-size:11px; margin-top:2px; }
+    .peserta-nama { font-weight:700; }
+    .kontak-email { display:block; color:var(--purple-dark); text-decoration:underline; font-size:12px; }
+    .kontak-phone { color:var(--text-gray); font-size:11px; margin-top:2px; }
+    .badge { display:inline-block; padding:4px 14px; border-radius:4px; font-size:11px; font-weight:600; font-family:'Baloo 2',sans-serif; border:1px solid; }
+    .badge.confirmed { background:var(--badge-confirmed-bg); color:var(--badge-confirmed-text); border-color:var(--badge-confirmed-border); }
+    .badge.pending { background:var(--badge-pending-bg); color:var(--badge-pending-text); border-color:var(--badge-pending-border); }
+    .badge.cancel { background:var(--badge-cancel-bg); color:var(--badge-cancel-text); border-color:var(--badge-cancel-border); }
+    .table-foot { text-align:right; font-size:11px; color:var(--text-gray); margin-top:10px; font-family:'Baloo 2',sans-serif; }
+    @media (max-width:760px){
+      .layout{flex-direction:column;}
+      .sidebar{width:100%;}
+      nav{flex-direction:row; overflow-x:auto;}
+      .filter-bar{flex-direction:column;}
+      .filter-bar input, .filter-bar select{max-width:100%;}
+      table{display:block; overflow-x:auto;}
+    }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand"><h1>INTAN MUTIA</h1><p>PANEL ADMIN</p></div>
+    <nav>
+      <a class="nav-item" href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5" rx="1"></rect></svg>Dashboard</a>
+      <a class="nav-item" href="event.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="2"></rect><path d="M8 2v4M16 2v4M3 10h18"></path></svg>Event</a>
+      <a class="nav-item active" href="peserta.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"></circle><path d="M5 20c0-3.3 3.1-6 7-6s7 2.7 7 6"></path></svg>Peserta</a>
+      <a class="nav-item" href="nominasi.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.6 6.6L21 9l-5 4.5L17.4 21 12 17.3 6.6 21 8 13.5 3 9l6.4-.4z"></path></svg>Nominasi &amp; Sertifikat</a>
+      <a class="nav-item" href="buku.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="1"></rect><path d="M8 8h8M8 12h8M8 16h5"></path></svg>Buku</a>
+      <a class="nav-item" href="pesanan.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 7h12l-1 13H7z"></path><path d="M9 7V5a3 3 0 0 1 6 0v2"></path></svg>Pesanan</a>
+      <a class="nav-item" href="transaksi.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="12" rx="2"></rect><path d="M7 7V5h10v2"></path><path d="M8 12h8"></path></svg>Transaksi</a>
+      <a class="nav-item" href="pengguna.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg>Pengguna</a>
+    </nav>
+  </aside>
+
+  <main>
+    <h1 class="title">Kelola Peserta</h1>
+    <p class="page-sub">Konfirmasi dan kelola pendaftar</p>
+
+    <div class="filter-bar">
+      <input id="searchPeserta" type="text" placeholder="Cari Nama/sekolah">
+      <select id="filterEvent">
+        <option value="">Semua Event</option>
+        <option value="KMSI">KMSI</option>
+        <option value="JSO">JSO</option>
+        <option value="IMC">IMC</option>
+      </select>
+      <select id="filterStatus">
+        <option value="">Semua Status</option>
+        <option value="Confirmed">Confirmed</option>
+        <option value="Menunggu Bayar">Menunggu Bayar</option>
+        <option value="Cancelled">Cancelled</option>
+      </select>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>No. Registrasi</th>
+          <th>Peserta</th>
+          <th>Kontak</th>
+          <th>Event</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody id="pesertaTableBody"></tbody>
+    </table>
+    <div class="table-foot" id="pesertaFoot">0 data, Halaman 1/1</div>
+  </main>
+</div>
+
+<script>
+  const pesertaData = [
+    { id: 1, reg: 'REG-2026-000040', date: '21 Okt 2026', name: 'Nabila Maharani', school: 'SMPN 5 Surabaya', level: 'SMP', email: 'NabilaMaharani@gmail.com', phone: '089234576900', event: 'KMSI', status: 'Confirmed' },
+    { id: 2, reg: 'REG-2026-000041', date: '21 Okt 2026', name: 'Fikri Ramadhan', school: 'SMP 1 Malang', level: 'SMP', email: 'fikri.ramadhan@gmail.com', phone: '081345678900', event: 'JSO', status: 'Menunggu Bayar' },
+    { id: 3, reg: 'REG-2026-000042', date: '22 Okt 2026', name: 'Salsabila Putri', school: 'TK 03 Bandung', level: 'TK', email: 'salsabila.putri@gmail.com', phone: '085712345668', event: 'KMSI', status: 'Confirmed' },
+    { id: 4, reg: 'REG-2026-000043', date: '22 Okt 2026', name: 'Rizky Maulana', school: 'SMPN 2 Kediri', level: 'SMP', email: 'rizky.maulana@gmail.com', phone: '081211221334', event: 'IMC', status: 'Cancelled' },
+    { id: 5, reg: 'REG-2026-000044', date: '23 Okt 2026', name: 'Zahra Ramadhani', school: 'SD 5 Jakarta', level: 'SD', email: 'zahra.r@gmail.com', phone: '082233445566', event: 'KMSI', status: 'Confirmed' },
+    { id: 6, reg: 'REG-2026-000045', date: '24 Okt 2026', name: 'Dimas Prasetyo', school: 'SD 1 Yogyakarta', level: 'SD', email: 'dimas.p@gmail.com', phone: '081998877665', event: 'JSO', status: 'Menunggu Bayar' },
+    { id: 7, reg: 'REG-2026-000046', date: '25 Okt 2026', name: 'Aulia Sari', school: 'TK 01 Semarang', level: 'TK', email: 'aulia.sari@gmail.com', phone: '085321987654', event: 'IMC', status: 'Confirmed' }
+  ];
+
+  function escapeHtml(value) {
+    return String(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+  }
+
+  function renderPeserta() {
+    const q = document.getElementById('searchPeserta').value.trim().toLowerCase();
+    const eventFilter = document.getElementById('filterEvent').value;
+    const statusFilter = document.getElementById('filterStatus').value;
+    const rows = pesertaData.filter(item => {
+      const matchText = !q || `${item.name} ${item.school}`.toLowerCase().includes(q);
+      const matchEvent = !eventFilter || item.event === eventFilter;
+      const matchStatus = !statusFilter || item.status === statusFilter;
+      return matchText && matchEvent && matchStatus;
+    });
+
+    const body = document.getElementById('pesertaTableBody');
+    body.innerHTML = rows.length ? rows.map((item, idx) => `
+      <tr>
+        <td>${idx + 1}</td>
+        <td><div class="reg-no">${escapeHtml(item.reg)}</div><div class="reg-date">${escapeHtml(item.date)}</div></td>
+        <td><div class="peserta-nama">${escapeHtml(item.name)}</div><div class="persub">${escapeHtml(item.school)} · ${escapeHtml(item.level)}</div></td>
+        <td><a class="kontak-email" href="mailto:${encodeURIComponent(item.email)}">${escapeHtml(item.email)}</a><div class="kontak-phone">${escapeHtml(item.phone)}</div></td>
+        <td>${escapeHtml(item.event)}</td>
+        <td><span class="badge ${item.status === 'Confirmed' ? 'confirmed' : item.status === 'Menunggu Bayar' ? 'pending' : 'cancel'}">${escapeHtml(item.status)}</span></td>
+      </tr>
+    `).join('') : `<tr><td colspan="6" style="padding:18px; text-align:center; color:var(--text-gray);">Tidak ada data</td></tr>`;
+
+    document.getElementById('pesertaFoot').textContent = `${rows.length} data, Halaman 1/1`;
+  }
+
+  document.getElementById('searchPeserta').addEventListener('input', renderPeserta);
+  document.getElementById('filterEvent').addEventListener('change', renderPeserta);
+  document.getElementById('filterStatus').addEventListener('change', renderPeserta);
+  renderPeserta();
+</script>
+</body>
+</html>

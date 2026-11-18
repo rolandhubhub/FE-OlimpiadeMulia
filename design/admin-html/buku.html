@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kelola Buku — Panel Admin</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Lora:wght@500;600;700&family=Baloo+2:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root { --border:#c9c3d2; --sidebar-active:#eadce4; --table-head:#eadce4; --orange:#f98a02; --purple-dark:#2b1245; --pink:#ba5187; --maroon:#9c1457; --text-gray:#7a7686; --red:#b3261e; --teal:#1f7a4d; --shadow:rgba(20,10,30,.2); }
+    * { box-sizing:border-box; }
+    body { margin:0; font-family:'Poppins',sans-serif; color:var(--purple-dark); background:#fff; }
+    .layout { display:flex; min-height:100vh; }
+    .sidebar { width:220px; flex-shrink:0; background:#fff; border-right:1px solid #eee; padding:28px 0; }
+    .brand { padding:0 24px 22px; }
+    .brand h1 { margin:0 0 4px; font-family:'Lora',serif; font-size:21px; font-weight:600; letter-spacing:.03em; }
+    .brand p { margin:0; font-size:11px; font-weight:700; letter-spacing:.05em; color:var(--pink); }
+    nav { display:flex; flex-direction:column; margin-top:4px; }
+    .nav-item { display:flex; align-items:center; gap:12px; padding:10px 24px; color:var(--text-gray); text-decoration:none; font-family:'Baloo 2',sans-serif; font-size:14px; font-weight:600; border-left:3px solid transparent; }
+    .nav-item svg { width:16px; height:16px; flex-shrink:0; }
+    .nav-item.active { background:var(--sidebar-active); color:var(--purple-dark); border-left-color:var(--orange); }
+    main { flex:1; padding:46px 34px 50px; min-width:0; }
+    .eyebrow { margin:0 0 4px; font-size:12px; font-weight:700; color:var(--pink); }
+    .title { margin:0 0 4px; font-family:'Lora',serif; font-size:26px; font-weight:600; }
+    .page-sub { margin:0 0 18px; font-size:12px; color:var(--pink); font-weight:600; }
+    .toolbar { display:flex; align-items:center; gap:12px; margin-bottom:14px; }
+    .search-box { flex:1; max-width:420px; display:flex; align-items:center; gap:8px; border:1px solid var(--border); border-radius:4px; padding:0 14px; }
+    .search-box svg { width:16px; height:16px; color:var(--text-gray); }
+    .search-box input { width:100%; border:none; outline:none; padding:10px 0; font-family:'Baloo 2',sans-serif; font-size:13px; color:var(--purple-dark); }
+    .btn { font-family:'Baloo 2',sans-serif; font-size:12px; font-weight:700; letter-spacing:.03em; border-radius:4px; padding:10px 18px; cursor:pointer; border:none; }
+    .btn-dark { background:var(--purple-dark); color:#fff; }
+    .btn-outline { background:#fff; color:var(--purple-dark); border:1px solid var(--purple-dark); }
+    .btn-add { background:var(--purple-dark); color:#fff; }
+    .btn-edit, .btn-del { border:none; border-radius:4px; padding:7px 12px; font-family:'Baloo 2',sans-serif; font-size:11px; font-weight:700; color:#fff; cursor:pointer; }
+    .btn-edit { background:var(--orange); }
+    .btn-del { background:var(--red); }
+    table { width:100%; border-collapse:collapse; border:1px solid var(--border); font-size:12px; }
+    thead th { background:var(--table-head); text-align:left; padding:10px 12px; font-family:'Baloo 2',sans-serif; font-weight:700; color:var(--purple-dark); }
+    tbody td { padding:10px 12px; border-top:1px solid #ededed; vertical-align:middle; }
+    .cover-box { width:56px; height:56px; border-radius:4px; background:#efe8f3; display:flex; align-items:center; justify-content:center; color:var(--purple-dark); font-size:9px; font-weight:700; text-align:center; overflow:hidden; }
+    .cover-img { width:auto; height:56px; object-fit:contain; display:block; background:#efe8f3; border-radius:4px; }
+    .status-badge { display:inline-block; padding:4px 12px; border-radius:4px; font-size:11px; font-weight:600; font-family:'Baloo 2',sans-serif; }
+    .status-badge.aktif { background:#deebe5; color:#2f7a56; }
+    .status-badge.nonaktif { background:#e3e3e3; color:#6e6e6e; }
+    .table-actions { display:flex; gap:6px; }
+    .table-foot { text-align:right; font-size:11px; color:var(--text-gray); margin-top:10px; font-family:'Baloo 2',sans-serif; }
+    .overlay { position:fixed; inset:0; background:rgba(20,10,30,.45); display:none; align-items:flex-start; justify-content:center; padding:40px 16px; z-index:50; }
+    .overlay.active { display:flex; }
+    .modal { background:#fff; border-radius:6px; width:100%; max-width:760px; padding:28px 30px; box-shadow:0 18px 34px var(--shadow); }
+    .modal h3 { margin:0 0 18px; font-family:'Lora',serif; font-size:22px; font-weight:600; }
+    .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px 20px; }
+    .field { display:flex; flex-direction:column; }
+    .field label { display:block; margin-bottom:6px; font-size:12px; font-weight:600; font-family:'Baloo 2',sans-serif; }
+    .field label .req { color:var(--red); }
+    .field input, .field textarea, .field select { width:100%; border:1px solid var(--border); border-radius:4px; padding:10px 12px; font-size:12px; font-family:'Baloo 2',sans-serif; color:var(--purple-dark); outline:none; }
+    .field textarea { min-height:80px; resize:vertical; }
+    .field.full { grid-column:1 / -1; }
+    .field.inline { display:flex; flex-direction:row; align-items:center; gap:10px; margin-top:26px; }
+    .field.inline input[type="checkbox"] { width:16px; height:16px; }
+    .modal-actions { display:flex; justify-content:flex-end; gap:10px; margin-top:22px; }
+    .toast { position:fixed; right:22px; bottom:22px; background:var(--purple-dark); color:#fff; padding:12px 18px; border-radius:6px; font-size:12px; font-weight:600; opacity:0; transform:translateY(12px); transition:all .25s ease; pointer-events:none; z-index:60; }
+    .toast.show { opacity:1; transform:translateY(0); }
+    @media (max-width:760px){ .layout{flex-direction:column;} .sidebar{width:100%;} nav{flex-direction:row; overflow-x:auto;} .toolbar{flex-direction:column; align-items:stretch;} .search-box{max-width:unset;} .form-grid{grid-template-columns:1fr;} table{display:block; overflow-x:auto;} }
+  </style>
+</head>
+<body>
+<div class="layout">
+  <aside class="sidebar">
+    <div class="brand"><h1>INTAN MUTIA</h1><p>PANEL ADMIN</p></div>
+    <nav>
+      <a class="nav-item" href="dashboard.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="7" height="9" rx="1"></rect><rect x="14" y="3" width="7" height="5" rx="1"></rect><rect x="14" y="12" width="7" height="9" rx="1"></rect><rect x="3" y="16" width="7" height="5" rx="1"></rect></svg>Dashboard</a>
+      <a class="nav-item" href="event.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="4" width="18" height="17" rx="2"></rect><path d="M8 2v4M16 2v4M3 10h18"></path></svg>Event</a>
+      <a class="nav-item" href="peserta.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="3.2"></circle><path d="M5 20c0-3.3 3.1-6 7-6s7 2.7 7 6"></path></svg>Peserta</a>
+      <a class="nav-item" href="nominasi.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 2l2.6 6.6L21 9l-5 4.5L17.4 21 12 17.3 6.6 21 8 13.5 3 9l6.4-.4z"></path></svg>Nominasi &amp; Sertifikat</a>
+      <a class="nav-item active" href="buku.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="4" y="3" width="16" height="18" rx="1"></rect><path d="M8 8h8M8 12h8M8 16h5"></path></svg>Buku</a>
+      <a class="nav-item" href="pesanan.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 7h12l-1 13H7z"></path><path d="M9 7V5a3 3 0 0 1 6 0v2"></path></svg>Pesanan</a>
+      <a class="nav-item" href="transaksi.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="7" width="18" height="12" rx="2"></rect><path d="M7 7V5h10v2"></path><path d="M8 12h8"></path></svg>Transaksi</a>
+      <a class="nav-item" href="pengguna.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="12" cy="8" r="4"></circle><path d="M4 20c0-4.4 3.6-8 8-8s8 3.6 8 8"></path></svg>Pengguna</a>
+    </nav>
+  </aside>
+
+  <main>
+    <p class="eyebrow">Kelola Buku</p>
+    <h1 class="title">Kelola Buku</h1>
+    <p class="page-sub">Tambah,Edit dan Kelola semua buku</p>
+
+    <div class="toolbar">
+      <div class="search-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="6"></circle><path d="m16 16 5 5"></path></svg>
+        <input id="searchBuku" type="text" placeholder="Cari Nama buku">
+      </div>
+      <button class="btn btn-dark" type="button">CARI</button>
+      <button id="addBukuBtn" class="btn btn-add" type="button">+ TAMBAH BUKU</button>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Gambar</th>
+          <th>Pelajaran</th>
+          <th>Judul</th>
+          <th>Stok</th>
+          <th>Harga</th>
+          <th>Status</th>
+          <th>Deskripsi</th>
+          <th>Aksi</th>
+        </tr>
+      </thead>
+      <tbody id="bukuTableBody"></tbody>
+    </table>
+    <div class="table-foot" id="bukuFoot">0 data, Halaman 1/1</div>
+  </main>
+</div>
+
+<div id="bukuModal" class="overlay" aria-hidden="true">
+  <div class="modal">
+    <h3 id="bukuModalTitle">Tambah Buku</h3>
+    <form id="bukuForm">
+      <div class="form-grid">
+        <div class="field">
+          <label for="bukuPelajaran">Pelajaran <span class="req">*</span></label>
+          <select id="bukuPelajaran">
+            <option value="">Pilih pelajaran</option>
+            <option value="IPS">IPS</option>
+            <option value="IPA">IPA</option>
+            <option value="Matematika">Matematika</option>
+            <option value="Bahasa Inggris">Bahasa Inggris</option>
+          </select>
+        </div>
+        <div class="field">
+          <label for="bukuHarga">Harga <span class="req">*</span></label>
+          <input id="bukuHarga" type="number" min="0" placeholder="85000">
+        </div>
+        <div class="field full">
+          <label for="bukuJudul">Judul <span class="req">*</span></label>
+          <input id="bukuJudul" type="text" placeholder="Judul buku">
+        </div>
+        <div class="field inline full">
+          <input id="bukuTampil" type="checkbox">
+          <label for="bukuTampil" style="margin:0;">Tampilan di toko</label>
+        </div>
+        <div class="field">
+          <label for="bukuStok">Stok <span class="req">*</span></label>
+          <input id="bukuStok" type="number" min="0" placeholder="24">
+        </div>
+        <div class="field">
+          <label for="bukuDeskripsi">Deskripsi <span class="req">*</span></label>
+          <textarea id="bukuDeskripsi" placeholder="Deskripsi buku"></textarea>
+        </div>
+        <div class="field full">
+          <label for="bukuGambar">Gambar Buku <span class="req">*</span></label>
+          <input id="bukuGambar" type="file" accept="image/*">
+          <input id="bukuCurrentImage" type="text" readonly placeholder="Belum ada gambar" style="margin-top:8px; background:#f7f4f9; color:var(--purple-dark); border:1px solid var(--border); border-radius:4px; padding:8px 10px; font-size:11px;">
+        </div>
+      </div>
+      <div class="modal-actions">
+        <button class="btn btn-outline" type="button" data-close="bukuModal">BATAL</button>
+        <button class="btn btn-dark" type="submit">SIMPAN</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div id="deleteModal" class="overlay" aria-hidden="true">
+  <div class="modal" style="max-width:460px;">
+    <h3 id="deleteTitle">Hapus Buku ?</h3>
+    <p id="deleteText" style="margin:0; color:var(--text-gray); line-height:1.6;">"Buku Paten Olimpiade SD/MI IPS" akan dihapus permanen.</p>
+    <div class="modal-actions">
+      <button class="btn btn-outline" type="button" data-close="deleteModal">BATAL</button>
+      <button id="confirmDeleteBuku" class="btn btn-del" type="button" style="background:var(--red); color:#fff;">HAPUS</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast" class="toast" aria-live="polite"></div>
+
+<script>
+  const bukuData = [
+    { id: 1, pelajaran: 'IPS', judul: 'Buku Paten Olimpiade SD/MI IPS', stok: 24, harga: 85000, status: true, deskripsi: 'Panduan latihan olimpiade IPS untuk SD dan MI.', img: '../Aset/buku_osn_ips_sd.png', code: 'IPS' },
+    { id: 2, pelajaran: 'IPA', judul: 'Buku Paten Olimpiade SD/MI IPA', stok: 18, harga: 90000, status: true, deskripsi: 'Latihan soal dan konsep IPA berbasis kompetisi.', img: '../Aset/buku_osn_ipa_sd.png', code: 'IPA' },
+    { id: 3, pelajaran: 'Matematika', judul: 'Buku Paten Olimpiade Matematika SD', stok: 20, harga: 82000, status: true, deskripsi: 'Buku ringkas untuk persiapan olimpiade matematika.', img: '../Aset/buku_osn_matematika_sd.png', code: 'MAT' },
+    { id: 4, pelajaran: 'Bahasa Inggris', judul: 'Buku Paten Olimpiade Bahasa Inggris', stok: 14, harga: 78000, status: true, deskripsi: 'Latihan reading, grammar, dan vocabulary kelas tinggi.', img: '../Aset/buku_osn_bahasa_inggris_sd.png', code: 'ENG' },
+    { id: 5, pelajaran: 'IPS', judul: 'Buku Paten Olimpiade SD/MI IPS', stok: 0, harga: 85000, status: false, deskripsi: 'Versi arsip yang tidak ditampilkan pada toko.', img: '../Aset/buku_osn_ips_sd.png', code: 'IPS' }
+  ];
+  let deleteId = null;
+
+  function escapeHtml(value) {
+    return String(value ?? '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;');
+  }
+
+  function getBukuFallback(code) {
+    const map = {
+      IPS: 'https://placehold.co/70x70/f1eef7/2b1245?text=IPS',
+      IPA: 'https://placehold.co/70x70/e7f1ea/2b1245?text=IPA',
+      MAT: 'https://placehold.co/70x70/f8e1d2/2b1245?text=MAT',
+      ENG: 'https://placehold.co/70x70/edeaf8/2b1245?text=ENG'
+    };
+    return map[code] || map.IPS;
+  }
+
+  function getBukuCode(pelajaran) {
+    const value = String(pelajaran || '').trim();
+    if (value === 'IPS') return 'IPS';
+    if (value === 'IPA') return 'IPA';
+    if (value === 'Matematika') return 'MAT';
+    if (value === 'Bahasa Inggris') return 'ENG';
+    return 'IPS';
+  }
+
+  function getBukuImageMarkup(item) {
+    const code = (item && item.code) || getBukuCode(item && item.pelajaran);
+    const src = item && item.img ? item.img : getBukuFallback(code);
+    const alt = item && item.judul ? `Sampul buku ${item.judul}` : 'Sampul buku';
+    return `<img class="cover-img" src="${escapeHtml(src)}" alt="${escapeHtml(alt)}" onerror="this.onerror=null;this.src='${getBukuFallback(code)}';">`;
+  }
+
+  function toast(message) {
+    const el = document.getElementById('toast');
+    el.textContent = message;
+    el.classList.add('show');
+    clearTimeout(toast.timer);
+    toast.timer = setTimeout(() => el.classList.remove('show'), 2200);
+  }
+
+  function renderBuku() {
+    const q = document.getElementById('searchBuku').value.trim().toLowerCase();
+    const rows = bukuData.filter(item => !q || item.judul.toLowerCase().includes(q) || item.pelajaran.toLowerCase().includes(q));
+    const body = document.getElementById('bukuTableBody');
+    body.innerHTML = rows.length ? rows.map((item, idx) => `
+      <tr>
+        <td>${idx + 1}</td>
+        <td><div class="cover-box">${getBukuImageMarkup(item)}</div></td>
+        <td>${escapeHtml(item.pelajaran)}</td>
+        <td>${escapeHtml(item.judul)}</td>
+        <td>${escapeHtml(item.stok)}</td>
+        <td>Rp ${Number(item.harga).toLocaleString('id-ID')}</td>
+        <td><span class="status-badge ${item.status ? 'aktif' : 'nonaktif'}">${item.status ? 'AKTIF' : 'NONAKTIF'}</span></td>
+        <td>${escapeHtml(item.deskripsi)}</td>
+        <td>
+          <div class="table-actions">
+            <button class="btn-edit" type="button" data-action="edit" data-id="${item.id}">Edit</button>
+            <button class="btn-del" type="button" data-action="delete" data-id="${item.id}">Hapus</button>
+          </div>
+        </td>
+      </tr>
+    `).join('') : '<tr><td colspan="9" style="padding:18px; text-align:center; color:var(--text-gray);">Tidak ada data</td></tr>';
+    document.getElementById('bukuFoot').textContent = `${rows.length} data, Halaman 1/1`;
+  }
+
+  function openModal(id) {
+    document.getElementById(id).classList.add('active');
+  }
+
+  function closeModal(id) {
+    document.getElementById(id).classList.remove('active');
+  }
+
+  function validateBukuForm() {
+    const required = ['bukuPelajaran', 'bukuHarga', 'bukuJudul', 'bukuStok', 'bukuDeskripsi'];
+    let valid = true;
+    required.forEach(id => {
+      const el = document.getElementById(id);
+      el.style.borderColor = '#c9c3d2';
+      if (!el.value.trim()) {
+        el.style.borderColor = '#b3261e';
+        valid = false;
+      }
+    });
+    if (!valid) {
+      toast('Harap lengkapi semua field wajib');
+    }
+    return valid;
+  }
+
+  function handleAddBook() {
+    document.getElementById('bukuModalTitle').textContent = 'Tambah Buku';
+    document.getElementById('bukuForm').reset();
+    document.getElementById('bukuCurrentImage').value = '';
+    document.getElementById('bukuGambar').value = '';
+    openModal('bukuModal');
+  }
+
+  function handleEditBook(id) {
+    const item = bukuData.find(book => book.id === Number(id));
+    if (!item) return;
+    document.getElementById('bukuModalTitle').textContent = 'Edit Buku';
+    document.getElementById('bukuPelajaran').value = item.pelajaran;
+    document.getElementById('bukuHarga').value = item.harga;
+    document.getElementById('bukuJudul').value = item.judul;
+    document.getElementById('bukuTampil').checked = item.status;
+    document.getElementById('bukuStok').value = item.stok;
+    document.getElementById('bukuDeskripsi').value = item.deskripsi;
+    document.getElementById('bukuCurrentImage').value = item.img ? item.img.split('/').pop() : '';
+    document.getElementById('bukuGambar').value = '';
+    openModal('bukuModal');
+  }
+
+  function handleDeleteBook(id) {
+    const item = bukuData.find(book => book.id === Number(id));
+    if (!item) return;
+    deleteId = Number(id);
+    document.getElementById('deleteTitle').textContent = 'Hapus Buku ?';
+    document.getElementById('deleteText').textContent = `"${item.judul}" akan dihapus permanen.`;
+    openModal('deleteModal');
+  }
+
+  document.getElementById('addBukuBtn').addEventListener('click', handleAddBook);
+  document.getElementById('searchBuku').addEventListener('input', renderBuku);
+  document.getElementById('bukuGambar').addEventListener('change', function () {
+    const file = this.files && this.files[0];
+    document.getElementById('bukuCurrentImage').value = file ? file.name : '';
+  });
+  document.getElementById('bukuForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    if (!validateBukuForm()) return;
+    const fileInput = document.getElementById('bukuGambar');
+    const file = fileInput.files && fileInput.files[0];
+    const pelajaran = document.getElementById('bukuPelajaran').value;
+    const code = getBukuCode(pelajaran);
+    const payload = {
+      pelajaran,
+      harga: Number(document.getElementById('bukuHarga').value),
+      judul: document.getElementById('bukuJudul').value.trim(),
+      status: document.getElementById('bukuTampil').checked,
+      stok: Number(document.getElementById('bukuStok').value),
+      deskripsi: document.getElementById('bukuDeskripsi').value.trim(),
+      code,
+      img: file ? URL.createObjectURL(file) : getBukuFallback(code)
+    };
+
+    const existing = bukuData.find(book => book.judul === payload.judul);
+    if (existing) {
+      toast('Judul buku sudah ada');
+      return;
+    }
+
+    bukuData.push({ id: Date.now(), ...payload });
+    closeModal('bukuModal');
+    renderBuku();
+    toast('Buku berhasil ditambahkan');
+  });
+
+  document.getElementById('confirmDeleteBuku').addEventListener('click', function () {
+    if (deleteId === null) return;
+    const idx = bukuData.findIndex(book => book.id === deleteId);
+    if (idx >= 0) {
+      bukuData.splice(idx, 1);
+    }
+    deleteId = null;
+    closeModal('deleteModal');
+    renderBuku();
+    toast('Buku berhasil dihapus');
+  });
+
+  document.addEventListener('click', function (event) {
+    const action = event.target.getAttribute('data-action');
+    const id = event.target.getAttribute('data-id');
+    if (action === 'edit') handleEditBook(id);
+    if (action === 'delete') handleDeleteBook(id);
+    const modalId = event.target.getAttribute('data-close');
+    if (modalId) closeModal(modalId);
+  });
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') {
+      closeModal('bukuModal');
+      closeModal('deleteModal');
+    }
+  });
+
+  renderBuku();
+</script>
+</body>
+</html>

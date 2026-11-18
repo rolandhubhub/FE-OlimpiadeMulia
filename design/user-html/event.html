@@ -1,0 +1,1204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Sedang Berlangsung - Yayasan Intan Mutia</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* RESET & BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: #ffffff;
+            color: #111827;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* NAVBAR HEADER */
+        .navbar {
+            background-color: #ffffff;
+            width: 100%;
+            padding: 16px 40px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #f3f4f6;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.03);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .nav-actions {
+            position: absolute;
+            right: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-item {
+            text-decoration: none;
+            color: #374151;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        .nav-item.active,
+        .nav-item:hover {
+            color: #000000;
+            font-weight: 700;
+        }
+
+        .btn-icon {
+            background: transparent;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            padding: 7px 10px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #374151;
+            transition: border-color 0.2s;
+        }
+
+        .btn-icon:hover {
+            border-color: #9ca3af;
+        }
+
+        .btn-login {
+            background: transparent;
+            border: 1px solid #111827;
+            border-radius: 6px;
+            padding: 7px 18px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #111827;
+            letter-spacing: 0.5px;
+            transition: background-color 0.2s, color 0.2s;
+        }
+
+        .btn-login:hover {
+            background-color: #111827;
+            color: #ffffff;
+        }
+
+        /* BACK BUTTON */
+        .btn-back {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background-color: #e5e7eb;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            margin-bottom: 24px;
+            font-size: 1rem;
+            color: #374151;
+        }
+
+        /* MAIN SECTION */
+        .main-content {
+            background-color: #ffffff;
+            padding: 40px 20px 80px 20px;
+            flex-grow: 1;
+        }
+
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            margin-bottom: 36px;
+        }
+
+        .section-category {
+            color: #9333ea;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            display: block;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #3b0764;
+            letter-spacing: -0.5px;
+            margin-bottom: 6px;
+        }
+
+        .section-subtitle {
+            color: #6b7280;
+            font-size: 0.95rem;
+        }
+
+        /* GRID LAYOUT FOR LIST PAGE */
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+        }
+
+        @media (max-width: 992px) {
+            .event-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (max-width: 640px) {
+            .event-grid { grid-template-columns: 1fr; }
+        }
+
+        /* CARD DESIGN */
+        .event-card {
+            background-color: #ffffff;
+            border-radius: 12px;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #e5e7eb;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .event-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+
+        .badge {
+            position: absolute;
+            top: 0;
+            right: 0;
+            padding: 6px 14px;
+            font-size: 0.68rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            border-bottom-left-radius: 8px;
+            text-transform: uppercase;
+        }
+
+        .badge-gray { background-color: #d1d5db; color: #374151; }
+        .badge-purple { background-color: #3b0764; color: #ffffff; }
+        .badge-pink { background-color: #f472b6; color: #ffffff; }
+
+        .card-logo {
+            height: 140px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px 20px 12px 20px;
+            border-bottom: 1px solid #f3f4f6;
+        }
+
+        .card-logo img {
+            max-height: 85px;
+            max-width: 80%;
+            object-fit: contain;
+        }
+
+        .card-body {
+            padding: 18px 20px 20px 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .event-name {
+            font-size: 0.92rem;
+            font-weight: 700;
+            color: #111827;
+            margin-bottom: 14px;
+            line-height: 1.35;
+        }
+
+        .event-details {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.8rem;
+            color: #9ca3af;
+            margin-bottom: 16px;
+        }
+
+        .event-details li {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .detail-label { display: flex; align-items: center; gap: 6px; color: #9ca3af; }
+        .detail-val { color: #4b5563; font-weight: 500; }
+        .detail-val.right { margin-left: auto; }
+
+        .icon-calendar::before { content: "📅"; font-style: normal; font-size: 0.75rem; opacity: 0.6; }
+        .icon-pin::before { content: "📍"; font-style: normal; font-size: 0.75rem; opacity: 0.6; }
+
+        .card-footer-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #f3f4f6;
+            padding-top: 12px;
+            margin-bottom: 14px;
+            font-size: 0.82rem;
+            color: #374151;
+        }
+
+        .card-footer-info strong { color: #111827; font-weight: 800; }
+
+        .btn-primary {
+            width: 100%;
+            background-color: #22123b;
+            color: #ffffff;
+            border: none;
+            padding: 12px 0;
+            border-radius: 6px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            text-transform: uppercase;
+        }
+
+        .btn-primary:hover { background-color: #331b57; }
+
+        .btn-orange {
+            background-color: #f97316;
+            color: #ffffff;
+            border: none;
+            padding: 14px 0;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+            transition: background-color 0.2s;
+        }
+
+        .btn-orange:hover { background-color: #ea580c; }
+
+        .btn-outline {
+            background-color: #ffffff;
+            color: #374151;
+            border: 1px solid #d1d5db;
+            padding: 14px 0;
+            border-radius: 6px;
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            width: 100%;
+            text-transform: uppercase;
+        }
+
+        /* STEPPER BAR */
+        .stepper-container {
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .stepper-container::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background-color: #e5e7eb;
+            z-index: 1;
+            transform: translateY(-50%);
+        }
+
+        .stepper-progress {
+            position: absolute;
+            top: 50%;
+            left: 0;
+            height: 3px;
+            background-color: #10b981;
+            z-index: 1;
+            transform: translateY(-50%);
+            transition: width 0.3s ease;
+        }
+
+        .step-item {
+            position: relative;
+            z-index: 2;
+            background-color: #ffffff;
+            padding: 0 8px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: #9ca3af;
+        }
+
+        .step-item.active { color: #db2777; }
+        .step-item.completed { color: #10b981; }
+
+        /* VIEW CONTAINERS */
+        .page-view { display: none; }
+        .page-view.active-view { display: block; }
+
+        /* DETAIL EVENT PAGE DESIGN */
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1.4fr 1fr;
+            gap: 40px;
+        }
+
+        .detail-banner {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            margin-bottom: 24px;
+        }
+
+        .detail-banner img {
+            max-width: 100%;
+            height: auto;
+        }
+
+        .detail-sidebar-card {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 24px;
+            background-color: #ffffff;
+        }
+
+        .sidebar-price-label { color: #db2777; font-size: 0.75rem; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; }
+        .sidebar-price { font-size: 1.8rem; font-weight: 800; color: #111827; margin-bottom: 20px; }
+
+        .sidebar-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-top: 1px solid #f3f4f6;
+            font-size: 0.85rem;
+        }
+
+        .sidebar-row span { color: #6b7280; }
+        .sidebar-row strong { color: #111827; font-weight: 700; }
+
+        /* FORM DESIGN */
+        .form-card {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 32px;
+            background: #ffffff;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 24px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: #374151;
+        }
+
+        .form-group label span { color: #ef4444; }
+
+        .form-input, .form-select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        /* CONFIRMATION TABLE */
+        .confirm-box {
+            max-width: 800px;
+            margin: 0 auto;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 32px;
+            background-color: #ffffff;
+        }
+
+        .confirm-title {
+            color: #db2777;
+            font-size: 0.85rem;
+            font-weight: 800;
+            letter-spacing: 0.5px;
+            border-bottom: 1px solid #f3f4f6;
+            padding-bottom: 12px;
+            margin-bottom: 16px;
+        }
+
+        .confirm-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 0.85rem;
+        }
+
+        .confirm-row span { color: #6b7280; }
+        .confirm-row strong { color: #111827; font-weight: 700; }
+
+        /* PAYMENT SELECTION */
+        .payment-box {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .payment-option {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+
+        .payment-option.selected {
+            border: 2px solid #db2777;
+        }
+
+        .radio-circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #d1d5db;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .payment-option.selected .radio-circle {
+            border-color: #db2777;
+        }
+
+        .payment-option.selected .radio-circle::after {
+            content: '';
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #db2777;
+        }
+
+        /* QRIS & VA PAGE */
+        .pay-center-card {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .qr-image {
+            width: 220px;
+            height: 220px;
+            margin: 20px auto;
+        }
+
+        .va-box {
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 32px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .copy-input-group {
+            display: flex;
+            border: 1px solid #e5e7eb;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 16px 0;
+        }
+
+        .copy-input-group input {
+            flex-grow: 1;
+            padding: 12px;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #3b0764;
+            letter-spacing: 2px;
+            outline: none;
+        }
+
+        .btn-copy {
+            background-color: #f9fafb;
+            border: none;
+            border-left: 1px solid #e5e7eb;
+            padding: 0 16px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #4b5563;
+        }
+
+        /* RECEIPT / BUKTI PEMBAYARAN */
+        .alert-success-box {
+            max-width: 700px;
+            margin: 0 auto 24px auto;
+            border: 1px solid #10b981;
+            background-color: #f0fdf4;
+            border-radius: 8px;
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #065f46;
+        }
+
+        .receipt-card {
+            max-width: 700px;
+            margin: 0 auto;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            padding: 32px;
+            background-color: #ffffff;
+        }
+
+        .receipt-ticket {
+            background-color: #f3e8ff;
+            border-radius: 8px;
+            padding: 24px;
+            margin: 20px 0;
+        }
+
+        /* FOOTER PRECISE STYLING (SESUAI GAMBAR DESAIN FOOTER) */
+        .footer {
+            background-color: #ffffff;
+            border-top: 1px solid #e5e7eb;
+            padding: 40px 40px 0 40px;
+            margin-top: auto;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 220px 1.4fr 1.1fr 1fr;
+            gap: 32px;
+            align-items: start;
+            padding-bottom: 40px;
+        }
+
+        @media (max-width: 992px) {
+            .footer-container {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .footer-logo-col img {
+            max-width: 180px;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .footer-desc-col p {
+            font-size: 0.82rem;
+            color: #374151;
+            line-height: 1.6;
+        }
+
+        .footer-heading {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: #2b0c3d;
+            margin-bottom: 14px;
+        }
+
+        .footer-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            font-size: 0.82rem;
+            color: #374151;
+        }
+
+        .footer-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.4;
+        }
+
+        .footer-list a {
+            color: #374151;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        .footer-list a:hover {
+            color: #2b0c3d;
+        }
+
+        .footer-icon {
+            font-style: normal;
+            display: inline-block;
+            width: 16px;
+            text-align: center;
+            opacity: 0.75;
+            flex-shrink: 0;
+        }
+
+        .footer-bottom-bar {
+            background-color: #24143a;
+            height: 44px;
+            width: 100vw;
+            margin-left: calc(-50vw + 50%);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAVBAR HEADER -->
+    <header class="navbar">
+        <div class="nav-container">
+            <nav class="nav-links">
+                <a href="#" class="nav-item">Beranda</a>
+                <a href="#" class="nav-item active" onclick="showView('view-list')">Event</a>
+                <a href="#" class="nav-item">Buku</a>
+                <a href="#" class="nav-item">Nominasi</a>
+                <a href="#" class="nav-item">Tentang Kami</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="btn-icon" aria-label="Keranjang">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                </button>
+                <button class="btn-login" id="user-btn">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
+                    </svg>
+                    <span id="user-name-text">LOGIN</span>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- MAIN CONTENT SECTION -->
+    <main class="main-content">
+        <div class="container">
+
+            <!-- STEPPER BAR (UNTUK STEP 01 - 03) -->
+            <div id="stepper-bar" style="display: none;">
+                <button class="btn-back" onclick="goBack()">&#x2190;</button>
+                <div class="stepper-container">
+                    <div class="stepper-progress" id="stepper-progress-bar" style="width: 0%;"></div>
+                    <div class="step-item" id="step-1">01. Isi Formulir</div>
+                    <div class="step-item" id="step-2">02. Konfirmasi Data</div>
+                    <div class="step-item" id="step-3">03. Pembayaran</div>
+                </div>
+            </div>
+
+            <!-- VIEW 0: DAFTAR EVENT (LIST VIEW SEDANG BERLANGSUNG) -->
+            <div id="view-list" class="page-view active-view">
+                <header class="section-header">
+                    <span class="section-category">EVENT</span>
+                    <h1 class="section-title">Sedang Berlangsung</h1>
+                    <p class="section-subtitle">Pilih event yang ingin kamu ikuti lalu selesaikan pendaftaran</p>
+                </header>
+
+                <div class="event-grid">
+                    <!-- CARD 1 -->
+                    <article class="event-card">
+                        <div class="badge badge-gray">SEGERA DIBUKA</div>
+                        <div class="card-logo">
+                            <img src="../Aset/logo-intan-mutia.png" alt="Intan Mutia Competition" onerror="this.src='https://via.placeholder.com/150x60?text=Intan+Mutia'">
+                        </div>
+                        <div class="card-body">
+                            <h2 class="event-name">Kompetisi Matematika, Sains & Inggris Tingkat Nasional</h2>
+                            <ul class="event-details">
+                                <li><span class="detail-label"><i class="icon-calendar"></i> pendaftaran</span><span class="detail-val">24 Oktober 2026</span></li>
+                                <li><span class="detail-label"><i class="icon-calendar"></i> Pelaksanaan</span><span class="detail-val">24 Oktober 2026</span></li>
+                                <li><span class="detail-label"><i class="icon-pin"></i></span><span class="detail-val right">Universitas Ma Chung</span></li>
+                            </ul>
+                            <div class="card-footer-info"><span>Kouta</span><strong>120 Peserta</strong></div>
+                            <button class="btn-primary" onclick="showView('view-detail')">SELENGKAPNYA</button>
+                        </div>
+                    </article>
+
+                    <!-- CARD 2 (MAIN CLICKABLE CARD FOR FLOW) -->
+                    <article class="event-card">
+                        <div class="badge badge-purple">BERLANGSUNG</div>
+                        <div class="card-logo">
+                            <img src="../Aset/logo-kmsi.png" alt="KMSI" onerror="this.src='https://via.placeholder.com/150x60?text=KMSI'">
+                        </div>
+                        <div class="card-body">
+                            <h2 class="event-name">Kompetisi Matematika, Sains & Inggris Tingkat Nasional</h2>
+                            <ul class="event-details">
+                                <li><span class="detail-label"><i class="icon-calendar"></i> pendaftaran</span><span class="detail-val">13 Nov 2026 - 22 Jan 2027</span></li>
+                                <li><span class="detail-label"><i class="icon-calendar"></i> Pelaksanaan</span><span class="detail-val">21 Feb 2027 - 22 Feb 2027</span></li>
+                                <li><span class="detail-label"><i class="icon-pin"></i></span><span class="detail-val right">Universitas Ma Chung</span></li>
+                            </ul>
+                            <div class="card-footer-info"><span>Kouta</span><strong>120 Peserta</strong></div>
+                            <button class="btn-primary" onclick="showView('view-detail')">SELENGKAPNYA</button>
+                        </div>
+                    </article>
+
+                    <!-- CARD 3 -->
+                    <article class="event-card">
+                        <div class="badge badge-gray">SEGERA DIBUKA</div>
+                        <div class="card-logo">
+                            <img src="../Aset/logo-intan-mutia.png" alt="Intan Mutia Competition" onerror="this.src='https://via.placeholder.com/150x60?text=Intan+Mutia'">
+                        </div>
+                        <div class="card-body">
+                            <h2 class="event-name">Kompetisi Matematika, Sains & Inggris Tingkat Nasional</h2>
+                            <ul class="event-details">
+                                <li><span class="detail-label"><i class="icon-calendar"></i> pendaftaran</span><span class="detail-val">24 Oktober 2026</span></li>
+                                <li><span class="detail-label"><i class="icon-calendar"></i> Pelaksanaan</span><span class="detail-val">24 Oktober 2026</span></li>
+                                <li><span class="detail-label"><i class="icon-pin"></i></span><span class="detail-val right">Universitas Ma Chung</span></li>
+                            </ul>
+                            <div class="card-footer-info"><span>Kouta</span><strong>120 Peserta</strong></div>
+                            <button class="btn-primary" onclick="showView('view-detail')">SELENGKAPNYA</button>
+                        </div>
+                    </article>
+                </div>
+            </div>
+
+            <!-- VIEW 1: DETAIL EVENT -->
+            <div id="view-detail" class="page-view">
+                <button class="btn-back" onclick="showView('view-list')">&#x2190;</button>
+                <span class="section-category" style="color: #6b7280; text-transform: none;">Event/KMSI</span>
+                
+                <div class="detail-grid" style="margin-top: 16px;">
+                    <div>
+                        <div class="detail-banner">
+                            <img src="../Aset/logo-kmsi.png" alt="KMSI Big Logo" onerror="this.src='https://via.placeholder.com/350x150?text=KMSI+Tingkat+Nasional'">
+                        </div>
+                        <h1 class="section-title" style="font-size: 1.8rem;">Kompetisi Matematika,Sains & Inggris Tingkat Nasional</h1>
+                        <p style="color: #6b7280; font-size: 0.85rem; margin-bottom: 24px; line-height: 1.5;">
+                            Kompetisi tiga bidang untuk siswa TK,SD hingga SMP. Babak penyisihan dilakukan daring, final dilaksanakan luring.
+                        </p>
+                        <h3 style="font-size: 1.2rem; font-weight: 700; color: #3b0764; margin-bottom: 12px;">Jadwal</h3>
+                        <div class="confirm-row"><span>Pendaftaran</span><strong>13 Nov 2026 - 22 Jan 2027</strong></div>
+                        <div class="confirm-row"><span>Pelaksanaan</span><strong>21 Feb 2027 - 22 Feb 2027</strong></div>
+                    </div>
+
+                    <div>
+                        <div class="detail-sidebar-card">
+                            <div class="sidebar-price-label">Pendaftaran</div>
+                            <div class="sidebar-price">Rp 150.000</div>
+                            <div class="sidebar-row"><span>Benefit</span><strong>Uang Juara,Trofi,dan sertifikat</strong></div>
+                            <div class="sidebar-row"><span>Lokasi</span><strong>Universitas Ma Chung</strong></div>
+                            <div class="sidebar-row" style="margin-bottom: 24px;"><span>Kuota</span><strong>120 Peserta</strong></div>
+                            <button class="btn-orange" onclick="startRegistration()">DAFTAR EVENT</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 2: FORMULIR PENDAFTARAN (STEP 01) -->
+            <div id="view-form" class="page-view">
+                <div style="margin-bottom: 24px;">
+                    <h1 class="section-title">Formulir Pendaftaran</h1>
+                    <p class="section-subtitle">Kompetisi Matematika, Sains & Inggris (KMSI)</p>
+                </div>
+
+                <div class="form-card">
+                    <form id="reg-form" onsubmit="submitForm(event)">
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Nama Lengkap Peserta<span>*</span></label>
+                                <input type="text" id="input-nama" class="form-input" placeholder="Masukkan nama lengkap peserta" value="Margaretha Nessa Ghaisani" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Jenjang<span>*</span></label>
+                                <select id="input-jenjang" class="form-select" required>
+                                    <option value="SMP" selected>SMP</option>
+                                    <option value="SD">SD</option>
+                                    <option value="TK">TK</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Asal Sekolah<span>*</span></label>
+                                <input type="text" id="input-sekolah" class="form-input" placeholder="Nama Sekolah" value="SMPN 1 Kasih Indah" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Pelajaran<span>*</span></label>
+                                <select id="input-pelajaran" class="form-select" required>
+                                    <option value="Sains" selected>Sains</option>
+                                    <option value="Matematika">Matematika</option>
+                                    <option value="Bahasa Inggris">Bahasa Inggris</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Nama Orang Tua / Wali<span>*</span></label>
+                                <input type="text" id="input-ortu" class="form-input" placeholder="Masukkan Nama Orang Tua / Wali" value="Antonio Gregorius" required>
+                            </div>
+                            <div class="form-group">
+                                <label>WhatsApp Orang Tua/Wali<span>*</span></label>
+                                <input type="text" id="input-wa" class="form-input" placeholder="08xx xxxx xxxx" value="08233457758" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-orange">LANJUT KONFIRMASI DATA</button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- VIEW 3: KONFIRMASI DATA (STEP 02) -->
+            <div id="view-confirm" class="page-view">
+                <div style="margin-bottom: 24px;">
+                    <h1 class="section-title">Konfirmasi Data</h1>
+                    <p class="section-subtitle">Pastikan semua data sudah benar sebelum melanjutkan.</p>
+                </div>
+
+                <div class="confirm-box">
+                    <div class="confirm-title">KOMPETISI MATEMATIKA, SAINS & INGGRIS (KMSI)</div>
+                    <div class="confirm-row"><span>Nama Lengkap Peserta</span><strong id="conf-nama">Margaretha Nessa Ghaisani</strong></div>
+                    <div class="confirm-row"><span>Asal Sekolah</span><strong id="conf-sekolah">SMPN 1 Kasih Indah</strong></div>
+                    <div class="confirm-row"><span>Nama Orang Tua / Wali</span><strong id="conf-ortu">Antonio Gregorius</strong></div>
+                    <div class="confirm-row"><span>Jenjang</span><strong id="conf-jenjang">SMP</strong></div>
+                    <div class="confirm-row"><span>Pelajaran</span><strong id="conf-pelajaran">Sains</strong></div>
+                    <div class="confirm-row"><span>WhatsApp Orang Tua/Wali</span><strong id="conf-wa">08233457758</strong></div>
+                    <div class="confirm-row" style="margin-top: 12px; font-size: 1rem;">
+                        <span>Biaya Pendaftaran</span>
+                        <strong style="color: #db2777; font-size: 1.2rem;">Rp 150.000</strong>
+                    </div>
+
+                    <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 16px; margin-top: 24px;">
+                        <button type="button" class="btn-outline" onclick="showView('view-form')">UBAH DATA</button>
+                        <button type="button" class="btn-orange" onclick="showView('view-payment')">LANJUTKAN KE PEMBAYARAN</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- VIEW 4: METODE PEMBAYARAN (STEP 03) -->
+            <div id="view-payment" class="page-view">
+                <div style="margin-bottom: 24px;">
+                    <h1 class="section-title">Metode Pembayaran</h1>
+                </div>
+
+                <div class="payment-box">
+                    <div class="payment-option selected" id="opt-qris" onclick="selectPayment('qris')">
+                        <div class="radio-circle"></div>
+                        <div>
+                            <strong style="display: block; font-size: 0.95rem; color: #111827;">📱 Qris</strong>
+                            <span style="font-size: 0.8rem; color: #6b7280;">Scan dengan e-wallet atau m-banking apa pun</span>
+                        </div>
+                    </div>
+
+                    <div class="payment-option" id="opt-va" onclick="selectPayment('va')">
+                        <div class="radio-circle"></div>
+                        <div>
+                            <strong style="display: block; font-size: 0.95rem; color: #111827;">💳 Virtual Account</strong>
+                            <span style="font-size: 0.8rem; color: #6b7280;">Lakukan Pembayaran melalui Virtual Account</span>
+                        </div>
+                    </div>
+
+                    <button type="button" class="btn-orange" style="margin-top: 20px;" onclick="proceedPayment()">LANJUTKAN KE PEMBAYARAN</button>
+                </div>
+            </div>
+
+            <!-- VIEW 5: SCAN QRIS -->
+            <div id="view-qris" class="page-view">
+                <div class="pay-center-card">
+                    <span class="sidebar-price-label">QRIS</span>
+                    <h1 class="section-title" style="font-size: 1.8rem;">Scan untuk membayar</h1>
+                    <p class="section-subtitle">Selesaikan pembayaran dalam 1:59:48</p>
+
+                    <div class="qr-image">
+                        <svg viewBox="0 0 100 100" width="100%" height="100%">
+                            <path d="M0,0 h30 v30 h-30 z M40,0 h20 v10 h-20 z M70,0 h30 v30 h-30 z M0,40 h10 v20 h-10 z M30,40 h40 v10 h-40 z M80,40 h20 v30 h-20 z M0,70 h30 v30 h-30 z M40,80 h30 v20 h-30 z M80,80 h20 v20 h-20 z" fill="#111827"/>
+                            <rect x="5" y="5" width="20" height="20" fill="none" stroke="#ffffff" stroke-width="2"/>
+                            <rect x="75" y="5" width="20" height="20" fill="none" stroke="#ffffff" stroke-width="2"/>
+                            <rect x="5" y="75" width="20" height="20" fill="none" stroke="#ffffff" stroke-width="2"/>
+                        </svg>
+                    </div>
+
+                    <h2 class="sidebar-price" style="margin-bottom: 4px;">Rp 150.000</h2>
+                    <p style="font-size: 0.8rem; color: #6b7280; margin-bottom: 24px;">Kompetisi Matematika, Sains & Inggris (KMSI)</p>
+
+                    <button class="btn-orange" style="max-width: 300px;" onclick="simulatePaymentSuccess()">SIMULASI BAYAR SELESAI</button>
+                </div>
+            </div>
+
+            <!-- VIEW 6: VIRTUAL ACCOUNT -->
+            <div id="view-va" class="page-view">
+                <div class="pay-center-card" style="margin-bottom: 0;">
+                    <span class="sidebar-price-label">VIRTUAL ACCOUNT</span>
+                    <h1 class="section-title" style="font-size: 1.8rem;">Selesaikan pembayaran</h1>
+                    <p class="section-subtitle">Selesaikan pembayaran dalam 1:59:48</p>
+                </div>
+
+                <div class="va-box">
+                    <label style="font-size: 0.8rem; font-weight: 700; color: #374151;">Pilih Bank</label>
+                    <select class="form-select" style="margin-top: 6px; margin-bottom: 20px;">
+                        <option>Bank BCA / Mandiri / BRI</option>
+                    </select>
+
+                    <label style="font-size: 0.8rem; font-weight: 700; color: #374151;">Nomor Virtual Account</label>
+                    <div class="copy-input-group">
+                        <input type="text" value="1234 5678 3456" readonly>
+                        <button class="btn-copy">📋 salin</button>
+                    </div>
+
+                    <div style="margin-top: 20px;">
+                        <span style="font-size: 0.8rem; color: #6b7280; display: block; margin-bottom: 4px;">Total Pembayaran</span>
+                        <h2 class="sidebar-price" style="margin-bottom: 4px;">Rp 150.000</h2>
+                        <p style="font-size: 0.8rem; color: #6b7280; margin-bottom: 24px;">Kompetisi Matematika, Sains & Inggris (KMSI)</p>
+                    </div>
+
+                    <button class="btn-orange" onclick="simulatePaymentSuccess()">SIMULASI BAYAR SELESAI</button>
+                </div>
+            </div>
+
+            <!-- VIEW 7: BUKTI PEMBAYARAN RESMI -->
+            <div id="view-receipt" class="page-view">
+                <div class="alert-success-box">
+                    <span style="font-size: 1.2rem;">✔</span>
+                    <div>
+                        <strong style="display: block; font-size: 0.85rem;">Pembayaran Berhasil</strong>
+                        <span style="font-size: 0.78rem;">Pembayaran kamu sudah resmi, simpan kartu bukti pembayaran ini sebagai bukti</span>
+                    </div>
+                </div>
+
+                <div class="receipt-card">
+                    <h2 style="font-size: 1.1rem; font-weight: 800; color: #3b0764;">INTAN MUTIA</h2>
+                    <span class="sidebar-price-label">BUKTI PEMBAYARAN RESMI</span>
+
+                    <div class="receipt-ticket">
+                        <span style="font-size: 0.65rem; font-weight: 800; color: #db2777; letter-spacing: 1px;">KARTU PESERTA . KMSI 2026</span>
+                        <h1 style="font-size: 1.6rem; font-weight: 800; color: #3b0764; margin: 6px 0;" id="rec-reg">REG-2026-00040</h1>
+                        <strong style="display: block; font-size: 0.85rem; color: #111827;" id="rec-nama">Margaretha Nessa Ghaisani</strong>
+                        <span style="font-size: 0.78rem; color: #6b7280; display: block; margin-bottom: 12px;" id="rec-pelajaran">Sains . IPS</span>
+                        <p style="font-size: 0.75rem; color: #4b5563;">Kompetisi Matematika,Sains & Bahasa Inggris<br>24 Oktober 2026 | Universitas Ma Chung</p>
+                    </div>
+
+                    <div class="confirm-row"><span>Nama Lengkap Peserta</span><strong id="rec-det-nama">Margaretha Nessa Ghaisani</strong></div>
+                    <div class="confirm-row"><span>Asal Sekolah</span><strong id="rec-det-sekolah">SMPN 1 Kasih Indah</strong></div>
+                    <div class="confirm-row"><span>Nama Orang Tua / Wali</span><strong id="rec-det-ortu">Antonio Gregorius</strong></div>
+                    <div class="confirm-row"><span>Jenjang</span><strong id="rec-det-jenjang">SMP</strong></div>
+                    <div class="confirm-row"><span>Pelajaran</span><strong id="rec-det-pelajaran">Sains</strong></div>
+                    <div class="confirm-row"><span>WhatsApp Orang Tua/ Wali</span><strong id="rec-det-wa">08233457758</strong></div>
+                    <div class="confirm-row" style="margin-top: 12px; font-size: 1rem;">
+                        <span>Total dibayar</span>
+                        <strong style="color: #db2777; font-size: 1.2rem;">Rp 150.000</strong>
+                    </div>
+
+                    <div style="background-color: #f3e8ff; border-radius: 6px; padding: 12px; margin-top: 24px; display: flex; align-items: center; gap: 8px; font-size: 0.78rem; color: #3b0764;">
+                        <span>ℹ</span> Bukti pembayaran otomatis tersimpan di profil, klik profil untuk melihat
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- FOOTER SECTION (DISESUAIKAN PERSIS GAMBAR FOOTER) -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- KOLOM 1: LOGO -->
+            <div class="footer-logo-col">
+                <img src="../Aset/logo-intan-mutia.png" alt="Yayasan Intan Mutia" onerror="this.src='https://via.placeholder.com/180x60?text=YAYASAN+INTAN+MUTIA'">
+            </div>
+
+            <!-- KOLOM 2: DESKRIPSI -->
+            <div class="footer-desc-col">
+                <p>
+                    Yayasan Intan Mutia adalah yayasan yang menyediakan akses ajang kompetisi nasional yang adil dan berkualitas untuk mengasah potensi, melatih keberanian, serta membimbing tumbuh kembang anak Indonesia.
+                </p>
+            </div>
+
+            <!-- KOLOM 3: CUSTOMER SERVICE -->
+            <div>
+                <h4 class="footer-heading">Customer Service</h4>
+                <ul class="footer-list">
+                    <li><i class="footer-icon">📞</i><a href="tel:082177229922">0821-7722-9922</a></li>
+                    <li><i class="footer-icon">💬</i><a href="https://wa.me/6282177229922" target="_blank">0821-7722-9922</a></li>
+                    <li><i class="footer-icon">✉</i><a href="mailto:intanmutiaeducation@gmail.com">intanmutiaeducation@gmail.com</a></li>
+                    <li><i class="footer-icon">📍</i><span>Bandara Erfina Residence Blok D10, Asrikaton, Pakis, Kab. Malang, Jawa Timur.</span></li>
+                </ul>
+            </div>
+
+            <!-- KOLOM 4: SOCIAL MEDIA -->
+            <div>
+                <h4 class="footer-heading">Social Media</h4>
+                <ul class="footer-list">
+                    <li><i class="footer-icon">📷</i><a href="#">@intanmutiaa22</a></li>
+                    <li><i class="footer-icon">🎵</i><a href="#">@intanmutiaa22</a></li>
+                    <li><i class="footer-icon">📘</i><a href="#">Intan Mutia Kmsi Jso</a></li>
+                    <li><i class="footer-icon">🎥</i><a href="#">@intanmutia114</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom-bar"></div>
+    </footer>
+
+    <!-- INTERACTIVITY SCRIPT -->
+    <script>
+        let selectedPayMethod = 'qris';
+
+        function showView(viewId) {
+            const views = document.querySelectorAll('.page-view');
+            views.forEach(v => v.classList.remove('active-view'));
+
+            const targetView = document.getElementById(viewId);
+            if (targetView) targetView.classList.add('active-view');
+
+            const stepperBar = document.getElementById('stepper-bar');
+            const step1 = document.getElementById('step-1');
+            const step2 = document.getElementById('step-2');
+            const step3 = document.getElementById('step-3');
+            const progressBar = document.getElementById('stepper-progress-bar');
+
+            if (['view-form', 'view-confirm', 'view-payment', 'view-qris', 'view-va'].includes(viewId)) {
+                stepperBar.style.display = 'block';
+            } else {
+                stepperBar.style.display = 'none';
+            }
+
+            step1.className = 'step-item';
+            step2.className = 'step-item';
+            step3.className = 'step-item';
+
+            if (viewId === 'view-form') {
+                step1.classList.add('active');
+                progressBar.style.width = '0%';
+            } else if (viewId === 'view-confirm') {
+                step1.classList.add('completed');
+                step2.classList.add('active');
+                progressBar.style.width = '50%';
+            } else if (['view-payment', 'view-qris', 'view-va'].includes(viewId)) {
+                step1.classList.add('completed');
+                step2.classList.add('completed');
+                step3.classList.add('active');
+                progressBar.style.width = '100%';
+            }
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function startRegistration() {
+            showView('view-form');
+        }
+
+        function goBack() {
+            const activeView = document.querySelector('.page-view.active-view').id;
+            if (activeView === 'view-form') showView('view-detail');
+            else if (activeView === 'view-confirm') showView('view-form');
+            else if (['view-payment', 'view-qris', 'view-va'].includes(activeView)) showView('view-confirm');
+            else showView('view-list');
+        }
+
+        function submitForm(event) {
+            event.preventDefault();
+            
+            const nama = document.getElementById('input-nama').value;
+            const sekolah = document.getElementById('input-sekolah').value;
+            const ortu = document.getElementById('input-ortu').value;
+            const jenjang = document.getElementById('input-jenjang').value;
+            const pelajaran = document.getElementById('input-pelajaran').value;
+            const wa = document.getElementById('input-wa').value;
+
+            document.getElementById('conf-nama').innerText = nama;
+            document.getElementById('conf-sekolah').innerText = sekolah;
+            document.getElementById('conf-ortu').innerText = ortu;
+            document.getElementById('conf-jenjang').innerText = jenjang;
+            document.getElementById('conf-pelajaran').innerText = pelajaran;
+            document.getElementById('conf-wa').innerText = wa;
+
+            document.getElementById('rec-nama').innerText = nama;
+            document.getElementById('rec-pelajaran').innerText = pelajaran;
+            document.getElementById('rec-det-nama').innerText = nama;
+            document.getElementById('rec-det-sekolah').innerText = sekolah;
+            document.getElementById('rec-det-ortu').innerText = ortu;
+            document.getElementById('rec-det-jenjang').innerText = jenjang;
+            document.getElementById('rec-det-pelajaran').innerText = pelajaran;
+            document.getElementById('rec-det-wa').innerText = wa;
+
+            showView('view-confirm');
+        }
+
+        function selectPayment(type) {
+            selectedPayMethod = type;
+            document.getElementById('opt-qris').classList.remove('selected');
+            document.getElementById('opt-va').classList.remove('selected');
+
+            if (type === 'qris') {
+                document.getElementById('opt-qris').classList.add('selected');
+            } else {
+                document.getElementById('opt-va').classList.add('selected');
+            }
+        }
+
+        function proceedPayment() {
+            if (selectedPayMethod === 'qris') {
+                showView('view-qris');
+            } else {
+                showView('view-va');
+            }
+        }
+
+        function simulatePaymentSuccess() {
+            document.getElementById('user-name-text').innerText = 'Nessa';
+            showView('view-receipt');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Profil Saya - Yayasan Intan Mutia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700&family=Lora:wght@500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  
+<style>
+:root {
+  --border:#c9c3d2; --soft-pink:#eadce4; --pink-border:#e9c4d6; --orange:#f98a02; --purple-dark:#2b1245; --pink:#ba5187; --maroon:#9c1457; --green:#2f7a56; --text-gray:#7a7686; --red:#b3261e;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; }
+body {
+  margin:0; font-family:'Poppins',sans-serif; background:#fff; color:#241c35;
+}
+img { display:block; max-width:100%; }
+a { color:inherit; text-decoration:none; }
+button,input,select,textarea { font:inherit; }
+.container { max-width:1180px; margin:0 auto; padding:0 24px; }
+.site-header { position:sticky; top:0; z-index:20; background:rgba(255,255,255,.96); border-bottom:1px solid var(--border); }
+.nav-wrap { display:flex; align-items:center; justify-content:space-between; min-height:78px; }
+.brand-wrap { display:inline-flex; align-items:center; }
+.brand-logo { width:110px; }
+.brand-badge { display:inline-flex; align-items:center; justify-content:center; width:42px; height:42px; border-radius:50%; background:var(--soft-pink); color:var(--purple-dark); font-weight:700; font-family:'Lora',serif; }
+.brand-badge.big { width:60px; height:60px; font-size:1.4rem; }
+.nav-menu { display:flex; align-items:center; justify-content:center; gap:28px; flex:1; }
+.nav-link { position:relative; font-family:'Baloo 2',sans-serif; font-size:1.05rem; font-weight:600; color:var(--purple-dark); padding:18px 0 14px; }
+.nav-link.active::after, .nav-link:hover::after { content:''; position:absolute; left:0; right:0; bottom:0; height:3px; background:var(--orange); border-radius:2px; }
+.nav-actions { display:flex; align-items:center; gap:12px; }
+.icon-btn { width:40px; height:40px; border:1px solid var(--border); background:#fff; border-radius:6px; cursor:pointer; }
+.account-wrap { position:relative; }
+.account-btn { display:inline-flex; align-items:center; justify-content:center; min-width:120px; height:40px; border:none; border-radius:6px; background:var(--purple-dark); color:#fff; font-family:'Baloo 2',sans-serif; font-weight:700; letter-spacing:.06em; cursor:pointer; }
+.account-btn.outline { background:#fff; color:var(--purple-dark); border:1px solid var(--purple-dark); }
+.account-btn.user { background:var(--purple-dark); min-width:fit-content; padding:0 18px; }
+.account-menu { position:absolute; right:0; top:calc(100% + 8px); display:none; flex-direction:column; min-width:180px; background:#fff; border:1px solid var(--border); border-radius:8px; box-shadow:0 10px 30px rgba(0,0,0,.08); overflow:hidden; }
+.account-menu.show { display:flex; }
+.account-menu a, .account-menu button { padding:12px 16px; background:#fff; border:none; text-align:left; color:var(--purple-dark); font-weight:600; cursor:pointer; border-bottom:1px solid #f1eef3; }
+.account-menu a:last-child, .account-menu button:last-child { border-bottom:none; }
+.page-shell { padding:42px 0 80px; }
+.page-head { margin-bottom:24px; }
+.eyebrow { font-family:'Baloo 2',sans-serif; letter-spacing:.08em; text-transform:uppercase; font-weight:700; font-size:.8rem; color:var(--maroon); }
+.h1-style { font-family:'Lora',serif; font-size:clamp(2.1rem, 3vw, 3.1rem); color:var(--purple-dark); margin:8px 0 10px; }
+.subtle { color:var(--text-gray); }
+.site-footer { background:#fff; border-top:1px solid var(--border); }
+.footer-wrap { padding:24px 0 0; }
+.footer-grid { display:grid; grid-template-columns:1.6fr 1fr 1fr; gap:24px; padding:28px 0; }
+.footer-col h4 { margin:0 0 12px; font-family:'Lora',serif; color:var(--purple-dark); }
+.footer-col p, .footer-col li { color:var(--text-gray); line-height:1.7; font-size:.96rem; }
+.footer-col ul { list-style:none; padding:0; margin:0; }
+.footer-logo { width:130px; margin-bottom:14px; }
+.footer-bar { height:4px; background:var(--purple-dark); }
+.toast { position:fixed; right:22px; bottom:22px; background:var(--purple-dark); color:#fff; padding:12px 16px; border-radius:8px; box-shadow:0 8px 30px rgba(43,18,69,.25); opacity:0; transform:translateY(12px); transition:all .25s ease; pointer-events:none; z-index:60; }
+.toast.show { opacity:1; transform:translateY(0); }
+@media (max-width:760px) {
+  .container { padding:0 18px; }
+  .nav-wrap { flex-wrap:wrap; gap:12px; padding:12px 0; }
+  .nav-menu { order:3; width:100%; overflow-x:auto; justify-content:flex-start; gap:20px; }
+  .footer-grid { grid-template-columns:1fr; }
+}
+</style>
+
+  <style>
+    body { background:#f9f6fa; }
+    .profile-wrap { padding:36px 0 72px; }
+    .profile-header { display:flex; align-items:center; gap:18px; background:#fff; border:1px solid var(--border); border-radius:12px; padding:22px 24px; }
+    .avatar { width:64px; height:64px; border-radius:50%; background:var(--maroon); color:#fff; display:flex; align-items:center; justify-content:center; font-family:'Lora',serif; font-size:1.9rem; }
+    .profile-label { font-family:'Baloo 2',sans-serif; font-size:.8rem; letter-spacing:.08em; text-transform:uppercase; color:var(--pink); }
+    .profile-name { font-family:'Lora',serif; font-size:clamp(2rem,3vw,2.6rem); color:var(--purple-dark); margin-top:4px; }
+    .tabs { display:flex; gap:28px; margin-top:22px; border-bottom:1px solid var(--border); }
+    .tab { border:none; background:none; padding:12px 0; font-family:'Baloo 2',sans-serif; font-size:1.1rem; color:var(--text-gray); border-bottom:3px solid transparent; cursor:pointer; }
+    .tab.active { color:var(--purple-dark); border-color:var(--orange); }
+    .tab-panel { display:none; margin-top:24px; }
+    .tab-panel.active { display:block; }
+    .panel-card { background:#fff; border:1px solid var(--border); border-radius:12px; padding:22px; }
+    .info-line { display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
+    .field-label { display:block; font-size:.72rem; letter-spacing:.08em; text-transform:uppercase; color:var(--text-gray); font-weight:700; }
+    .name-display { font-family:'Lora',serif; font-size:2.1rem; color:var(--purple-dark); margin-top:6px; }
+    .email-display { color:var(--text-gray); margin-top:6px; }
+    .address-list { margin-top:18px; }
+    .address-item { background:#fff; border:1px solid var(--border); border-radius:12px; padding:18px 20px; display:flex; justify-content:space-between; gap:18px; margin-bottom:12px; }
+    .address-badge { display:inline-block; background:#dbeee4; color:var(--green); padding:6px 10px; border-radius:999px; font-size:.72rem; font-weight:700; text-transform:uppercase; }
+    .address-title { font-weight:700; color:var(--purple-dark); margin-top:10px; }
+    .address-body { color:var(--text-gray); line-height:1.7; margin-top:8px; }
+    .address-actions { display:flex; gap:10px; flex-wrap:wrap; }
+    .btn-primary, .btn-secondary, .btn-danger, .btn-dark { border-radius:6px; padding:10px 14px; cursor:pointer; }
+    .btn-primary { background:var(--orange); color:var(--purple-dark); border:none; font-weight:700; }
+    .btn-secondary { background:#fff; border:1px solid var(--purple-dark); color:var(--purple-dark); }
+    .btn-danger { background:var(--red); color:#fff; border:none; }
+    .btn-dark { background:var(--purple-dark); color:#fff; border:none; }
+    .modal-overlay { position:fixed; inset:0; background:rgba(19,16,24,.46); display:none; align-items:center; justify-content:center; z-index:50; }
+    .modal-overlay.show { display:flex; }
+    .modal-card { width:min(92vw, 560px); background:#fff; border-radius:12px; padding:24px; box-shadow:0 28px 80px rgba(0,0,0,.18); }
+    .modal-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+    .modal-header h3 { margin:0; font-family:'Lora',serif; color:var(--purple-dark); font-size:1.8rem; }
+    .close-x { width:32px; height:32px; border:none; border-radius:50%; background:var(--soft-pink); color:var(--purple-dark); cursor:pointer; }
+    .field-group { margin-bottom:14px; }
+    .field-group label { display:block; margin-bottom:8px; font-size:.72rem; font-weight:700; text-transform:uppercase; letter-spacing:.06em; color:#514d5c; }
+    .field-group input, .field-group textarea { width:100%; border:1px solid var(--border); border-radius:6px; padding:10px 12px; }
+    .checkbox-row { display:flex; align-items:center; gap:10px; margin:8px 0 18px; }
+    .modal-actions { display:flex; justify-content:flex-end; gap:10px; }
+    .empty-text { color:var(--text-gray); }
+    @media (max-width:760px){ .tabs { flex-wrap:wrap; } .address-item { flex-direction:column; } }
+  </style>
+</head>
+<body>
+  
+<header class="site-header">
+  <div class="container nav-wrap">
+    <a href="index.html" class="brand-wrap" aria-label="Beranda"><img src="../Aset/footer_logo_insan_mutia.png" alt="Logo Yayasan Intan Mutia" class="brand-logo" onerror="this.style.display='none';this.onerror=null;this.parentNode.innerHTML='<span class='brand-badge'>IM</span>'"></a>
+    <nav class="nav-menu" aria-label="Navigasi utama">
+      <a href="index.html" class="nav-link">Beranda</a>
+      <a href="event.html" class="nav-link">Event</a>
+      <a href="buku.html" class="nav-link">Buku</a>
+      <a href="nominasi.html" class="nav-link">Nominasi</a>
+      <a href="tentang-kami.html" class="nav-link">Tentang Kami</a>
+    </nav>
+    <div class="nav-actions">
+      <button type="button" class="icon-btn" id="cartBtn" aria-label="Keranjang">🛒</button>
+      <div class="account-wrap">
+        <button type="button" id="accountBtn" class="account-btn">LOGIN</button>
+        <div class="account-menu" id="accountMenu"></div>
+      </div>
+    </div>
+  </div>
+</header>
+
+  <main class="container profile-wrap">
+    <div class="profile-header">
+      <div class="avatar" id="profileAvatar">N</div>
+      <div>
+        <div class="profile-label">Profil Saya</div>
+        <div class="profile-name" id="profileName">Nama</div>
+      </div>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" type="button" data-tab="profil">Profil Diri</button>
+      <button class="tab" type="button" data-tab="buku">Pesanan Buku</button>
+      <button class="tab" type="button" data-tab="event">Pendaftaran Event</button>
+      <button class="tab" type="button" data-tab="sertifikat">Sertifikat</button>
+    </div>
+
+    <section class="tab-panel active" data-panel="profil">
+      <div class="panel-card">
+        <div class="info-line">
+          <div>
+            <span class="field-label">Nama Lengkap</span>
+            <div class="name-display" id="nameField">-</div>
+            <div class="email-display" id="emailField">-</div>
+          </div>
+        </div>
+        <div class="address-list" id="addressList"></div>
+        <button class="btn-primary" type="button" id="addAddressBtn">Tambah Alamat</button>
+      </div>
+    </section>
+
+    <section class="tab-panel" data-panel="buku"><div class="panel-card"><p class="empty-text">Halaman ini menyusul</p></div></section>
+    <section class="tab-panel" data-panel="event"><div class="panel-card"><p class="empty-text">Halaman ini menyusul</p></div></section>
+    <section class="tab-panel" data-panel="sertifikat"><div class="panel-card"><p class="empty-text">Halaman ini menyusul</p></div></section>
+  </main>
+
+  <div class="modal-overlay" id="addressModal">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="modalTitle">Tambah Alamat</h3>
+        <button type="button" class="close-x" aria-label="Tutup" id="closeModalBtn">×</button>
+      </div>
+      <div class="field-group"><label for="addrLabel">Label</label><input id="addrLabel" type="text" placeholder="Contoh: Nessa" /></div>
+      <div class="field-group"><label for="addrText">Alamat Lengkap</label><textarea id="addrText" rows="4" placeholder="Masukan alamat lengkap"></textarea></div>
+      <label class="checkbox-row"><input type="checkbox" id="addrPrimary" /> Jadikan alamat utama</label>
+      <div class="modal-actions"><button type="button" class="btn-secondary" id="cancelAddressBtn">Batal</button><button type="button" class="btn-dark" id="saveAddressBtn">Simpan</button></div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="deleteModal">
+    <div class="modal-card">
+      <div class="modal-header"><h3>Hapus Alamat ?</h3></div>
+      <div class="modal-actions"><button type="button" class="btn-secondary" id="cancelDeleteBtn">Batal</button><button type="button" class="btn-danger" id="confirmDeleteBtn">Hapus</button></div>
+    </div>
+  </div>
+
+  
+<footer class="site-footer">
+  <div class="container footer-wrap">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <img src="../Aset/footer_logo_insan_mutia.png" alt="Logo Yayasan Intan Mutia" class="footer-logo" onerror="this.style.display='none';this.onerror=null;this.parentNode.innerHTML='<span class='brand-badge big'>IM</span>'">
+        <p>Yayasan Intan Mutia adalah yayasan yang menyediakan akses ajang kompetisi nasional yang adil dan berkualitas untuk mengasah potensi, melatih keberanian, serta membimbing tumbuh kembang anak Indonesia.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Customer Service</h4>
+        <ul>
+          <li><a href="tel:082177229922">0821-7722-9922</a> (telepon)</li>
+          <li><a href="https://wa.me/6282177229922">0821-7722-9922</a> (WhatsApp)</li>
+          <li><a href="mailto:intanmutiaeducation@gmail.com">intanmutiaeducation@gmail.com</a></li>
+          <li>Bandara Erfina Residence Blok D10, Asrikaton, Pakis, Kab. Malang, Jawa Timur.</li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Social Media</h4>
+        <ul>
+          <li>Instagram: @intanmutiaa22</li>
+          <li>TikTok: @intanmutiaa22</li>
+          <li>Facebook: Intan Mutia Kmsi Jso</li>
+          <li>YouTube: @intanmutia114</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bar"></div>
+</footer>
+
+  <div class="toast" id="toast"></div>
+  <script>
+    (function(){
+      const key = 'im_users';
+      const staticUser = {
+        nama: 'Margaretha Nesa',
+        panggilan: 'Nessa',
+        email: 'ghaisaninessa@gmail.com',
+        sandi: 'nessa123',
+        alamat: [{ id: 'a1', label: 'Nessa', alamat: 'Jln. Golf 24, Lowokwaru, Malang, Jawa Timur 1234 · Margaretha', utama: true }],
+        pendaftaran: []
+      };
+      function ensureDefaultUser(){
+        const users = JSON.parse(localStorage.getItem(key) || '[]');
+        if (users.length) return users;
+        localStorage.setItem(key, JSON.stringify([staticUser]));
+        return [staticUser];
+      }
+      function getUser(){
+        const users = ensureDefaultUser();
+        const sess = localStorage.getItem('im_session');
+        if (sess) {
+          const found = users.find(u => String(u.email).toLowerCase() === String(sess).toLowerCase());
+          if (found) return found;
+        }
+        return staticUser;
+      }
+      function saveUser(user){
+        const users = ensureDefaultUser();
+        const idx = users.findIndex(u => String(u.email).toLowerCase() === String(user.email).toLowerCase());
+        if (idx >= 0) users[idx] = user; else users.push(user);
+        localStorage.setItem(key, JSON.stringify(users));
+      }
+      function renderProfile(){
+        const user = getUser();
+        document.getElementById('profileAvatar').textContent = (user.nama || 'U').charAt(0).toUpperCase();
+        document.getElementById('profileName').textContent = user.nama;
+        document.getElementById('nameField').textContent = user.nama;
+        document.getElementById('emailField').textContent = user.email;
+        const list = document.getElementById('addressList');
+        if (!user.alamat || !user.alamat.length) {
+          list.innerHTML = '<div class="empty-text">Belum ada alamat.</div>';
+          return;
+        }
+        list.innerHTML = user.alamat.map(function(item){
+          return '<div class="address-item"><div><span class="address-badge"' + (item.utama ? '' : ' style="display:none;"') + '>Utama</span><div class="address-title">' + (item.label || 'Alamat') + '</div><div class="address-body">' + item.alamat + '</div></div><div class="address-actions"><button class="btn-secondary" type="button" data-action="edit" data-id="' + item.id + '">Ubah</button><button class="btn-secondary" type="button" data-action="delete" data-id="' + item.id + '">Hapus</button></div></div>';
+        }).join('');
+      }
+      function openAddressModal(mode, itemId){
+        const modal = document.getElementById('addressModal');
+        const user = getUser();
+        const label = document.getElementById('addrLabel');
+        const text = document.getElementById('addrText');
+        const primary = document.getElementById('addrPrimary');
+        const title = document.getElementById('modalTitle');
+        modal.dataset.mode = mode;
+        modal.dataset.itemId = itemId || '';
+        if (mode === 'edit' && itemId) {
+          const item = (user.alamat || []).find(a => a.id === itemId);
+          if (item) {
+            label.value = item.label || '';
+            text.value = item.alamat || '';
+            primary.checked = !!item.utama;
+            title.textContent = 'Ubah Alamat';
+          }
+        } else {
+          label.value = '';
+          text.value = '';
+          primary.checked = false;
+          title.textContent = 'Tambah Alamat';
+        }
+        modal.classList.add('show');
+      }
+      function closeAddressModal(){ document.getElementById('addressModal').classList.remove('show'); }
+      function saveAddress(){
+        const user = getUser();
+        const modal = document.getElementById('addressModal');
+        const label = document.getElementById('addrLabel').value.trim();
+        const text = document.getElementById('addrText').value.trim();
+        const primary = document.getElementById('addrPrimary').checked;
+        if (!label || !text) { toast('Label dan alamat harus diisi'); return; }
+        if (modal.dataset.mode === 'edit') {
+          user.alamat = (user.alamat || []).map(function(item){ return item.id !== modal.dataset.itemId ? item : { ...item, label, alamat: text, utama: primary }; });
+        } else {
+          const nextId = 'a' + Date.now();
+          const existing = user.alamat || [];
+          user.alamat = existing.concat([{ id: nextId, label, alamat: text, utama: primary && !existing.length }]);
+        }
+        if (primary) {
+          user.alamat = user.alamat.map(function(item){ return { ...item, utama: item.id === (modal.dataset.mode === 'edit' ? modal.dataset.itemId : user.alamat[user.alamat.length - 1].id) }; });
+        }
+        if (!user.alamat.some(item => item.utama)) user.alamat[0].utama = true;
+        saveUser(user);
+        closeAddressModal();
+        renderProfile();
+      }
+      function triggerDelete(itemId){ document.getElementById('deleteModal').dataset.itemId = itemId; document.getElementById('deleteModal').classList.add('show'); }
+      function confirmDelete(){
+        const user = getUser();
+        const itemId = document.getElementById('deleteModal').dataset.itemId;
+        const items = (user.alamat || []).filter(item => item.id !== itemId);
+        if (!items.length) {
+          user.alamat = [];
+          saveUser(user);
+          renderProfile();
+          document.getElementById('deleteModal').classList.remove('show');
+          return;
+        }
+        const deleted = (user.alamat || []).find(item => item.id === itemId);
+        user.alamat = items;
+        if (deleted && deleted.utama) user.alamat[0].utama = true;
+        saveUser(user);
+        renderProfile();
+        document.getElementById('deleteModal').classList.remove('show');
+      }
+      document.getElementById('addAddressBtn').addEventListener('click', function(){ openAddressModal('add', null); });
+      document.getElementById('closeModalBtn').addEventListener('click', closeAddressModal);
+      document.getElementById('cancelAddressBtn').addEventListener('click', closeAddressModal);
+      document.getElementById('saveAddressBtn').addEventListener('click', saveAddress);
+      document.getElementById('cancelDeleteBtn').addEventListener('click', function(){ document.getElementById('deleteModal').classList.remove('show'); });
+      document.getElementById('confirmDeleteBtn').addEventListener('click', confirmDelete);
+      document.addEventListener('click', function(e){
+        const target = e.target;
+        if (target.matches('[data-action="edit"]')) openAddressModal('edit', target.dataset.id);
+        if (target.matches('[data-action="delete"]')) triggerDelete(target.dataset.id);
+      });
+      document.addEventListener('keydown', function(e){
+        if (e.key === 'Escape') {
+          document.getElementById('addressModal').classList.remove('show');
+          document.getElementById('deleteModal').classList.remove('show');
+        }
+      });
+      document.querySelectorAll('.tab').forEach(function(tab){
+        tab.addEventListener('click', function(){
+          document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+          document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+          tab.classList.add('active');
+          document.querySelector('[data-panel="' + tab.dataset.tab + '"]').classList.add('active');
+        });
+      });
+      renderProfile();
+    })();
+  </script>
+  
+<script>
+  function getUsers(){
+    try { return JSON.parse(localStorage.getItem('im_users') || '[]'); }
+    catch (e) { return []; }
+  }
+  function saveUsers(users){ localStorage.setItem('im_users', JSON.stringify(users)); }
+  function currentUser(){
+    const email = localStorage.getItem('im_session');
+    const staticUser = {
+      nama: 'Margaretha Nesa',
+      panggilan: 'Nessa',
+      email: 'ghaisaninessa@gmail.com',
+      sandi: 'nessa123',
+      alamat: [{ id: 'a1', label: 'Nessa', alamat: 'Jln. Golf 24, Lowokwaru, Malang, Jawa Timur 1234 · Margaretha', utama: true }],
+      pendaftaran: []
+    };
+    if (!email) return staticUser;
+    const users = getUsers();
+    return users.find(u => String(u.email).toLowerCase() === String(email).toLowerCase()) || staticUser;
+  }
+  function login(email, sandi){
+    const users = getUsers();
+    const user = users.find(u => String(u.email).toLowerCase() === String(email).toLowerCase() && String(u.sandi) === String(sandi));
+    if (!user) return null;
+    localStorage.setItem('im_session', user.email);
+    return user;
+  }
+  function logout(){
+    localStorage.removeItem('im_session');
+    window.location.href = 'index.html';
+  }
+  function parseNext(){
+    const params = new URLSearchParams(window.location.search);
+    const next = params.get('next');
+    if (!next) return 'index.html';
+    if (/^[a-z0-9-]+\.html(\?[^#]*)?$/.test(next)) return next;
+    return 'index.html';
+  }
+  function requireLogin(nextTarget){
+    return true;
+  }
+  function toast(msg){
+    const el = document.getElementById('toast');
+    if (!el) return;
+    el.textContent = msg;
+    el.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 1800);
+  }
+  function renderAccount(){
+    const user = currentUser();
+    const btn = document.getElementById('accountBtn');
+    const menu = document.getElementById('accountMenu');
+    if (!btn || !menu) return;
+    const name = user.panggilan || user.nama.split(' ')[0];
+    btn.textContent = name;
+    btn.className = 'account-btn user';
+    menu.innerHTML = '<a href="profil.html">Profil Saya</a><button type="button" id="logoutBtn">Keluar</button>';
+    const logoutBtn = document.getElementById('logoutBtn');
+    if (logoutBtn) logoutBtn.addEventListener('click', function(){ logout(); });
+    btn.onclick = function(){ menu.classList.toggle('show'); };
+    document.addEventListener('click', function(event){
+      if (!event.target.closest('.account-wrap')) menu.classList.remove('show');
+    });
+    const cartBtn = document.getElementById('cartBtn');
+    if (cartBtn) {
+      cartBtn.onclick = function(){
+        toast('Keranjang belum tersedia');
+      };
+    }
+  }
+  document.addEventListener('DOMContentLoaded', function(){
+    renderAccount();
+    const currentPage = (window.location.pathname.split('/').pop() || 'index.html');
+    document.querySelectorAll('.nav-link').forEach(function(link){
+      const href = link.getAttribute('href');
+      if (href === currentPage) link.classList.add('active');
+    });
+  });
+</script>
+
+</body>
+</html>
